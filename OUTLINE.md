@@ -1,4 +1,4 @@
-# Introduction to Docker
+# Introduction to Ansible
 
 This is a course for people who are interested in learning the basics of Linux
 server and Cloud Automation using Ansilbe. Participants will learn to install
