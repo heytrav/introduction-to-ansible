@@ -8,7 +8,7 @@ set up a Linux machine and wants to learn how to automate the process.
 
 Participants will learn to install Ansible and use it to run commands on remote
 servers. They will progress to writing playbooks to automate the creation of
-cloud resources and the configuration of Linux Servers.
+cloud resources and the configuration of Linux servers.
 
 The course does not cover automating the configuration of Windows servers or
 networking hardware.
