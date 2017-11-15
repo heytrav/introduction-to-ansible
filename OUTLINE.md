@@ -1,16 +1,16 @@
 # Introduction to Ansible
 
-This course provides an approachable introduction to Automation. It provides
-students with the knowledge and tools to automate the building of Linux Servers
-in a Cloud environment using Ansible. It requires no previous experience with
+This course provides an approachable introduction to automation. It provides
+students with the knowledge and tools to automate the building of Linux servers
+in a cloud environment using Ansible. It requires no previous experience with
 the cloud or other automation tools. The course is suitable for anyone who has
-setup a Linux machine and wants to lear how to automate the process.
+set up a Linux machine and wants to learn how to automate the process.
 
 Participants will learn to install Ansible and use it to run commands on remote
 servers. They will progress to writing playbooks to automate the creation of
 cloud resources and the configuration of Linux Servers.
 
-The course does not cover automating the configuration of windows servers or
+The course does not cover automating the configuration of Windows servers or
 networking hardware.
 
 
@@ -35,7 +35,7 @@ networking hardware.
 
 ## Target audience
 
-Anyone interested in learning to automate building servers or cloud
+Anyone interested in learning how to automate building servers or cloud
 infrastructure.
 
 ## Prerequisites
@@ -43,4 +43,4 @@ infrastructure.
 Participants should be willing to use a Linux terminal. Any skill level is
 welcome, although the course is geared towards people with some exposure to
 using Linux servers. No previous experience with Ansible, other automation
-tools or the Cloud is necessary.
+tools or the cloud is necessary.
