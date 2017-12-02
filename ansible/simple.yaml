@@ -19,16 +19,16 @@
     file:
       src: files/copy-example.txt
       dest: "/home/{{ username }}/ansible-files/copy-example.txt"
-      owner: "{{ train }}"
-      group: "{{ train }}"
+      owner: "{{ username }}"
+      group: "{{ username }}"
       mode: 0644
 
   - name: Template the template test to the ansible-files directory
     template:
       src: templates/example-template.j2
       dest: "/home/{{ username }}/ansible-files/template-example.txt"
-      owner: "{{ train }}"
-      group: "{{ train }}"
+      owner: "{{ username }}"
+      group: "{{ username }}"
       mode: 0644
 
   - name: Fetch a file using http
