@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Introduction to automation with Ansible - Catalyst</title>
+
+        <meta name="author" content="Catalyst">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/catalyst.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <!-- <link rel="stylesheet" href="lib/css/zenburn.css"> -->
+        <link rel="stylesheet" href="lib/css/catalyst-syntax.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+            /* Add the ability to omit slides from the printed version (has to be after the print include)*/
+            @media print {
+                .reveal .slides section.no-print {
+                    display: none !important;
+                    visibility: hidden !important;
+                }
+            }
+        </style>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Please put any custom styles here -->
+        <style>
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <!-- Cover slide -->
+                <section>
+                    <h3>Introduction to automation with Ansible</h3>
+                    <h1 class="catalyst-logo">Catalyst</h1>
+                    <p class="small-text">
+                        Presented by <a href="#">Donovan Jones</a>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>About this course</h3>
+                    <ul>
+                        <li>A mix of theory and hands on command line tasks</li>
+                        <li>Assumes no prior automation or cloud knowledge</li>
+                        <li>Assumes some familiarity with the linux command line</li>
+                        <li>Assumes we are using Ubuntu (trusty)</li>
+                    </ul>
+                </section>
+
+                <section>
+                <section>
+                    <h3>Course aims - Automation</h3>
+                    <ul>
+                        <li>Understand why automation is important</li>
+                        <li>Understand what automation tools are available and how Ansible compares</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Course aims - Ansible</h3>
+                    <ul>
+                        <li>Learn how to install Ansible</li>
+                        <li>Understand the basics of how Ansible works</li>
+                        <li>Gain familiarity with the <a href="https://docs.ansible.com/ansible/latest/index.html">Ansible Documentation</a></li>
+                        <li>Gain Awareness of Ansible Best Practices</li>
+                        <li>Gain hands on experience writing and running playbooks</li>
+                    </ul>
+                </section>
+                </section>
+
+                <section>
+                <section>
+                    <h3>Why Automate?</h3>
+                    <p>Automation is about taking manual processes and placing technology around them to make them repeatable.</p>
+                </section>
+                <section>
+                    <h3>Why Automate?</h3>
+                    <p>Automation is the key to speed, consistency, scalability and repeatability.</p>
+                </section>
+                <section>
+                    <h3>Why Automate?</h3>
+                    <ul>
+                        <li>Scalability</li>
+                        <li>Reliability</li>
+                        <li>Duplication</li>
+                        <li>Consistency</li>
+                        <li>Auditability</li>
+                        <li>Security</li>
+                    </ul>
+                </section>
+                </section>
+
+                <section>
+                <section>
+                    <h3>What does Automation enable?</h3>
+                </section>
+                <section>
+                    <h3>What does Automation enable?</h3>
+                    <ul>
+                        <li>Immutable Infrastructure</li>
+                        <li>Continuous Integration</li>
+                        <li>Continuous Delivery</li>
+                        <li>Continuous Deployment</li>
+                        <li>A key DevOps practice</li>
+                        <li>Essential to Microservice deployment at scale</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Immutable Infrastructure</h3>
+                    <ul>
+                        <li><a href="https://blog.engineyard.com/2014/pets-vs-cattle">Cattle vs pets</a></li>
+                        <li><a href="http://martinfowler.com/bliki/SnowflakeServer.html">Snowflake Servers</a> vs. <a href="http://martinfowler.com/bliki/PhoenixServer.html">Phoenix Servers</a></li>
+                        <li>Practice failure and iterate</li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Cattle vs Pets</h2>
+                    <img src="img/servers_pets_or_cattle.jpg" alt="Cattle vs Pets" height="600" width="800">
+                </section>
+                <section>
+                    <h3>Immutable Infrastructure</h3>
+                    <ul>
+                        <li>The environment is defined in code (Infrastructure as Code)</li>
+                        <li>If you need to change _anything_ you create a new instance and destroy the old one</li>
+                        <li>Stop Configuration Drift</li>
+                        <li>Declarative</li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Immutable Infrastructure</h2>
+                    <img src="img/immutable_infrastructure.gif" alt="Immutable Infrastructure" height="600" width="800">
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Immutable Infrastructure</h2>
+                    <img src="img/blue_green_deployments.png" alt="Blue / Green Deployments" height="600" width="800">
+                </section>
+                <section>
+                    <h3>Continuous integration</h3>
+                    <ul>
+                        <li>Trunk based development</li>
+                        <li>Every developer commit triggers a merge/build/test cycle</li>
+                        <li>Automated testing</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Continuous delivery/deployment</h3>
+                    <ul>
+                        <li>Automated Pipeline from developer commit to production deploy</li>
+                        <li>Requires lots of automated tests</li>
+                        <li>Deploying more frequently lowers risk</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Continuous delivery antipatterns</h3>
+                    <ul>
+                        <li>Deploying software manually</li>
+                        <li>Manual configuration of production environments</li>
+                        <li>Deploying to a production-like environment only after development is complete</li>
+                    </ul>
+                </section>
+                <section class="image-slide">
+                    <h2>DevOps</h2>
+                    <img src="img/picture1_1.png" alt="DevOps" height="496" width="634">
+                </section>
+                <section class="image-slide">
+                    <h2>DevOps</h2>
+                    <img src="img/devops-common-use-cases-architectures-best-practices-22-638.jpg" alt="DevOps" height="359" width="638">
+                </section>
+                <section>
+                    <h3>Microservices</h3>
+                    <ul>
+                        <li>Each microservice needs a full dev to prod pipeline</li>
+                        <li>You have N microservices</li>
+                        <li>Automation is the only reasonable way to achieve this</li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Netflix Microservices</h2>
+                    <img src="img/netflix-microservices.jpg" alt="Netflix Microservices" height="600" width="800">
+                </section>
+
+                </section>
+                <section>
+                <section>
+                    <h3>How automation helps organisations succeed</h3>
+                    <ul>
+                        <li>Achieve high deployment frequency</li>
+                        <li>Decouple deployments from releases</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>High deployment frequency</h3>
+                    <ul>
+                        <li>Frequent releases of small features</li>
+                        <li>Fast delivery of value to the customer</li>
+                        <li>Per release risk is lower</li>
+                        <li>Faster MTTR</li>
+                        <li>Shorter feedback loops</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>TODO</h3>
+                    <p>other stuff</p>
+                    <ul>
+                        <li>Where automation fits in the 3 ways</li>
+                        <li>how automation can be used to improve flow, VSM etc.</li>
+                        <li>deploys per day, xxxiv dohb</li>
+                        <li>deployment lead time, pg8</li>
+                        <li>countermesures pg22</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Faster and better?</h3>
+                    <p>Jez Humbles research on high performing organizations shows that faster and better is possible.</p>
+                    <ul>
+                        <li>Higher Quality</li>
+                        <li>Faster Delivery</li>
+                        <li>Greater Business Responsiveness</li>
+                        <li>Reduced Costs</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Faster and more secure?</h3>
+                    <p>Justin Smith from CloudFoundy suggests that going faster can improve security and that resisting change to mitigate risk is a trap.</p>
+                    <ul>
+                        <li>Rotate</li>
+                        <li>Repave</li>
+                        <li>Repair</li>
+                    </ul>
+                </section>
+                </section>
+
+                <section>
+                <section>
+                    <h3>Types of Automation</h3>
+                    <ul>
+                        <li>Provisioning</li>
+                        <li>Configuration Management</li>
+                        <li>Application Deployment</li>
+                        <li>Security &amp; Compliance</li>
+                        <li>Orchestration</li>
+                        <li>Container Orchestration Engines</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Provisioning</h3>
+                    <ul>
+                        <li>Usually bare metal</li>
+                        <li>OS installation</li>
+                        <li>Then bootstrap configuration management</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Provisioning</h3>
+                    <ul>
+                        <li>Red Hat Kickstart</li>
+                        <li><a href="http://fai-project.org/">FAI</a></li>
+                        <li>Debian Preseed</li>
+                        <li>Cobbler</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Configuration Management</h3>
+                    <ul>
+                        <li>Best known, often equated with "Automation"</li>
+                        <li>Mostly about configuring servers (instances)</li>
+                        <li>Agentless vs Agents</li>
+                        <li>Often declarative syntax</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Configuration Management</h3>
+                    <ul>
+                        <li><a href="https://saltstack.com/">Salt</a></li>
+                        <li><a href="https://puppetlabs.com/">Puppet</a></li>
+                        <li><a href="https://www.chef.io/">Chef</a></li>
+                        <li><a href="https://www.ansible.com/">Ansible</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Application Deployment</h3>
+                    <ul>
+                        <li>Overlaps/integrates with CI/CD tools (eg Jenkins)</li>
+                        <li>Quite often bespoke software</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Application Deployment</h3>
+                    <ul>
+                        <li><a href="http://www.fabfile.org/">Fabric</a></li>
+                        <li><a href="http://capistranorb.com/">Capistrano</a></li>
+                        <li><a href="https://www.ansible.com/">Ansible</a></li>
+                        <li><a href="https://www.thoughtworks.com/go/">GoCD</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Orchestration</h3>
+                    <ul>
+                        <li>Build the entire stack (networks, routers, security groups, instances etc.)</li>
+                        <li>Some tools are cross cloud (ansible, terraform)</li>
+                        <li>Higher level than configuration management on individual instances</li>
+                        <li>Orchestration of other services (DNS, CDN, LB etc.)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Orchestration</h3>
+                    <ul>
+                        <li><a href="https://aws.amazon.com/cloudformation/">AWS CloudFormation</a></li>
+                        <li><a href="https://wiki.openstack.org/wiki/Heat">OpenStack Heat</a></li>
+                        <li><a href="https://www.ansible.com/">Ansible</a></li>
+                        <li><a href="https://www.redhat.com/en/technologies/cloud-computing/cloudforms">Red Hat CloudForms</a></li>
+                        <li><a href="https://www.terraform.io/">Hashicorp Terraform</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Security &amp; Compliance</h3>
+                    <ul>
+                        <li>Test Driven Infrastructure as Code</li>
+                        <li>Regression testing of security issues</li>
+                        <li>PCI or government security standard compliance</li>
+                        <li>Security patching</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Security &amp; Compliance</h3>
+                    <ul>
+                        <li>Chef Inspec</li>
+                        <li>Goss (go)</li>
+                        <li>testinfra (python)</li>
+                        <li><a href="http://serverspec.org/">Serverspec</a> (ruby)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Container Orchestration Engines</h3>
+                    <ul>
+                        <li>Provide a control plane or operating system on which to run containerised workloads</li>
+                        <li>Infrastructure is abstracted so the DevOps team only cares about the application architecture and its scaling requirements</li>
+                        <li>Runs on IaaS somewhere</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Container Orchestration Engines</h3>
+                    <p>"Kubernetes is an open-source system for automating deployment, operations, and scaling of containerized applications."</p>
+                </section>
+                <section>
+                    <h3>Container Orchestration Engines</h3>
+                    <ul>
+                        <li>Kubernetes</li>
+                        <li>Docker Swarm</li>
+                        <li>Apache Mesos / DCOS</li>
+                    </ul>
+                </section>
+                </section>
+
+                <section>
+                <section>
+                    <h3>Installing Ansible</h3>
+                    <ul>
+                        <li><a href="http://docs.ansible.com/ansible/latest/intro_installation.html">http://docs.ansible.com/ansible/latest/intro_installation.html</a></li>
+                        <li>Install on the control machine</li>
+                        <li>Use pip so we get the latest versions (including cloud libraries)</li>
+                        <li>Install in a python virtual environment</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Requirements</h3>
+                    <ul>
+                        <li>Requires Python 2.6 or 2.7 on the control machine</li>
+                        <li>Requires Python 2.6 on managed nodes</li>
+                        <li>Python 3 support is currently a tech preview</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Python Tools</h3>
+                    <ul>
+                        <li><a href="https://pip.pypa.io/en/stable/">PIP</a> - Pythons <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for installing Python packages.</li>
+                        <li><a href="https://pypi.python.org/pypi/virtualenv">Virtualenv</a> - Pythons <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for creating isolated Python environments</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Install Python Tools</h3>
+                    <pre><code data-trim contenteditable>
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get install python-pip python-virtualenv
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Install Ansible</h3>
+                    <pre><code data-trim contenteditable>
+$ virtualenv ansible-venv
+$ source ansible-venv/bin/activate
+$ pip install -U pip
+$ pip install ansible
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Understanding Virtual Environments</h3>
+                    <pre><code data-trim contenteditable>
+$ which ansible
+/home/train/ansible-venv/bin/ansible
+$ ansible --version
+ansible 2.4.1.0
+  config file = None
+  configured module search path = [u'/home/train/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/train/ansible-venv/local/lib/python2.7/site-packages/ansible
+  executable location = /home/train/ansible-venv/bin/ansible
+  python version = 2.7.6 (default, Oct 26 2016, 20:30:19) [GCC 4.8.4]
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Understanding Virtual Environments</h3>
+                    <pre><code data-trim contenteditable>
+$ env | grep PATH
+PATH=/home/train/ansible-venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+$ which ansible
+/home/train/ansible-venv/bin/ansible
+$ deactivate
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Understanding Virtual Environments</h3>
+                    <pre><code data-trim contenteditable>
+$ which ansible
+$ ansible --version
+The program 'ansible' is currently not installed. You can install it by typing:
+sudo apt install ansible
+$ /home/train/ansible-venv/bin/ansible --version
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Install Ansible using OS packages</h3>
+                    <pre><code data-trim contenteditable>
+$ sudo apt-get install ansible
+$ which ansible
+/usr/bin/ansible
+$ ansible --version
+ansible 1.5.4
+$ sudo apt-get purge ansible
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Releases</h3>
+                    <ul>
+                        <li>It is worth keeping up to date with Ansible <a href="https://docs.ansible.com/ansible/latest/release_and_maintenance.html">releases</a></li>
+                        <li>Use pip or a PPA to get a recent version</li>
+                        <li>Ansible is developed and released on a flexible 4 months release cycle</li>
+                        <li>Ansible supports the two most recent major stable releases</li>
+                    </ul>
+                </section>
+                </section>
+
+                <section>
+                <section>
+                    <h3>Ansible Basics</h3>
+                    <ul>
+                        <li>General purpose Automation tool</li>
+                        <li>Agentless</li>
+                        <li>Python and SSH</li>
+                        <li>Push not poll</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Ansible Basics</h3>
+                        <ul>
+                            <li>SSH to a host or list of hosts (group) and execute commands</li>
+                            <li>Inventories: a list of hosts</li>
+                                <ul>
+                                    <li>/etc/ansible/hosts</li>
+                                </ul>
+                            <li>ansible vs. ansible-playbook</li>
+                                <ul>
+                                    <li>ad hoc commands (cssh style)</li>
+                                    <li>commands in a playbook</li>
+                                </ul>
+                            </li>
+                        </ul>
+                </section>
+                <section>
+                    <h3>Ansible Basics</h3>
+                    <ul>
+                        <li>Task - an action to perform</li>
+                        <li>Module - the code that performs a task</li>
+                        <li>Role - a reusable collection of tasks that acomplish a goal</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Ansible Basics</h3>
+                    <ul>
+                        <li>Play - a group of tasks and optionally roles to run on a specific host or hosts</li>
+                        <li>Playbook - file containing one or more plays</li>
+                        <li>Ad-hoc command - a way of running a single task</li>
+                        <li>Inventory - a list of hosts and groups of hosts available to run plays on</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Playbooks</h3>
+                        <ul>
+                            <li>A DSL expressed as YAML</li>
+                            <ul>
+                                <li>Plays</li>
+                                <ul>
+                                    <li>Hosts</li>
+                                    <li>Variables</li>
+                                    <li>Encrypted Variables (Vault)</li>
+                                    <li>Tasks</li>
+                                    <li>Includes</li>
+                                    <li>Roles</li>
+                                    <li>Handlers (multiple notifies will only trigger one reload at end of play)</li>
+                                </ul>
+                            </ul>
+                        </ul>
+                </section>
+                <section>
+                    <h3>Modules</h3>
+                    <ul>
+                        <li>Map to tasks</li>
+                        <li>Blob of python</li>
+                        <li>SCP to temporary directory on target host</li>
+                        <li>Execute python on target host</li>
+                        <li>Returns JSON</li>
+                        <li>Code removed from target host</li>
+                        <li>Local Ansible evaluates returned JSON</li>
+                        <li>Output ok/changed/failed for task based on returned values</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Other features</h3>
+                    <ul>
+                        <li>Templates (jinja2)</li>
+                        <li>Conditionals (when:)</li>
+                        <li>Loops (with_items:)</li>
+                    </ul>
+                </section>
+                </section>
+
+                <section>
+                <section>
+                    <h3>Running Ansible</h3>
+                    <pre><code data-trim contenteditable>
+$ source ansible-venv/bin/activate
+$ ansible --version
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Ad hoc commands</h3>
+                    <pre><code data-trim contenteditable>
+$ ansible --help
+Usage: ansible <host-pattern> [options]
+
+Define and run a single task 'playbook' against a set of hosts
+
+Options:
+  -a MODULE_ARGS, --args=MODULE_ARGS
+                        module arguments
+  -i INVENTORY, --inventory=INVENTORY, --inventory-file=INVENTORY
+                        specify inventory host path or comma separated host
+                        list. --inventory-file is deprecated
+  --list-hosts          outputs a list of matching hosts; does not execute
+                        anything else
+  -m MODULE_NAME, --module-name=MODULE_NAME
+                        module name to execute (default=command)
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Ad hoc commands</h3>
+                    <pre><code data-trim contenteditable>
+$ cat hosts
+$ ansible -i hosts --list-hosts all
+  hosts (1):
+      localhost
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Ad hoc commands</h3>
+                    <pre><code data-trim contenteditable>
+$ ansible localhost -i hosts -m ping
+localhost | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Ad hoc commands</h3>
+                    <pre><code data-trim contenteditable>
+$ ansible localhost -i hosts -a 'uname -a'
+localhost | SUCCESS | rc=0 >>
+Linux first-instance 3.13.0-135-generic #184-Ubuntu SMP Wed Oct 18 11:55:51 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+                    </code></pre>
+                </section>
+                </section>
+
+                <section>
+                    <h3>First Instance using Ansible</h3>
+                    <ul>
+                        <li><a href="http://docs.catalystcloud.io/first-instance/ansible.html">http://docs.catalystcloud.io/first-instance/ansible.html</a></li>
+                        <li>Clone catalystcloud-ansible repo</li>
+                        <li>Install Ansible</li>
+                        <li>Edit launch-instance and create-network playbooks</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                <section>
+                    <h3>What is the Cloud Computing?</h3>
+                    <p>The NIST Definition of Cloud Computing lists five essential characteristics of Cloud Computing:</p>
+                    <ul>
+                        <li>On-demand self-service</li>
+                        <li>Broad network access</li>
+                        <li>Resource pooling</li>
+                        <li>Rapid elasticity</li>
+                        <li>Measured service</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>On-demand self-service</h3>
+                    <p>A consumer can unilaterally provision computing capabilities, such as server time and network storage, as needed automatically without requiring human interaction with each service provider.</p>
+                </section>
+                <section>
+                    <h3>Broad network access</h3>
+                    <p>Capabilities are available over the network and accessed through standard mechanisms that promote use by heterogeneous thin or thick client platforms (e.g., mobile phones, tablets, laptops, and workstations).</p>
+                </section>
+                <section>
+                    <h3>Resource pooling</h3>
+                    <p>The provider's computing resources are pooled to serve multiple consumers using a multi-tenant model, with different physical and virtual resources dynamically assigned and reassigned according to consumer demand. There is a sense of location independence in that the customer generally has no control or knowledge over the exact location of the provided resources but may be able to specify location at a higher level of abstraction (e.g., country, state, or datacenter). Examples of resources include storage, processing, memory, and network bandwidth.</p>
+                </section>
+                <section>
+                    <h3>Rapid elasticity</h3>
+                    <p>Capabilities can be elastically provisioned and released, in some cases automatically, to scale rapidly outward and inward commensurate with demand. To the consumer, the capabilities available for provisioning often appear to be unlimited and can be appropriated in any quantity at any time.</p>
+                </section>
+                <section>
+                    <h3>Measured service</h3>
+                    <p>Cloud systems automatically control and optimize resource use by leveraging a metering capability at some level of abstraction appropriate to the type of service (e.g., storage, processing, bandwidth, and active user accounts). Typically this is done on a pay-per-use or charge-per-use basis. Resource usage can be monitored, controlled, and reported, providing transparency for both the provider and consumer of the utilized service.</p>
+                </section>
+                </section>
+
+                <section>
+                <section>
+                    <h3>The Big 3</h3>
+                    <ul>
+                        <li>AWS</li>
+                        <li>Azure</li>
+                        <li>Google Cloud Platform</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>What is OpenStack?</h3>
+                    <ul>
+                        <li>A "cloud operating system"</li>
+                        <li>Sits above your infrastructure providing IaaS</li>
+                        <li>Provides an API to interact with that infrastructure</li>
+                        <li>API provides operations like Create/Delete/Update for various components</li>
+                        <li>Command line tools, libraries, dashboard all interact with services via the API</li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>What is OpenStack?</h2>
+                    <img src="img/Openstack-software-diagram.png" alt="Openstack-software-diagram">
+                </section>
+                <section>
+                    <h3>OpenStack services</h3>
+                    <ul>
+                        <li>Dashboard (Horizon)</li>
+                        <li>Compute (Nova)</li>
+                        <li>Networking (Neutron)</li>
+                        <li>Object Storage (Swift)</li>
+                        <li>Block Storage (Cinder)</li>
+                        <li>Identity Service (Keystone)</li>
+                        <li>Image Service (Glance)</li>
+                        <li>Telemetry Service (Ceilometer)</li>
+                        <li>Orchestration Service (Heat)</li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Openstack Architecture</h2>
+                    <img src="img/Openstack_havana_conceptual_arch.png" alt="Openstack_conceptual_arch" height="600" width="800">
+                </section>
+                </section>
+
+                <section>
+                <section>
+                    <h3>The Catalyst Cloud</h3>
+                    <p>Started as a private cloud so we could automate our own infrastructure and we realised we could sell it.</p>
+                </section>
+                </section>
+
+                 <!-- What does this mean for you? -->
+                <section>
+                <section>
+                    <h3>Will all compute move to the big 3?</h3>
+                    <p>No infrastructure in NZ and all our computing is done on AWS, Azure or Google Cloud Platform in Sydney?</p>
+                </section>
+                <section>
+                    <h3>Reasons why people may not use the Big 3</h3>
+                    <ul>
+                        <li>Inertia</li>
+                        <li>Local computation for local infrastructure</li>
+                        <li>Computation closer to the edge</li>
+                        <li>Latency</li>
+                        <li>Sovereignty</li>
+                        <li>Control</li>
+                        <li>Monopoly avoidance</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>OpenStack Workloads</h3>
+                    <ul>
+                        <li>Big Data / Science / HPC</li>
+                        <li>Public Cloud</li>
+                        <li>Private Cloud</li>
+                        <li>Telco SDN / NFV</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Public vs Private</h3>
+                    <ul>
+                        <li>Microsoft Azure Stack</li>
+                        <li>AWS GovCloud (US)</li>
+                        <li>Openstack is strong in Private Cloud</li>
+                        <li>Hybrid Cloud</li>
+                        <li>Portability via common tooling</li>
+                        <li>Containers allow leapfrog of IaaS</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Public cloud usage</h3>
+                    <ul>
+                        <li>IaaS (using EC2 directly)</li>
+                        <li>CaaS (GCE Kubernetes, Openstack Magnum)</li>
+                        <li>PaaS (Openshift, Heroku, Elastic Beanstalk, Azure app Service)</li>
+                        <li>SaaS (Xero, Gmail, Office 365)</li>
+                        <li>Other services (Machine learning, blockchain etc. etc.)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Thoughts</h3>
+                    <ul>
+                        <li>SaaS revenues are huge compared to IaaS</li>
+                        <li>Most computing has not moved to the cloud yet</li>
+                        <li>The big 3 will move closer to the edge (cf. Cloudflare, Netflix)</li>
+                        <li><a href="http://perspectives.mvdirona.com/2017/04/how-many-data-centers-needed-world-wide/">James Hamiltons blog post</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Kubernetes as a universal control plane</h3>
+                    <ul>
+                        <li>Data Center Operating system</li>
+                        <li>Containers are like processes</li>
+                        <li>A process scheduler</li>
+                        <li>None of the underlying layers went away</li>
+                    </ul>
+                </section>
+                </section>
+                <section>
+                <section>
+                    <h3>Architecting for the cloud</h3>
+                    <ul>
+                        <li><a href="https://blog.engineyard.com/2014/pets-vs-cattle">Cattle vs pets</a></li>
+                        <li><a href="http://martinfowler.com/bliki/SnowflakeServer.html">Snowflake Servers</a> vs. <a href="http://martinfowler.com/bliki/PhoenixServer.html">Phoenix Servers</a></li>
+                        <li><a href="http://radar.oreilly.com/2015/06/an-introduction-to-immutable-infrastructure.html">Immutable infrastructure</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Immutable Architecture/Infrastructure</h3>
+                    <ul>
+                        <li>Phoenix servers</li>
+                        <li>The environment is defined in code</li>
+                        <li>If you need to change _anything_ you create a new instance and destroy the old one</li>
+                        <li>Eliminates configuration drift</li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Immutable Architecture</h2>
+                    <img src="http://s.radar.oreilly.com/wp-files/2/2015/06/immutable_infrastructure.gif" alt="Immutable Architecture" height="600" width="800">
+                </section>
+                </section>
+
+                <section>
+                <section>
+                    <h3>Idempotence</h3>
+                    <ul>
+                        <li>Make the same request repeatedly to produce the same result</li>
+                        <li>ok = I checked and the thing you wanted was already done so I skipped doing it</li>
+                        <li>changed = I checked and the thing you wanted was not done so I did it</li>
+                    </ul>
+                    <pre><code data-trim contenteditable>
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=4    unreachable=0    failed=0
+
+...
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=0    unreachable=0    failed=0
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Localhost?</h3>
+                    <ul>
+                        <li>Cloud modules are localhost tasks</li>
+                        <li>Tasks map to modules</li>
+                        <li>Modules make API calls in the background</li>
+                        <li>OpenStack modules use shade (cf. boto3)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Cloud Modules</h3>
+                    <p><a href="https://docs.ansible.com/ansible/list_of_cloud_modules.html">https://docs.ansible.com/ansible/list_of_cloud_modules.html</a></p>
+                </section>
+                <section>
+                    <h3>Cloud Modules</h3>
+                    <ul>
+                        <li>Amazon (64)</li>
+                        <li>Azure (2)</li>
+                        <li>Centurylink (13)</li>
+                        <li>Cloudstack (32)</li>
+                        <li>Digital Ocean (3)</li>
+                        <li>Docker (3)</li>
+                        <li>Google (7)</li>
+                        <li>Linode (1)</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Cloud Modules</h3>
+                    <ul>
+                        <li>Lxc (1)</li>
+                        <li>Misc (6)</li>
+                        <li>Openstack (50)</li>
+                        <li>Profitbricks (5)</li>
+                        <li>Rackspace (29)</li>
+                        <li>Softlayer (1)</li>
+                        <li>Vmware (26)</li>
+                        <li>Webfaction (8)</li>
+                    </ul>
+                </section>
+                </section>
+
+
+                <section>
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li>https://www.ansible.com/blog/ansible-best-practices-essentials</li>
+                        <li>Interactive opertunity, cleanup a playbook so it follows best practices</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </section>
+
+                <!-- Section title slide with big colour dot -->
+                <section class="title-slide">
+                    <h2 class="orange">Title goes here</h2>
+                </section>
+
+                <!-- Slide with a large title -->
+                <section>
+                    <h2>Large title</h2>
+                    <aside class="notes">
+                        This will only display in the notes window.
+                    </aside>
+                </section>
+
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h3>Title</h3>
+                    <img src="img/800x400.gif" alt="">
+                </section>
+
+                <!-- Slide with list items (list items are displayed at once) -->
+                <section>
+                    <h3>List title</h3>
+                    <ul>
+                        <li>List item <img class="img-right" src="img/300x400.gif" alt="Placeholder image"></li>
+                        <li>List item</li>
+                        <li>List item</li>
+                    </ul>
+                </section>
+
+                <!-- Slide with list items (fragmented list items) -->
+                <section>
+                    <h3>Fragmented list</h3>
+                    <ul>
+                        <li class="fragment">List item</li>
+                        <li class="fragment">List item</li>
+                        <li class="fragment">List item <img class="img-centered" src="img/500x200.gif" alt="Placeholder image"></li>
+                    </ul>
+                </section>
+
+                <!-- Slide with vertical slides underneath  -->
+                <section>
+                    <!-- Horizontal slide (This is one the same level as slide above) -->
+                    <section class="title-slide banner-3">
+                        <h2 class="yellow">Title (press down to see vertical slides)</h2>
+                    </section>
+
+                    <!-- The following slides are vertical, use down arrow key to navigate -->
+                    <!-- Centered paragraph  -->
+                    <section>
+                        <h3>Paragraph</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at scelerisque eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam placerat posuere nibh vel dapibus.</p>
+                    </section>
+
+                    <!-- Blockquote  -->
+                    <section>
+                        <h3>Blockquote</h3>
+                        <blockquote class="quotation-marks">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at scelerisque eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam placerat posuere nibh vel dapibus.
+                        </blockquote>
+                    </section>
+
+                    <!-- Nested lists-->
+                    <section>
+                        <h3>Nested lists</h3>
+                            <ul>
+                                <li>One</li>
+                                <li>Two</li>
+                                <li>Three</li>
+                                    <ul>
+                                        <li>Nested One</li>
+                                        <li>Nested Two</li>
+                                    </ul>
+                            </ul>
+                    </section>
+                </section>
+
+                <!-- Slide with code block -->
+                <section>
+                    <h3>Title</h3>
+                    <p>Some text</p>
+                    <pre><code data-trim contenteditable>
+function linkify( selector ) {
+    if( supports3DTransforms ) {
+
+        var nodes = document.querySelectorAll( selector );
+
+        for( var i = 0, len = nodes.length; i < len; i++ ) {
+            var node = nodes[i];
+
+            if( !node.className ) {
+                node.className += ' roll';
+            }
+        }
+    }
+}
+                    </code></pre>
+                </section>
+
+                <!-- Slide with full background image -->
+                <section data-background="img/800x600.gif">
+                    <h3>Image backgrounds</h3>
+                </section>
+
+                <!-- Slide with Catalyst slogan -->
+                <section class="image-slide">
+                    <img class="cat-slogan-image" src="css/theme/images/freedom-to-innovate.svg" alt="freedom to innovate">
+                </section>
+            </div>
+
+            <div class="footer">
+                <div class="scarf">
+                    <div class="scarf-orange"></div>
+                    <div class="scarf-yellow"></div>
+                    <div class="scarf-blue"></div>
+                    <div class="scarf-green"></div>
+                </div>
+                <div class="footer-inner">
+                    <div class="catalyst-logo-footer">Catalyst</div>
+                    <!-- NOTE: use only one of these. open-source-technologists is the standard -->
+                    <div class="open-source-technologists">open source technologists</div>
+                    <!-- <div class="freedom-to-innovate">freedom to innovate</div> -->
+                </div>
+            </div>
+        </div>
+
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Parallax scrolling
+                // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+                // parallaxBackgroundSize: '2100px 900px',
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
