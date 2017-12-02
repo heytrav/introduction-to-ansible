@@ -1,0 +1,45 @@
+---
+
+- hosts: localhost
+  vars:
+    foo: bar
+    username: train
+  tasks:
+
+  - name: Print the Kernel information
+    command: uname -a
+
+  - name: Create the ansible-files directory
+    file:
+      path: "/home/{{ username }}/ansible-files"
+      state: directory
+      mode: 0755
+
+  - name: Copy the test file to the ansible-files directory
+    file:
+      src: files/copy-example.txt
+      dest: "/home/{{ username }}/ansible-files/copy-example.txt"
+      owner: "{{ train }}"
+      group: "{{ train }}"
+      mode: 0644
+
+  - name: Template the template test to the ansible-files directory
+    template:
+      src: templates/example-template.j2
+      dest: "/home/{{ username }}/ansible-files/template-example.txt"
+      owner: "{{ train }}"
+      group: "{{ train }}"
+      mode: 0644
+
+  - name: Fetch a file using http
+    get_url:
+      url: http://via.placeholder.com/350x150
+      dest: "/home/{{ username }}/ansible-files/350x150.png"
+      mode: 0440
+
+  - name: Perform a git clone
+    git:
+      repo: https://github.com/githubtraining/example-basic
+      dest: "/home/{{ username }}/ansible-files/git-clone-example"
+
+
