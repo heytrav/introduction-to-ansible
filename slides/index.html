@@ -67,11 +67,15 @@
                 </section>
 
                 <section>
+                    <h3>Lets play a game!</h3>
+                </section>
+
+                <section>
                     <h3>About this course</h3>
                     <ul>
                         <li>A mix of theory and hands on command line tasks</li>
                         <li>Assumes no prior automation or cloud knowledge</li>
-                        <li>Assumes some familiarity with the linux command line</li>
+                        <li>Assumes some familiarity with the Linux command line</li>
                         <li>Assumes we are using Ubuntu (trusty)</li>
                     </ul>
                 </section>
@@ -138,7 +142,6 @@
                     <ul>
                         <li><a href="https://blog.engineyard.com/2014/pets-vs-cattle">Cattle vs pets</a></li>
                         <li><a href="http://martinfowler.com/bliki/SnowflakeServer.html">Snowflake Servers</a> vs. <a href="http://martinfowler.com/bliki/PhoenixServer.html">Phoenix Servers</a></li>
-                        <li>Practice failure and iterate</li>
                     </ul>
                 </section>
                 <!-- Large image slide -->
@@ -152,6 +155,7 @@
                         <li>The environment is defined in code (Infrastructure as Code)</li>
                         <li>If you need to change _anything_ you create a new instance and destroy the old one</li>
                         <li>Stop Configuration Drift</li>
+                        <li>Practice failure and iterate</li>
                         <li>Declarative</li>
                     </ul>
                 </section>
@@ -227,18 +231,7 @@
                         <li>Fast delivery of value to the customer</li>
                         <li>Per release risk is lower</li>
                         <li>Faster MTTR</li>
-                        <li>Shorter feedback loops</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>TODO</h3>
-                    <p>other stuff</p>
-                    <ul>
-                        <li>Where automation fits in the 3 ways</li>
-                        <li>how automation can be used to improve flow, VSM etc.</li>
-                        <li>deploys per day, xxxiv dohb</li>
-                        <li>deployment lead time, pg8</li>
-                        <li>countermesures pg22</li>
+                        <li>Shorter feedback loops to validate value for users</li>
                     </ul>
                 </section>
                 <section>
@@ -252,12 +245,16 @@
                     </ul>
                 </section>
                 <section>
-                    <h3>Faster and more secure?</h3>
-                    <p>Justin Smith from CloudFoundy suggests that going faster can improve security and that resisting change to mitigate risk is a trap.</p>
+                    <h3>Whiteboard writeup</h3>
+                    <p>Lets take a minute for everyone to come up to the whiteboard and write a word or phrase about automation.</p>
+                </section>
+                <section>
+                    <h3>Recommended reading</h3>
                     <ul>
-                        <li>Rotate</li>
-                        <li>Repave</li>
-                        <li>Repair</li>
+                        <li>Continuous Delivery by David Farley and Jez Humble</li>
+                        <li>The DevOps Handbook by Gene Kim, Jez Humble, Patrick Debois and John Willis</li>
+                        <li>Lean Enterprise by Barry O'Reilly, Jez Humble, and Joanne Molesky</li>
+                        <li>The Phoenix Project by Gene Kim, George Spafford, and Kevin Behr</li>
                     </ul>
                 </section>
                 </section>
@@ -268,10 +265,22 @@
                     <ul>
                         <li>Provisioning</li>
                         <li>Configuration Management</li>
-                        <li>Application Deployment</li>
+                        <li>Application Deployment and Continious Delivery</li>
                         <li>Security &amp; Compliance</li>
                         <li>Orchestration</li>
                         <li>Container Orchestration Engines</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Teachback - Ansible use cases</h3>
+                    <p>Each group will review a one of the Ansible <a href="https://www.ansible.com/use-cases">use cases</a> and explain it to the class.</p>
+                    <ul>
+                        <li><a href="https://www.ansible.com/use-cases/provisioning">Provisioning</a></li>
+                        <li><a href="https://www.ansible.com/use-cases/application-deployment">Application Deployment</a></li>
+                        <li><a href="https://www.ansible.com/use-cases/configuration-management">Configuration Management</a></li>
+                        <li><a href="https://www.ansible.com/use-cases/continuous-delivery">Continuous Delivery</a></li>
+                        <li><a href="https://www.ansible.com/use-cases/security-and-compliance">Security &amp; Compliance</a></li>
+                        <li><a href="https://www.ansible.com/use-cases/orchestration">Orchestration</a></li>
                     </ul>
                 </section>
                 <section>
@@ -363,6 +372,25 @@
                     </ul>
                 </section>
                 <section>
+                    <h3>Teachback - Automation tools</h3>
+                    <p>Choose an automation tool to research, spend a few minutes reading up on it, then report back to the class describing its use case and five important facts about it.</p>
+                    <p>Choose from the list below or choose something yourself.</p>
+                    <ul>
+                        <li><a href="https://www.terraform.io"></a>Terraform</li>
+                        <li><a href="https://www.chef.io/chef/"></a>Chef</li>
+                        <li><a href="https://aws.amazon.com/cloudformation/"></a>AWS CloudFormation</li>
+                        <li><a href="https://puppet.com/"></a>Puppet</li>
+                        <li><a href="https://saltstack.com/"></a>Salt</li>
+                        <li><a href="http://capistranorb.com/"></a>Capistrano</li>
+                        <li><a href="https://theforeman.org/"></a>Foreman</li>
+                        <li><a href="https://www.gocd.org/">GoCD</a></li>
+                        <li><a href="https://cfengine.com/">CFEngine</a></li>
+                    </ul>
+                </section>
+                </section>
+
+                <section>
+                <section>
                     <h3>Container Orchestration Engines</h3>
                     <ul>
                         <li>Provide a control plane or operating system on which to run containerised workloads</li>
@@ -405,8 +433,9 @@
                 <section>
                     <h3>Python Tools</h3>
                     <ul>
-                        <li><a href="https://pip.pypa.io/en/stable/">PIP</a> - Pythons <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for installing Python packages.</li>
-                        <li><a href="https://pypi.python.org/pypi/virtualenv">Virtualenv</a> - Pythons <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for creating isolated Python environments</li>
+                        <li><a href="https://pip.pypa.io/en/stable/">PIP</a> - PyPAs <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for installing Python packages.</li>
+                        <li><a href="https://pypi.python.org/pypi/virtualenv">Virtualenv</a> - PyPAs <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for creating isolated Python environments</li>
+                        <li>PyPA = Python Packaging Authority</li>
                     </ul>
                 </section>
                 <section>
@@ -624,19 +653,88 @@ Linux first-instance 3.13.0-135-generic #184-Ubuntu SMP Wed Oct 18 11:55:51 UTC 
                 </section>
 
                 <section>
-                    <h3>First Instance using Ansible</h3>
+                <section>
+                    <h3>Simple playbook</h3>
+                    <p>Open the file <strong>simple.yaml</strong>, read through the code and try and work out what you expect it to do. Try and think about if it will behave differently the second time you run it.</p>
+                </section>
+                <section>
+                    <h3>Run the simple playbook</h3>
+                    <pre><code data-trim contenteditable>
+$ ansible-playbook -i hosts simple.yaml
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Simple playbook</h3>
+                    <p>Run the playbook a few more times and observe the output</p>
+                </section>
+                <section>
+                    <h3>Things to try</h3>
                     <ul>
-                        <li><a href="http://docs.catalystcloud.io/first-instance/ansible.html">http://docs.catalystcloud.io/first-instance/ansible.html</a></li>
-                        <li>Clone catalystcloud-ansible repo</li>
-                        <li>Install Ansible</li>
-                        <li>Edit launch-instance and create-network playbooks</li>
+                        <li>Manually remove the file <strong>/home/train/ansible-files/copy-example.txt</strong> and re-run the playbook</li>
+                        <li>Manually remove the directory <strong>/home/train/ansible-files/</strong> and re-run the playbook</li>
+                        <li>Change the value of the <strong>foo</strong> variable and re-run the playbook</li>
+                        <li>Comment out a task and re-run the playbook</li>
                     </ul>
                 </section>
+                <section>
+                    <h3>Things to notice</h3>
+                    <ul>
+                        <li>There is an extra task called <strong>Gathering Facts</strong> that we did not explicitly add</li>
+                        <li>Changed tasks are also ok tasks (see the <strong>PLAY RECAP</strong>)</li>
+                        <li>Look at the where we are using <strong>register:</strong>, do you see how that works?</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Idempotence Revisited</h3>
+                    <ul>
+                        <li>Make the same request repeatedly to produce the same result</li>
+                        <li>ok = I checked and the thing you wanted was already done so I skipped doing it</li>
+                        <li>changed = I checked and the thing you wanted was not done so I did it</li>
+                    </ul>
+                    <pre><code data-trim contenteditable>
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=4    unreachable=0    failed=0
 
+...
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=0    unreachable=0    failed=0
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Add a new task</h3>
+                    <ul>
+                        <li>Consult the <a href="https://docs.ansible.com/ansible/latest/modules_by_category.html">documentation</a></li>
+                        <li>There are a number of good candidates in the <a href="https://docs.ansible.com/ansible/latest/list_of_files_modules.html">files section</a>:</li>
+                        <ul>
+                            <li>archive</li>
+                            <li>blockinfile / lineinfile</li>
+                            <li>stat</li>
+                            <li>replace</li>
+                        </ul>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Add the following task</h3>
+                    <pre><code data-trim contenteditable>
+  - name: Install the mtr package
+    apt:
+      name: mtr
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Run the task</h3>
+                    <ul>
+                        <li>What happened?</li>
+                        <li>How can we fix it?</li>
+                        <li>See if you can <a href="https://docs.ansible.com/ansible/latest/become.html">consult the documentation</a> to get this task working</li>
+                    </ul>
+                </section>
+                </section>
 
                 <section>
                 <section>
-                    <h3>What is the Cloud Computing?</h3>
+                    <h3>What is Cloud Computing?</h3>
                     <p>The NIST Definition of Cloud Computing lists five essential characteristics of Cloud Computing:</p>
                     <ul>
                         <li>On-demand self-service</li>
@@ -715,376 +813,248 @@ Linux first-instance 3.13.0-135-generic #184-Ubuntu SMP Wed Oct 18 11:55:51 UTC 
 
                 <section>
                 <section>
-                    <h3>The Catalyst Cloud</h3>
-                    <p>Started as a private cloud so we could automate our own infrastructure and we realised we could sell it.</p>
-                </section>
-                </section>
-
-                 <!-- What does this mean for you? -->
-                <section>
-                <section>
-                    <h3>Will all compute move to the big 3?</h3>
-                    <p>No infrastructure in NZ and all our computing is done on AWS, Azure or Google Cloud Platform in Sydney?</p>
-                </section>
-                <section>
-                    <h3>Reasons why people may not use the Big 3</h3>
+                    <h3>First Instance using Ansible</h3>
                     <ul>
-                        <li>Inertia</li>
-                        <li>Local computation for local infrastructure</li>
-                        <li>Computation closer to the edge</li>
-                        <li>Latency</li>
-                        <li>Sovereignty</li>
-                        <li>Control</li>
-                        <li>Monopoly avoidance</li>
+                        <li><a href="http://docs.catalystcloud.io/first-instance/ansible.html">http://docs.catalystcloud.io/first-instance/ansible.html</a></li>
+                        <li>Clone catalystcloud-ansible repo</li>
+                        <li>Install Ansible</li>
+                        <li>Edit launch-instance and create-network playbooks</li>
+                        <li>Add a prefix (yourname)</li>
                     </ul>
                 </section>
                 <section>
-                    <h3>OpenStack Workloads</h3>
+                    <h3>Training room settings</h3>
                     <ul>
-                        <li>Big Data / Science / HPC</li>
-                        <li>Public Cloud</li>
-                        <li>Private Cloud</li>
-                        <li>Telco SDN / NFV</li>
+                        <li>Prefix all resource names with yourname-</li>
+                        <li>eg: yourname-border-router, yourname-private-net</li>
+                        <li>Do this in all three files by editing <strong>prefix_name</strong></li>
+                        <ul>
+                            <li>example-playbooks/create-network.yml</li>
+                            <li>example-playbooks/launch-instance.yml</li>
+                            <li>example-playbooks/remove-stack.yml</li>
+                        </ul>
                     </ul>
                 </section>
                 <section>
-                    <h3>Public vs Private</h3>
+                    <h3>First Instance using Ansible</h3>
                     <ul>
-                        <li>Microsoft Azure Stack</li>
-                        <li>AWS GovCloud (US)</li>
-                        <li>Openstack is strong in Private Cloud</li>
-                        <li>Hybrid Cloud</li>
-                        <li>Portability via common tooling</li>
-                        <li>Containers allow leapfrog of IaaS</li>
+                        <li>Create an SSH Keypair</li>
+                        <li>Login to the <a href="https://dashboard.cloud.catalyst.net.nz/">dashboard</a></li>
+                        <li>Follow the instructions to download an <a href="http://docs.catalystcloud.io/getting-started/cli.html#source-rc-file">OpenStack RC file</a></li>
+                        <li>Follow the instructions to run the create network and launch instance playbooks.</li>
                     </ul>
                 </section>
                 <section>
-                    <h3>Public cloud usage</h3>
-                    <ul>
-                        <li>IaaS (using EC2 directly)</li>
-                        <li>CaaS (GCE Kubernetes, Openstack Magnum)</li>
-                        <li>PaaS (Openshift, Heroku, Elastic Beanstalk, Azure app Service)</li>
-                        <li>SaaS (Xero, Gmail, Office 365)</li>
-                        <li>Other services (Machine learning, blockchain etc. etc.)</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Thoughts</h3>
-                    <ul>
-                        <li>SaaS revenues are huge compared to IaaS</li>
-                        <li>Most computing has not moved to the cloud yet</li>
-                        <li>The big 3 will move closer to the edge (cf. Cloudflare, Netflix)</li>
-                        <li><a href="http://perspectives.mvdirona.com/2017/04/how-many-data-centers-needed-world-wide/">James Hamiltons blog post</a></li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Kubernetes as a universal control plane</h3>
-                    <ul>
-                        <li>Data Center Operating system</li>
-                        <li>Containers are like processes</li>
-                        <li>A process scheduler</li>
-                        <li>None of the underlying layers went away</li>
-                    </ul>
-                </section>
-                </section>
-                <section>
-                <section>
-                    <h3>Architecting for the cloud</h3>
-                    <ul>
-                        <li><a href="https://blog.engineyard.com/2014/pets-vs-cattle">Cattle vs pets</a></li>
-                        <li><a href="http://martinfowler.com/bliki/SnowflakeServer.html">Snowflake Servers</a> vs. <a href="http://martinfowler.com/bliki/PhoenixServer.html">Phoenix Servers</a></li>
-                        <li><a href="http://radar.oreilly.com/2015/06/an-introduction-to-immutable-infrastructure.html">Immutable infrastructure</a></li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Immutable Architecture/Infrastructure</h3>
-                    <ul>
-                        <li>Phoenix servers</li>
-                        <li>The environment is defined in code</li>
-                        <li>If you need to change _anything_ you create a new instance and destroy the old one</li>
-                        <li>Eliminates configuration drift</li>
-                    </ul>
-                </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Immutable Architecture</h2>
-                    <img src="http://s.radar.oreilly.com/wp-files/2/2015/06/immutable_infrastructure.gif" alt="Immutable Architecture" height="600" width="800">
-                </section>
-                </section>
-
-                <section>
-                <section>
-                    <h3>Idempotence</h3>
-                    <ul>
-                        <li>Make the same request repeatedly to produce the same result</li>
-                        <li>ok = I checked and the thing you wanted was already done so I skipped doing it</li>
-                        <li>changed = I checked and the thing you wanted was not done so I did it</li>
-                    </ul>
+                    <h3>Create an SSH keypair</h3>
                     <pre><code data-trim contenteditable>
-PLAY RECAP *********************************************************************
-localhost                  : ok=2    changed=4    unreachable=0    failed=0
-
-...
-
-PLAY RECAP *********************************************************************
-localhost                  : ok=6    changed=0    unreachable=0    failed=0
+$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/train/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/train/.ssh/id_rsa.
+Your public key has been saved in /home/train/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:1K16QYwSmm2IAyHQBVXj19NW91v1SRbjtKzun6IsEjE train@train01
+The key's randomart image is:
++---[RSA 2048]----+
+|*o.+o.+       .*+|
+|.... * o = o .*.B|
+|  o + = + * +  =+|
+|   . . E . +  . o|
+|        S o  . . |
+|       . . ..    |
+|        o .  .   |
+|       . o. ..  .|
+|        . .o..oo |
++----[SHA256]-----+
                     </code></pre>
                 </section>
+                <section>
+                    <h3>First Instance using Ansible</h3>
+                    <ul>
+                        <li>Create an SSH Keypair</li>
+                        <li>Login to the <a href="https://dashboard.cloud.catalyst.net.nz/">dashboard</a></li>
+                        <li>Follow the instructions to download an <a href="http://docs.catalystcloud.io/getting-started/cli.html#source-rc-file">OpenStack RC file</a></li>
+                        <li>Follow the instructions to run the create network and launch instance playbooks.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>SSH to your instance</h3>
+                    <ul>
+                        <li>You should now be able to SSH to your cloud instance.</li>
+                        <li>If you are having trouble consult the <a href="http://docs.catalystcloud.io/network.html#why-can-t-i-ssh-to-my-instance">FAQ</a></li>
+                    </ul>
+                </section>
+                </section>
+
+                <section>
+                <section>
+                    <h3>Running your own website</h3>
+                    <p>We are going to create a website on the internet</p>
+                </section>
+                <section>
+                    <h3>Website creation steps - Done</h3>
+                    <ul>
+                        <li>Create a server Ansible (including Security Groups, SSH Keys and Floating IPs)</li>
+                        <li>Ensure that you can connect to the server using SSH</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Website creation steps</h3>
+                    <ul>
+                        <li>Create a static website on your local machine using <a href="https://gohugo.io/">Hugo</a></li>
+                        <li>Configure DNS for the site (trainer)</li>
+                        <li>Upload the website to the server</li>
+                        <li>Configure a webserver (Nginx) to serve up the static site on the internet</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Create a static website</h3>
+                    <ul>
+                        <li>Follow the instructions at <a href="https://gohugo.io/overview/quickstart/">https://gohugo.io/overview/quickstart/</a> to create a static website</li>
+                        <li>Call your site something unique rather than <strong>bookshelf</strong></li>
+                        <li>Choose a <a href="http://themes.gohugo.io/">theme</a> to use</li>
+                        <li>Step 7: baseurl = "http://train01.nz/"</li>
+                        <li>Skip Steps 8, 10 and 12</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Hugo commands 1</h3>
+                    <pre><code data-trim contenteditable>
+$ wget https://github.com/gohugoio/hugo/releases/download/v0.31.1/hugo_0.31.1_Linux-64bit.deb
+$ sudo dpkg -i hugo_0.31.1_Linux-64bit.deb
+$ hugo new site quickstart
+$ cd quickstart/
+$ git init
+$ git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
+$ echo 'theme = "ananke"' >> config.toml
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Hugo commands 2</h3>
+                    <pre><code data-trim contenteditable>
+$ hugo new posts/my-first-post.md
+$ echo "This is my first post!" &gt;&gt; content/posts/my-first-post.md
+$ hugo server -D
+Press Ctrl+C to stop
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Hugo commands 3</h3>
+                    <pre><code data-trim contenteditable>
+$ vi config.toml
+$ cat config.toml
+baseURL = "http://train01.nz/"
+languageCode = "en-nz"
+title = "Ansible Training"
+theme = "ananke"
+$ hugo undraft content/posts/my-first-post.md
+$ hugo
+$ # static html is now stored in public folder
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Configure name resolution</h3>
+                    <p>Edit your /etc/hosts to enable name resolution for your site</p>
+                    <pre><code data-trim contenteditable>
+$ sudo vi /etc/hosts
+$ tail -n 1 /etc/hosts
+150.242.42.156 train01.nz
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Upload the website</h3>
+                    <p>Copy the public directory to the webserver</p>
+                    <pre><code data-trim contenteditable>
+$ cd quickstart/
+$ scp -r public/ ubuntu@150.242.42.156:
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Configure the webserver</h3>
+                    <pre><code data-trim contenteditable>
+$ ssh ubuntu@150.242.42.156
+$ sudo apt install nginx
+$ cd public
+$ sudo mv * /var/www/html
+$ sudo chown -R root:root /var/www/html
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Visit your site</h3>
+                    <ul>
+                        <li><a href="http://train01.nz">http://train01.nz</a></li>
+                        <li>Is it working?</li>
+                        <li>Can you think why it may not be working?</li>
+                        <li>What action could we do to get it working?</li>
+                    </ul>
+                </section>
+                </section>
+
+                <section>
                 <section>
                     <h3>Localhost?</h3>
                     <ul>
                         <li>Cloud modules are localhost tasks</li>
-                        <li>Tasks map to modules</li>
                         <li>Modules make API calls in the background</li>
                         <li>OpenStack modules use shade (cf. boto3)</li>
+                        <li>Ring your mother and ask her to put the kettle on</li>
                     </ul>
                 </section>
                 <section>
                     <h3>Cloud Modules</h3>
                     <p><a href="https://docs.ansible.com/ansible/list_of_cloud_modules.html">https://docs.ansible.com/ansible/list_of_cloud_modules.html</a></p>
                 </section>
+                </section>
+
                 <section>
-                    <h3>Cloud Modules</h3>
+                <section>
+                    <h3>Cleanup and start again</h3>
                     <ul>
-                        <li>Amazon (64)</li>
-                        <li>Azure (2)</li>
-                        <li>Centurylink (13)</li>
-                        <li>Cloudstack (32)</li>
-                        <li>Digital Ocean (3)</li>
-                        <li>Docker (3)</li>
-                        <li>Google (7)</li>
-                        <li>Linode (1)</li>
+                        <li>Run the remove-stack.yml playbook</li>
+                        <li>Remove the entry from /etc/hosts</li>
+                        <li>Run create-network.yml</li>
+                        <li>Run launch-instance.yml</li>
                     </ul>
                 </section>
                 <section>
-                    <h3>Cloud Modules</h3>
+                    <h3>Write a playbook that does the following</h3>
                     <ul>
-                        <li>Lxc (1)</li>
-                        <li>Misc (6)</li>
-                        <li>Openstack (50)</li>
-                        <li>Profitbricks (5)</li>
-                        <li>Rackspace (29)</li>
-                        <li>Softlayer (1)</li>
-                        <li>Vmware (26)</li>
-                        <li>Webfaction (8)</li>
+                        <li>Adds a line to /etc/hosts on localhost</li>
+                        <li>Installs nginx on the server</li>
+                        <li>Copies the hugo public directory to /var/www/html on the server</li>
                     </ul>
                 </section>
                 </section>
 
+                <section>
+                    <h3>Ansible Vault</h3>
+                    <ul>
+                        <li>A feature that allows keeping passwords and keys in encrypted files</li>
+                        <li>ansible-vault command line tool for editing files</li>
+                        <li>--ask-vault-pass or --vault-password-file when used with ansible-playbook</li>
+                        <li>A feature that allows keeping passwords and keys in encrypted files</li>
+                    </ul>
+                </section>
 
                 <section>
                     <h3>Best Practices</h3>
                     <ul>
-                        <li>https://www.ansible.com/blog/ansible-best-practices-essentials</li>
-                        <li>Interactive opertunity, cleanup a playbook so it follows best practices</li>
+                        <li>Review this best practice <a href="https://www.ansible.com/blog/ansible-best-practices-essentials">blog post</a></li>
+                        <li>Edit best-practice.yml to conform to best practices</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h3>Ansible Vault</h3>
+                    <h3>Roles and Includes</h3>
                     <ul>
-                        <li></li>
+                        <li><a href="https://docs.ansible.com/ansible/latest/playbooks_reuse_roles.html">Roles</a></li>
+                        <li><a href="https://docs.ansible.com/ansible/latest/playbooks_reuse.html">Creating Reusable Playbooks</a></li>
+                        <li><a href="https://docs.ansible.com/ansible/latest/playbooks_reuse_includes.html">Including and Importing</a></li>
                     </ul>
                 </section>
 
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li></li>
-                    </ul>
-                </section>
-
-                <!-- Section title slide with big colour dot -->
-                <section class="title-slide">
-                    <h2 class="orange">Title goes here</h2>
-                </section>
-
-                <!-- Slide with a large title -->
-                <section>
-                    <h2>Large title</h2>
-                    <aside class="notes">
-                        This will only display in the notes window.
-                    </aside>
-                </section>
-
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h3>Title</h3>
-                    <img src="img/800x400.gif" alt="">
-                </section>
-
-                <!-- Slide with list items (list items are displayed at once) -->
-                <section>
-                    <h3>List title</h3>
-                    <ul>
-                        <li>List item <img class="img-right" src="img/300x400.gif" alt="Placeholder image"></li>
-                        <li>List item</li>
-                        <li>List item</li>
-                    </ul>
-                </section>
-
-                <!-- Slide with list items (fragmented list items) -->
-                <section>
-                    <h3>Fragmented list</h3>
-                    <ul>
-                        <li class="fragment">List item</li>
-                        <li class="fragment">List item</li>
-                        <li class="fragment">List item <img class="img-centered" src="img/500x200.gif" alt="Placeholder image"></li>
-                    </ul>
-                </section>
-
-                <!-- Slide with vertical slides underneath  -->
-                <section>
-                    <!-- Horizontal slide (This is one the same level as slide above) -->
-                    <section class="title-slide banner-3">
-                        <h2 class="yellow">Title (press down to see vertical slides)</h2>
-                    </section>
-
-                    <!-- The following slides are vertical, use down arrow key to navigate -->
-                    <!-- Centered paragraph  -->
-                    <section>
-                        <h3>Paragraph</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at scelerisque eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam placerat posuere nibh vel dapibus.</p>
-                    </section>
-
-                    <!-- Blockquote  -->
-                    <section>
-                        <h3>Blockquote</h3>
-                        <blockquote class="quotation-marks">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris at scelerisque eros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam placerat posuere nibh vel dapibus.
-                        </blockquote>
-                    </section>
-
-                    <!-- Nested lists-->
-                    <section>
-                        <h3>Nested lists</h3>
-                            <ul>
-                                <li>One</li>
-                                <li>Two</li>
-                                <li>Three</li>
-                                    <ul>
-                                        <li>Nested One</li>
-                                        <li>Nested Two</li>
-                                    </ul>
-                            </ul>
-                    </section>
-                </section>
-
-                <!-- Slide with code block -->
-                <section>
-                    <h3>Title</h3>
-                    <p>Some text</p>
-                    <pre><code data-trim contenteditable>
-function linkify( selector ) {
-    if( supports3DTransforms ) {
-
-        var nodes = document.querySelectorAll( selector );
-
-        for( var i = 0, len = nodes.length; i < len; i++ ) {
-            var node = nodes[i];
-
-            if( !node.className ) {
-                node.className += ' roll';
-            }
-        }
-    }
-}
-                    </code></pre>
-                </section>
-
-                <!-- Slide with full background image -->
-                <section data-background="img/800x600.gif">
-                    <h3>Image backgrounds</h3>
-                </section>
-
-                <!-- Slide with Catalyst slogan -->
-                <section class="image-slide">
-                    <img class="cat-slogan-image" src="css/theme/images/freedom-to-innovate.svg" alt="freedom to innovate">
-                </section>
             </div>
 
             <div class="footer">
