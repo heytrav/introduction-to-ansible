@@ -1,13 +1,20 @@
 ---
 
 - hosts: localhost
+
   vars:
     foo: bar
     username: train
+
   tasks:
 
-  - name: Print the Kernel information
+  - name: Get Kernel information
     command: uname -a
+    register: uname_output
+
+  - name: Output Kernel information
+    debug:
+      var: uname_output
 
   - name: Create the ansible-files directory
     file:
@@ -16,7 +23,7 @@
       mode: 0755
 
   - name: Copy the test file to the ansible-files directory
-    file:
+    copy:
       src: files/copy-example.txt
       dest: "/home/{{ username }}/ansible-files/copy-example.txt"
       owner: "{{ username }}"
