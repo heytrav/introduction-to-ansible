@@ -1,0 +1,64 @@
+---
+
+- name: Localhost configuration
+  hosts: localhost
+  vars:
+    server_ip: "{{ hostvars[inventory_hostname]['groups']['webserver'][0] }}"
+    website_domain: train01.nz
+
+  tasks:
+
+    - name: Configure local /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ server_ip }} {{ website_domain }}"
+      become: yes
+
+- name: Configure the webserver
+  hosts: webserver
+  become: true
+  remote_user: ubuntu
+  gather_facts: False
+  vars:
+    local_public_html_dir: /home/don/src/hugo/quickstart/public/
+    host_name: "{{ hostvars[inventory_hostname]['ansible_fqdn'] }}"
+
+  pre_tasks:
+    - name: Install python-minimal for Ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
+    - name: Gather facts
+      setup:
+
+  tasks:
+
+    - name: Add hostname to /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ inventory_hostname }} {{ host_name }}"
+
+    - name: Set timezone to Pacific/Auckland
+      timezone:
+        name: Pacific/Auckland
+
+    - name: Ensure NZ locale exists
+      locale_gen:
+        name: en_NZ.UTF-8
+
+    - name: Apt dist upgrade
+      apt:
+        upgrade: dist
+        autoremove: yes
+
+    - name: Install nginx web server
+      apt:
+        pkg: nginx
+        state: installed
+        update_cache: true
+
+    - name: Copy the public directory
+      copy:
+        src: "{{ local_public_html_dir }}"
+        dest: /var/www/html
+        owner: root
+        group: root
