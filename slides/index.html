@@ -66,9 +66,12 @@
                     </p>
                 </section>
 
-                <section>
+
+                <!--Remove -->
+
+                <!--<section>
                     <h3>Lets play a game!</h3>
-                </section>
+                </section>-->
 
                 <section>
                     <h3>About this course</h3>
@@ -88,6 +91,9 @@
                         <li>Understand what automation tools are available and how Ansible compares</li>
                     </ul>
                 </section>
+
+
+
                 <section>
                     <h3>Course aims - Ansible</h3>
                     <ul>
@@ -101,14 +107,63 @@
                 </section>
 
                 <section>
+
                 <section>
-                    <h3>Why Automate?</h3>
-                    <p>Automation is about taking manual processes and placing technology around them to make them repeatable.</p>
+                    <h2>
+                        Why use automation tools?
+                    </h2>
                 </section>
                 <section>
-                    <h3>Why Automate?</h3>
-                    <p>Automation is the key to speed, consistency, scalability and repeatability.</p>
+                    <h3>
+                        Typical application
+                    </h3>
+                    <div style="width:50%;float:left;">
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">Web servers</li>
+                            <li class="fragment" data-fragment-index="1">App servers</li>
+                            <li class="fragment" data-fragment-index="2">Load balancers</li>
+                            <li class="fragment" data-fragment-index="3">Database</li>
+                            <li class="fragment" data-fragment-index="4">Caching systems</li>
+                            <li class="fragment" data-fragment-index="5">
+                                Network infrastructure: firewalls, subnets
+                                routers, etc.
+                            </li>
+                            <li class="fragment"
+                                data-fragment-index="6">Spread across multiple
+                            regions for redundancy</li>
+
+
+                        </ul>
+                    </div>
+                    <div style="width:50%;float:left;">
+                        <img src="img/application-network.svg" alt="basic app
+                        network"  >
+                    </div>
                 </section>
+                <section>
+                    <h3>
+                        Disadvantages of manual deployment
+                    </h3>
+                    <p class="fragment" data-fragment-index="0">
+                    SSHing into every machine in your stack to install
+                    packages, edit configuration files, deploy code is:
+                    </p>
+                    <ul>
+                        <li class="fragment" data-fragment-index="1">Time consuming</li>
+                        <li class="fragment" data-fragment-index="2">Error prone</li>
+                    </ul>
+                    
+
+
+                </section>
+                <section>
+                    <h3>What is Automation?</h3>
+                    <ul>
+                        <li class="fragment" data-fragment-index="0">Automation is about taking manual processes and placing technology around them to make them repeatable.</li>
+                        <li class="fragment" data-fragment-index="1">Automation is the key to speed, consistency, scalability and repeatability.</li>
+                    </ul>
+                </section>
+                
                 <section>
                     <h3>Why Automate?</h3>
                     <ul>
@@ -121,144 +176,7 @@
                     </ul>
                 </section>
                 </section>
-
-                <section>
-                <section>
-                    <h3>What does Automation enable?</h3>
-                </section>
-                <section>
-                    <h3>What does Automation enable?</h3>
-                    <ul>
-                        <li>Immutable Infrastructure</li>
-                        <li>Continuous Integration</li>
-                        <li>Continuous Delivery</li>
-                        <li>Continuous Deployment</li>
-                        <li>A key DevOps practice</li>
-                        <li>Essential to Microservice deployment at scale</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Immutable Infrastructure</h3>
-                    <ul>
-                        <li><a href="https://blog.engineyard.com/2014/pets-vs-cattle">Cattle vs pets</a></li>
-                        <li><a href="http://martinfowler.com/bliki/SnowflakeServer.html">Snowflake Servers</a> vs. <a href="http://martinfowler.com/bliki/PhoenixServer.html">Phoenix Servers</a></li>
-                    </ul>
-                </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Cattle vs Pets</h2>
-                    <img src="img/servers_pets_or_cattle.jpg" alt="Cattle vs Pets" height="600" width="800">
-                </section>
-                <section>
-                    <h3>Immutable Infrastructure</h3>
-                    <ul>
-                        <li>The environment is defined in code (Infrastructure as Code)</li>
-                        <li>If you need to change _anything_ you create a new instance and destroy the old one</li>
-                        <li>Stop Configuration Drift</li>
-                        <li>Practice failure and iterate</li>
-                        <li>Declarative</li>
-                    </ul>
-                </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Immutable Infrastructure</h2>
-                    <img src="img/immutable_infrastructure.gif" alt="Immutable Infrastructure" height="600" width="800">
-                </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Immutable Infrastructure</h2>
-                    <img src="img/blue_green_deployments.png" alt="Blue / Green Deployments" height="600" width="800">
-                </section>
-                <section>
-                    <h3>Continuous integration</h3>
-                    <ul>
-                        <li>Trunk based development</li>
-                        <li>Every developer commit triggers a merge/build/test cycle</li>
-                        <li>Automated testing</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Continuous delivery/deployment</h3>
-                    <ul>
-                        <li>Automated Pipeline from developer commit to production deploy</li>
-                        <li>Requires lots of automated tests</li>
-                        <li>Deploying more frequently lowers risk</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Continuous delivery antipatterns</h3>
-                    <ul>
-                        <li>Deploying software manually</li>
-                        <li>Manual configuration of production environments</li>
-                        <li>Deploying to a production-like environment only after development is complete</li>
-                    </ul>
-                </section>
-                <section class="image-slide">
-                    <h2>DevOps</h2>
-                    <img src="img/picture1_1.png" alt="DevOps" height="496" width="634">
-                </section>
-                <section class="image-slide">
-                    <h2>DevOps</h2>
-                    <img src="img/devops-common-use-cases-architectures-best-practices-22-638.jpg" alt="DevOps" height="359" width="638">
-                </section>
-                <section>
-                    <h3>Microservices</h3>
-                    <ul>
-                        <li>Each microservice needs a full dev to prod pipeline</li>
-                        <li>You have N microservices</li>
-                        <li>Automation is the only reasonable way to achieve this</li>
-                    </ul>
-                </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Netflix Microservices</h2>
-                    <img src="img/netflix-microservices.jpg" alt="Netflix Microservices" height="600" width="800">
-                </section>
-
-                </section>
-                <section>
-                <section>
-                    <h3>How automation helps organisations succeed</h3>
-                    <ul>
-                        <li>Achieve high deployment frequency</li>
-                        <li>Decouple deployments from releases</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>High deployment frequency</h3>
-                    <ul>
-                        <li>Frequent releases of small features</li>
-                        <li>Fast delivery of value to the customer</li>
-                        <li>Per release risk is lower</li>
-                        <li>Faster MTTR</li>
-                        <li>Shorter feedback loops to validate value for users</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Faster and better?</h3>
-                    <p>Jez Humbles research on high performing organizations shows that faster and better is possible.</p>
-                    <ul>
-                        <li>Higher Quality</li>
-                        <li>Faster Delivery</li>
-                        <li>Greater Business Responsiveness</li>
-                        <li>Reduced Costs</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Whiteboard writeup</h3>
-                    <p>Lets take a minute for everyone to come up to the whiteboard and write a word or phrase about automation.</p>
-                </section>
-                <section>
-                    <h3>Recommended reading</h3>
-                    <ul>
-                        <li>Continuous Delivery by David Farley and Jez Humble</li>
-                        <li>The DevOps Handbook by Gene Kim, Jez Humble, Patrick Debois and John Willis</li>
-                        <li>Lean Enterprise by Barry O'Reilly, Jez Humble, and Joanne Molesky</li>
-                        <li>The Phoenix Project by Gene Kim, George Spafford, and Kevin Behr</li>
-                    </ul>
-                </section>
-                </section>
-
+               
                 <section>
                 <section>
                     <h3>Types of Automation</h3>
@@ -390,6 +308,243 @@
                 </section>
 
                 <section>
+                    <section>
+                        <h3>
+                            What is Ansible?
+                        </h3>
+                    </section>
+                    <section>
+                        <h3>
+                            Ansible is a tool for:
+                        </h3>
+                        <ul>
+                            <li>Configuration management</li>
+                            <li>Deployment</li>
+                            <li>Orchestration</li>
+                            <li>Provisioning</li>
+                        </ul>
+                    </section>
+                <section>
+                    <h3>Ansible Basics</h3>
+                    <ul>
+                        <li>Based on Python</li>
+                        <li>Agentless (nothing to install on remote host)</li>
+                        <li>Only requires SSH and Python 2.4 or 2.5</li>
+                        <li><em>Push</em> based</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Ansible Basics</h3>
+                        <ul>
+                            <li>SSH to a host or list of hosts (group) and execute commands</li>
+                            <li>Inventories: a list of hosts</li>
+                                <ul>
+                                    <li>/etc/ansible/hosts</li>
+                                </ul>
+                            <li>ansible vs. ansible-playbook</li>
+                                <ul>
+                                    <li>ad hoc commands (cssh style)</li>
+                                    <li>commands in a playbook</li>
+                                </ul>
+                            </li>
+                        </ul>
+                </section>
+                <section>
+                    <h3>Ansible Basics</h3>
+                    <ul>
+                        <li>Task - an action to perform</li>
+                        <li>Module - the code that performs a task</li>
+                        <li>Role - a reusable collection of tasks that acomplish a goal</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Ansible Basics</h3>
+                    <ul>
+                        <li>Play - a group of tasks and optionally roles to run on a specific host or hosts</li>
+                        <li>Playbook - file containing one or more plays</li>
+                        <li>Ad-hoc command - a way of running a single task</li>
+                        <li>Inventory - a list of hosts and groups of hosts available to run plays on</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Playbooks</h3>
+                        <ul>
+                            <li>A DSL expressed as YAML</li>
+                            <ul>
+                                <li>Plays</li>
+                                <ul>
+                                    <li>Hosts</li>
+                                    <li>Variables</li>
+                                    <li>Encrypted Variables (Vault)</li>
+                                    <li>Tasks</li>
+                                    <li>Includes</li>
+                                    <li>Roles</li>
+                                    <li>Handlers (multiple notifies will only trigger one reload at end of play)</li>
+                                </ul>
+                            </ul>
+                        </ul>
+                </section>
+                <section>
+                    <h3>Modules</h3>
+                    <ul>
+                        <li>Map to tasks</li>
+                        <li>Blob of python</li>
+                        <li>SCP to temporary directory on target host</li>
+                        <li>Execute python on target host</li>
+                        <li>Returns JSON</li>
+                        <li>Code removed from target host</li>
+                        <li>Local Ansible evaluates returned JSON</li>
+                        <li>Output ok/changed/failed for task based on returned values</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Other features</h3>
+                    <ul>
+                        <li>Templates (jinja2)</li>
+                        <li>Conditionals (when:)</li>
+                        <li>Loops (with_items:)</li>
+                    </ul>
+                </section>
+                </section>
+                <section>
+                <section>
+                    <h3>What does Automation enable?</h3>
+                    <ul>
+                        <li>Immutable Infrastructure</li>
+                        <li>Continuous Integration</li>
+                        <li>Continuous Delivery</li>
+                        <li>Continuous Deployment</li>
+                        <li>A key DevOps practice</li>
+                        <li>Essential to Microservice deployment at scale</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Immutable Infrastructure</h3>
+                    <ul>
+                        <li><a href="https://blog.engineyard.com/2014/pets-vs-cattle">Cattle vs pets</a></li>
+                        <li><a href="http://martinfowler.com/bliki/SnowflakeServer.html">Snowflake Servers</a> vs. <a href="http://martinfowler.com/bliki/PhoenixServer.html">Phoenix Servers</a></li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Cattle vs Pets</h2>
+                    <img src="img/servers_pets_or_cattle.jpg" alt="Cattle vs Pets" height="600" width="800">
+                </section>
+                <section>
+                    <h3>Immutable Infrastructure</h3>
+                    <ul>
+                        <li>The environment is defined in code (Infrastructure as Code)</li>
+                        <li>If you need to change <em>anything</em> you create a new instance and destroy the old one</li>
+                        <li>Stop Configuration Drift</li>
+                        <li>Practice failure and iterate</li>
+                        <li>Declarative</li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Immutable Infrastructure</h2>
+                    <img src="img/immutable_infrastructure.gif" alt="Immutable Infrastructure" height="600" width="800">
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Blue-green deployments</h2>
+                    <img src="img/blue_green_deployments.png" alt="Blue / Green Deployments" height="600" width="800">
+                    <aside class="notes" >
+                        Blue-green deployment is a technique that reduces downtime and risk by running two identical production environments called Blue and Green. At any time, only one of the environments is live, with the live environment serving all production traffic. For this example, Blue is currently live and Green is idle.
+                    </aside>
+                </section>
+                <section>
+                    <h3>Continuous integration</h3>
+                    <ul>
+                        <li>Trunk based development</li>
+                        <li>Every developer commit triggers a merge/build/test cycle</li>
+                        <li>Automated testing</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Continuous delivery/deployment</h3>
+                    <ul>
+                        <li>Automated Pipeline from developer commit to production deploy</li>
+                        <li>Requires lots of automated tests</li>
+                        <li>Deploying more frequently lowers risk</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Continuous delivery antipatterns</h3>
+                    <ul>
+                        <li>Deploying software manually</li>
+                        <li>Manual configuration of production environments</li>
+                        <li>Deploying to a production-like environment only after development is complete</li>
+                    </ul>
+                </section>
+                <section class="image-slide">
+                    <h2>DevOps</h2>
+                    <img src="img/picture1_1.png" alt="DevOps" height="496" width="634">
+                </section>
+                <section class="image-slide">
+                    <h2>DevOps</h2>
+                    <img src="img/devops-common-use-cases-architectures-best-practices-22-638.jpg" alt="DevOps" height="359" width="638">
+                </section>
+                <section>
+                    <h3>Microservices</h3>
+                    <ul>
+                        <li>Each microservice needs a full dev to prod pipeline</li>
+                        <li>You have N microservices</li>
+                        <li>Automation is the only reasonable way to achieve this</li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Netflix Microservices</h2>
+                    <img src="img/netflix-microservices.jpg" alt="Netflix Microservices" height="600" width="800">
+                </section>
+
+                </section>
+                <section>
+                <section>
+                    <h3>How automation helps organisations succeed</h3>
+                    <ul>
+                        <li>Achieve high deployment frequency</li>
+                        <li>Decouple deployments from releases</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>High deployment frequency</h3>
+                    <ul>
+                        <li>Frequent releases of small features</li>
+                        <li>Fast delivery of value to the customer</li>
+                        <li>Per release risk is lower</li>
+                        <li>Faster MTTR</li>
+                        <li>Shorter feedback loops to validate value for users</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Faster and better?</h3>
+                    <p>Jez Humbles research on high performing organizations shows that faster and better is possible.</p>
+                    <ul>
+                        <li>Higher Quality</li>
+                        <li>Faster Delivery</li>
+                        <li>Greater Business Responsiveness</li>
+                        <li>Reduced Costs</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Whiteboard writeup</h3>
+                    <p>Lets take a minute for everyone to come up to the whiteboard and write a word or phrase about automation.</p>
+                </section>
+                <section>
+                    <h3>Recommended reading</h3>
+                    <ul>
+                        <li>Continuous Delivery by David Farley and Jez Humble</li>
+                        <li>The DevOps Handbook by Gene Kim, Jez Humble, Patrick Debois and John Willis</li>
+                        <li>Lean Enterprise by Barry O'Reilly, Jez Humble, and Joanne Molesky</li>
+                        <li>The Phoenix Project by Gene Kim, George Spafford, and Kevin Behr</li>
+                    </ul>
+                </section>
+                </section>
+
+
+                <section>
                 <section>
                     <h3>Container Orchestration Engines</h3>
                     <ul>
@@ -511,89 +666,6 @@ $ sudo apt-get purge ansible
                 </section>
                 </section>
 
-                <section>
-                <section>
-                    <h3>Ansible Basics</h3>
-                    <ul>
-                        <li>General purpose Automation tool</li>
-                        <li>Agentless</li>
-                        <li>Python and SSH</li>
-                        <li>Push not poll</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Ansible Basics</h3>
-                        <ul>
-                            <li>SSH to a host or list of hosts (group) and execute commands</li>
-                            <li>Inventories: a list of hosts</li>
-                                <ul>
-                                    <li>/etc/ansible/hosts</li>
-                                </ul>
-                            <li>ansible vs. ansible-playbook</li>
-                                <ul>
-                                    <li>ad hoc commands (cssh style)</li>
-                                    <li>commands in a playbook</li>
-                                </ul>
-                            </li>
-                        </ul>
-                </section>
-                <section>
-                    <h3>Ansible Basics</h3>
-                    <ul>
-                        <li>Task - an action to perform</li>
-                        <li>Module - the code that performs a task</li>
-                        <li>Role - a reusable collection of tasks that acomplish a goal</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Ansible Basics</h3>
-                    <ul>
-                        <li>Play - a group of tasks and optionally roles to run on a specific host or hosts</li>
-                        <li>Playbook - file containing one or more plays</li>
-                        <li>Ad-hoc command - a way of running a single task</li>
-                        <li>Inventory - a list of hosts and groups of hosts available to run plays on</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Playbooks</h3>
-                        <ul>
-                            <li>A DSL expressed as YAML</li>
-                            <ul>
-                                <li>Plays</li>
-                                <ul>
-                                    <li>Hosts</li>
-                                    <li>Variables</li>
-                                    <li>Encrypted Variables (Vault)</li>
-                                    <li>Tasks</li>
-                                    <li>Includes</li>
-                                    <li>Roles</li>
-                                    <li>Handlers (multiple notifies will only trigger one reload at end of play)</li>
-                                </ul>
-                            </ul>
-                        </ul>
-                </section>
-                <section>
-                    <h3>Modules</h3>
-                    <ul>
-                        <li>Map to tasks</li>
-                        <li>Blob of python</li>
-                        <li>SCP to temporary directory on target host</li>
-                        <li>Execute python on target host</li>
-                        <li>Returns JSON</li>
-                        <li>Code removed from target host</li>
-                        <li>Local Ansible evaluates returned JSON</li>
-                        <li>Output ok/changed/failed for task based on returned values</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Other features</h3>
-                    <ul>
-                        <li>Templates (jinja2)</li>
-                        <li>Conditionals (when:)</li>
-                        <li>Loops (with_items:)</li>
-                    </ul>
-                </section>
-                </section>
 
                 <section>
                 <section>
@@ -1057,7 +1129,7 @@ $ sudo chown -R root:root /var/www/html
 
             </div>
 
-            <div class="footer">
+            <!--<div class="footer">
                 <div class="scarf">
                     <div class="scarf-orange"></div>
                     <div class="scarf-yellow"></div>
@@ -1066,11 +1138,11 @@ $ sudo chown -R root:root /var/www/html
                 </div>
                 <div class="footer-inner">
                     <div class="catalyst-logo-footer">Catalyst</div>
-                    <!-- NOTE: use only one of these. open-source-technologists is the standard -->
+                    [> NOTE: use only one of these. open-source-technologists is the standard <]
                     <div class="open-source-technologists">open source technologists</div>
-                    <!-- <div class="freedom-to-innovate">freedom to innovate</div> -->
+                    [> <div class="freedom-to-innovate">freedom to innovate</div> <]
                 </div>
-            </div>
+            </div>-->
         </div>
 
 
