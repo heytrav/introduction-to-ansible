@@ -385,19 +385,6 @@
                         </ul>
                 </section>
                 <section>
-                    <h3>Modules</h3>
-                    <ul>
-                        <li>Map to tasks</li>
-                        <li>Blob of python</li>
-                        <li>SCP to temporary directory on target host</li>
-                        <li>Execute python on target host</li>
-                        <li>Returns JSON</li>
-                        <li>Code removed from target host</li>
-                        <li>Local Ansible evaluates returned JSON</li>
-                        <li>Output ok/changed/failed for task based on returned values</li>
-                    </ul>
-                </section>
-                <section>
                     <h3>Other features</h3>
                     <ul>
                         <li>Templates (jinja2)</li>
@@ -533,6 +520,291 @@ $ /home/train/ansible-venv/bin/ansible --version
                         <li>Use pip or a PPA to get a recent version</li>
                         <li>Ansible is developed and released on a flexible 4 months release cycle</li>
                         <li>Ansible supports the two most recent major stable releases</li>
+                    </ul>
+                </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>
+                            First steps with Ansible
+                        </h2>
+                    </section>
+                    <section>
+                        <h3>
+                           Simulating a remote server
+                        </h3>
+
+                        <div >
+                            <img src="img/one-vagrant-vm.png" />
+                        </div>
+
+                        <div >
+                            <ul>
+                                <li>
+                                    Perform basic operations with Ansible 
+                                </li>
+                                <li>
+                                    Our remote server will actually be a VM
+                                    running on your machine
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    </section>
+                    <section>
+                        <h3>
+                            Simulating a remote server
+                        </h3>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">
+                                                 For demo purposes in this course we will be using <a
+                                                     href="https://www.vagrantup.com/intro/index.html">Vagrant</a> to simulate
+                                                 running 1 or more remote hosts.
+                            </li>
+                            <li class="fragment" data-fragment-index="0">
+                                Instance(s) use a centos 7 image
+                            </li>
+                        </ul>
+
+                        <pre class="fragment" data-fragment-index="1"><code data-trim>
+                                $ cd $WORKDIR/sample-code/lesson1
+                                $ vagrant up --provider virtualbox
+                                .
+                                .
+                                .
+                                
+                                ==&gt; default: Machine booted and ready!
+                            </code></pre>
+                            <p class="fragment" data-fragment-index="2">
+                            If all went well you now have a remote host to manage!
+                            </p>
+                    </section>
+                    <section>
+                        <h4>
+                            Connecting Ansible to your host
+                        </h4>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">Ansible creates SSH connection with remote hosts</li>
+                            <li class="fragment" data-fragment-index="1">Need
+                                a way to tell Ansible how to connect to our
+                                Vagrant VM via SSH</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
+                            The Inventory File
+                        </h3>
+                        <h4>
+                            Telling Ansible about remote hosts
+                        </h4>
+                        <div style="width:50%;float:left;"><ul>
+                                    <li>
+                                        <code>.ini</code> syntax
+                                    </li>
+                                    <li>identifies hosts for ansible to interact with</li>
+                                    
+                                    <li>provides optional arguments for
+                                        ansible to connect to hosts</li>
+
+                            </ul></div>
+                            <div style="width:50%;float:left">
+                                <pre><code data-trim>
+                                    # sample inventory
+                                    [web]
+                                    web1.mycompany.com ansible_host=152.240.43.12 opt2=arg2
+                                    web2.mycompany.com
+
+                                    [database]
+                                    db1.mycompany.com
+
+                                    [app]
+                                    app.mycompany.com
+                                </code></pre>
+                            </div>
+
+
+                    </section>
+                    <section>
+                        <h3>
+                            Our first inventory file
+                        </h3>
+                        <pre><code data-trim>
+                           $ cd $WORKDIR/sample-code/lesson1/ansible
+                           $ ls
+                           hosts
+                        </code></pre>
+                        <ul>
+                            <li>
+                                Our inventory specifies 1 remote host: <em>testserver</em>
+                            </li>
+                            <li>Provides optional arguments for connecting</li>
+                            <li>
+                                Because Vagrant we need to
+                                specify some additional connection options
+                                <ul>
+                                    <li>host location</li>
+                                    <li>port</li>
+                                    <li>user</li>
+                                    <li>private key</li>
+                                </ul>
+                            </li>
+                            
+                        </ul>
+
+                    </section>
+                    
+                    <section>
+                        <h3>
+                            Tell Ansible how to connect to VM
+                        </h3>
+                        
+                        <pre><code data-trim>$ vagrant ssh-config
+Host default
+    HostName ???
+    User ???
+    Port ???
+    .
+    IdentityFile ???
+    .
+    
+                        </code></pre>
+                        <p>
+                        Use the values from your host to fill in missing
+                        arguments in <code>ansible/hosts</code>
+                        </p>
+                    </section>
+                    <section>
+                        <h4>
+                            Running Ansible commands
+                        </h4>
+                        ansible &lt;host pattern&gt; [OPTIONS]
+
+                        <table>
+                            <tr>
+                                <th>Option    </th>
+                                <th>Argument                  </th>
+                                <th>Description</th>
+                            </tr>
+                            <tr><td> -m              </td>  <td>string</td>  <td>  module name to execute; default to <em>command</em> module</td></tr>
+                            <tr><td> -a              </td>  <td>string</td>  <td>  arguments to module</td></tr>
+                            <tr><td> -i              </td>  <td>string</td> <td>                 path to inventory file </td></tr>
+                            <tr><td> -b              </td>  <td></td>        <td>         Run operations with become</td></tr>
+                            <tr><td> --become-method</td> <td>string</td>
+                                <td>Which become method to use. Default sudo                                 </td></tr>
+                        </table>
+                    </section>
+                    <section>
+                        <h3>
+                            Exercise: Ping our remote host
+                        </h3>
+                        <pre><code data-trim>$ ansible testserver -i ansible/hosts -m ping
+testserver | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+                        </code></pre>
+                        <p class="fragment" data-fragment-index="0">
+                        <a
+                                            href="https://docs.ansible.com/ansible/latest/ping_module.html"><em>ping</em></a>
+                        is an example of an Ansible module that just checks
+                        whether or not Ansible can create a
+                        SSH sessions with hosts
+                        </p>
+
+                    </section>
+
+                <section>
+                    <h3>Ansible Modules</h3>
+                    <ul>
+                        <li>Blob of python that performs a very specific action</li>
+                        <li>SCP to temporary directory on target host</li>
+                        <li>Execute python on target host</li>
+                        <li>Returns JSON</li>
+                        <li>Code removed from target host</li>
+                        <li>Local Ansible evaluates returned JSON</li>
+                        <li>Output ok/changed/failed for task based on returned values</li>
+                        <li>Ship with Ansible</li>
+                        <li><a href="https://docs.ansible.com/ansible/latest/list_of_all_modules.html">An exhaustive list</a></li>
+
+                    </ul>
+                </section>
+                <section>
+                    <h3>
+                        The command module
+                    </h3>
+                        <h4>
+                            Execute a command on a remote node
+                        </h4>
+                    <ul>
+                        <li>
+                            The default module if you do not explicitly pass one
+                            to ansible. 
+                        </li><li>
+                            The following two commands are the
+                            same:
+                            <ul>
+                                <li><code>ansible testserver -m command -a uptime</code></li>
+                                <li><code>ansible testserver -a uptime</code></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a
+                               href="https://docs.ansible.com/ansible/latest/command_module.html">Documentation</a>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h4>
+                        Exercise: Get tail of system messages on your vagrant host
+                    </h4>
+                    <p>
+                    Note: on ubuntu this will probably be /var/log/syslog. On
+                    centos it will be /var/log/messages
+                    </p>
+                    <pre class="fragment" data-fragment-index="0"><code data-trim>
+                        $ ansible testserver -i ansible/hosts -b \
+                            -a "tail /var/log/messages"
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>
+                        Installing stuff with Ansible
+                    </h3>
+                    <p>
+                    Let's install and start nginx on our test instance
+                    </p>
+                    <pre><code data-trim>
+                        $ ansible testserver -i ansible/hosts -b -m yum \
+                            -a "name=epel-release state=present update_cache=yes"
+                        $ ansible testserver -i ansible/hosts -b -m yum \
+                            -a "name=nginx state=present"
+                        $ ansible testserver -i ansible/hosts -b -m service \
+                            -a "name=nginx state=restarted"
+                        $ vagrant ssh
+                        [vagrant@localhost]$ ps waux | grep nginx
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>
+                        Summary
+                    </h3>
+                    <pre><code data-trim>
+                            $ vagrant halt
+                        </code></pre>
+
+                    <ul>
+                        <li>
+                            This section has given you a small taste of using Ansible
+                        </li>
+                        <li>
+                            Interacted with a simulated remote server
+                            <ul>
+                                <li>Check if SSH works</li>
+                                <li>Install OS packages</li>
+                                <li>Start services</li>
+                            </ul>
+                        </li>
                     </ul>
                 </section>
                 </section>

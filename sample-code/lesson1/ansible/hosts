@@ -1,0 +1,2 @@
+# hostname  option1=arg1 option2=arg2 ... optionx=argx
+testserver ansible_host=? ansible_port=? ansible_user=?  ansible_private_key_file=?
