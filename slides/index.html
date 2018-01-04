@@ -291,7 +291,7 @@
                 </section>
                 <section>
                     <h3>Teachback - Automation tools</h3>
-                    <p>Choose an automation tool to research, spend a few minutes reading up on it, then report back to the class describing its use case and five important facts about it.</p>
+                    <aside class="notes">Choose an automation tool to research, spend a few minutes reading up on it, then report back to the class describing its use case and five important facts about it.</aside>
                     <p>Choose from the list below or choose something yourself.</p>
                     <ul>
                         <li><a href="https://www.terraform.io"></a>Terraform</li>
@@ -406,6 +406,199 @@
                     </ul>
                 </section>
                 </section>
+
+<section>
+                <section>
+                    <h3>Installing Ansible</h3>
+                      
+
+                    <ul>
+                        <li>
+                            Target Ansible version &ge; 2.4.2.0
+                        </li>
+                        <li><a
+                                href="http://docs.ansible.com/ansible/latest/intro_installation.html">
+                                Offical documentation</a></li>
+                    
+                        <li>
+                            Explore a couple approaches using:
+                            <ul>
+                                <li>OS package manager</li>
+                                <li>Python package manager (pip)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <aside class="notes">
+                        Users should become familiar with Ansible's online docs,
+                        therefore many slides will reference those pages directly.
+                    </aside>
+                </section>
+                <section>
+                    <h3>Requirements</h3>
+                    <ul>
+                        <li>Requires Python 2.6 or 2.7 on the control machine</li>
+                        <li>Requires Python 2.6 on managed nodes</li>
+                        <li>Python 3 support is currently a tech preview</li>
+                    </ul>
+                </section>
+<section>
+                    <h3>Install Ansible using OS packages</h3>
+                    <p>
+                    You may need to remove default OS packages
+                    </p>
+                    <pre><code data-trim contenteditable>
+$ sudo apt-get install ansible
+$ which ansible
+/usr/bin/ansible
+$ ansible --version
+ansible 1.5.4
+$ sudo apt-get purge ansible
+                    </code></pre>
+                    <p>
+                    Add PPA and install from latest source for OS (See
+                    <a href="http://docs.ansible.com/ansible/latest/intro_installation.html#installing-the-control-machine">documentation</a>)
+                    </p>
+                </section>
+                <section>
+                    <h3>Installing Ansible in Python virtual environment</h3>
+                    <ul>
+                        <li><a href="https://pip.pypa.io/en/stable/">PIP</a> - PyPAs <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for installing Python packages.</li>
+                        <li><a href="https://pypi.python.org/pypi/virtualenv">Virtualenv</a> - PyPAs <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for creating isolated Python environments</li>
+                        <li>PyPA = Python Packaging Authority</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Install Python Tools</h3>
+                    <pre><code data-trim contenteditable>
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get install python-pip python-virtualenv
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Install Ansible</h3>
+                    <pre><code data-trim contenteditable>
+$ virtualenv ansible-venv
+$ source ansible-venv/bin/activate
+(ansible-venv) $ pip install -U pip
+(ansible-venv) $ pip install ansible
+                    </code></pre>
+                    <ul>
+                        <li>Create a python virtual environment named <em>ansible-venv</em></li>
+                        <li>Activate ansible-venv as base of Python interpreter</li>
+                        <li>Update Python package manager (pip)</li>
+                        <li>Use Python package manager to install Ansible</li>
+                    </ul>
+
+                </section>
+                <!--<section>
+                    <h3>Understanding Virtual Environments</h3>
+                    <pre><code data-trim contenteditable>
+$ which ansible
+/home/train/ansible-venv/bin/ansible
+$ ansible --version
+ansible 2.4.1.0
+  config file = None
+  configured module search path = [u'/home/train/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/train/ansible-venv/local/lib/python2.7/site-packages/ansible
+  executable location = /home/train/ansible-venv/bin/ansible
+  python version = 2.7.6 (default, Oct 26 2016, 20:30:19) [GCC 4.8.4]
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Understanding Virtual Environments</h3>
+                    <pre><code data-trim contenteditable>
+$ env | grep PATH
+PATH=/home/train/ansible-venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+$ which ansible
+/home/train/ansible-venv/bin/ansible
+$ deactivate
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Understanding Virtual Environments</h3>
+                    <pre><code data-trim contenteditable>
+$ which ansible
+$ ansible --version
+The program 'ansible' is currently not installed. You can install it by typing:
+sudo apt install ansible
+$ /home/train/ansible-venv/bin/ansible --version
+                    </code></pre>
+                </section>-->
+                
+                <section>
+                    <h3>Releases</h3>
+                    <ul>
+                        <li>It is worth keeping up to date with Ansible <a href="https://docs.ansible.com/ansible/latest/release_and_maintenance.html">releases</a></li>
+                        <li>Use pip or a PPA to get a recent version</li>
+                        <li>Ansible is developed and released on a flexible 4 months release cycle</li>
+                        <li>Ansible supports the two most recent major stable releases</li>
+                    </ul>
+                </section>
+                </section>
+
+<section>
+                <section>
+                    <h3>Running Ansible</h3>
+                    <pre><code data-trim contenteditable>
+$ ansible --version
+ansible 2.4.2.0
+  config file = None
+  configured module search path
+  .
+  .
+  python version = 2.7.12 (default, Nov 20 2017, 18:23:56) [GCC 5.4.0 20160609]
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Inline documentation</h3>
+                    <pre><code data-trim contenteditable>
+$ ansible --help
+Usage: ansible <host-pattern> [options]
+
+Define and run a single task 'playbook' against a set of hosts
+
+Options:
+  -a MODULE_ARGS, --args=MODULE_ARGS
+                        module arguments
+  -i INVENTORY, --inventory=INVENTORY, --inventory-file=INVENTORY
+                        specify inventory host path or comma separated host
+                        list. --inventory-file is deprecated
+  --list-hosts          outputs a list of matching hosts; does not execute
+                        anything else
+  -m MODULE_NAME, --module-name=MODULE_NAME
+                        module name to execute (default=command)
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Ad hoc commands</h3>
+                    <pre><code data-trim contenteditable>
+$ cat ansible/hosts
+$ ansible -i ansible/hosts --list-hosts all
+  hosts (1):
+      localhost
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Ad hoc commands</h3>
+                    <pre><code data-trim contenteditable>
+$ ansible localhost -i hosts -m ping
+localhost | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Ad hoc commands</h3>
+                    <pre><code data-trim contenteditable>
+$ ansible localhost -i hosts -a 'uname -a'
+localhost | SUCCESS | rc=0 >>
+Linux first-instance 3.13.0-135-generic #184-Ubuntu SMP Wed Oct 18 11:55:51 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+                    </code></pre>
+                </section>
+                </section>
+
                 <section>
                 <section>
                     <h3>What does Automation enable?</h3>
@@ -544,7 +737,7 @@
                 </section>
 
 
-                <section>
+                <!--<section>
                 <section>
                     <h3>Container Orchestration Engines</h3>
                     <ul>
@@ -565,164 +758,12 @@
                         <li>Apache Mesos / DCOS</li>
                     </ul>
                 </section>
-                </section>
+                </section>-->
 
-                <section>
-                <section>
-                    <h3>Installing Ansible</h3>
-                    <ul>
-                        <li><a href="http://docs.ansible.com/ansible/latest/intro_installation.html">http://docs.ansible.com/ansible/latest/intro_installation.html</a></li>
-                        <li>Install on the control machine</li>
-                        <li>Use pip so we get the latest versions (including cloud libraries)</li>
-                        <li>Install in a python virtual environment</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Requirements</h3>
-                    <ul>
-                        <li>Requires Python 2.6 or 2.7 on the control machine</li>
-                        <li>Requires Python 2.6 on managed nodes</li>
-                        <li>Python 3 support is currently a tech preview</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Python Tools</h3>
-                    <ul>
-                        <li><a href="https://pip.pypa.io/en/stable/">PIP</a> - PyPAs <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for installing Python packages.</li>
-                        <li><a href="https://pypi.python.org/pypi/virtualenv">Virtualenv</a> - PyPAs <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for creating isolated Python environments</li>
-                        <li>PyPA = Python Packaging Authority</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Install Python Tools</h3>
-                    <pre><code data-trim contenteditable>
-$ sudo apt-get update
-$ sudo apt-get upgrade
-$ sudo apt-get install python-pip python-virtualenv
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Install Ansible</h3>
-                    <pre><code data-trim contenteditable>
-$ virtualenv ansible-venv
-$ source ansible-venv/bin/activate
-$ pip install -U pip
-$ pip install ansible
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Understanding Virtual Environments</h3>
-                    <pre><code data-trim contenteditable>
-$ which ansible
-/home/train/ansible-venv/bin/ansible
-$ ansible --version
-ansible 2.4.1.0
-  config file = None
-  configured module search path = [u'/home/train/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
-  ansible python module location = /home/train/ansible-venv/local/lib/python2.7/site-packages/ansible
-  executable location = /home/train/ansible-venv/bin/ansible
-  python version = 2.7.6 (default, Oct 26 2016, 20:30:19) [GCC 4.8.4]
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Understanding Virtual Environments</h3>
-                    <pre><code data-trim contenteditable>
-$ env | grep PATH
-PATH=/home/train/ansible-venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-$ which ansible
-/home/train/ansible-venv/bin/ansible
-$ deactivate
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Understanding Virtual Environments</h3>
-                    <pre><code data-trim contenteditable>
-$ which ansible
-$ ansible --version
-The program 'ansible' is currently not installed. You can install it by typing:
-sudo apt install ansible
-$ /home/train/ansible-venv/bin/ansible --version
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Install Ansible using OS packages</h3>
-                    <pre><code data-trim contenteditable>
-$ sudo apt-get install ansible
-$ which ansible
-/usr/bin/ansible
-$ ansible --version
-ansible 1.5.4
-$ sudo apt-get purge ansible
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Releases</h3>
-                    <ul>
-                        <li>It is worth keeping up to date with Ansible <a href="https://docs.ansible.com/ansible/latest/release_and_maintenance.html">releases</a></li>
-                        <li>Use pip or a PPA to get a recent version</li>
-                        <li>Ansible is developed and released on a flexible 4 months release cycle</li>
-                        <li>Ansible supports the two most recent major stable releases</li>
-                    </ul>
-                </section>
-                </section>
+                
 
 
-                <section>
-                <section>
-                    <h3>Running Ansible</h3>
-                    <pre><code data-trim contenteditable>
-$ source ansible-venv/bin/activate
-$ ansible --version
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Ad hoc commands</h3>
-                    <pre><code data-trim contenteditable>
-$ ansible --help
-Usage: ansible <host-pattern> [options]
-
-Define and run a single task 'playbook' against a set of hosts
-
-Options:
-  -a MODULE_ARGS, --args=MODULE_ARGS
-                        module arguments
-  -i INVENTORY, --inventory=INVENTORY, --inventory-file=INVENTORY
-                        specify inventory host path or comma separated host
-                        list. --inventory-file is deprecated
-  --list-hosts          outputs a list of matching hosts; does not execute
-                        anything else
-  -m MODULE_NAME, --module-name=MODULE_NAME
-                        module name to execute (default=command)
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Ad hoc commands</h3>
-                    <pre><code data-trim contenteditable>
-$ cat hosts
-$ ansible -i hosts --list-hosts all
-  hosts (1):
-      localhost
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Ad hoc commands</h3>
-                    <pre><code data-trim contenteditable>
-$ ansible localhost -i hosts -m ping
-localhost | SUCCESS => {
-    "changed": false, 
-    "ping": "pong"
-}
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Ad hoc commands</h3>
-                    <pre><code data-trim contenteditable>
-$ ansible localhost -i hosts -a 'uname -a'
-localhost | SUCCESS | rc=0 >>
-Linux first-instance 3.13.0-135-generic #184-Ubuntu SMP Wed Oct 18 11:55:51 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
-                    </code></pre>
-                </section>
-                </section>
+                
 
                 <section>
                 <section>
