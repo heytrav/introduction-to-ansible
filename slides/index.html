@@ -336,7 +336,7 @@
                 <section>
                     <h3>Ansible Basics</h3>
                     <h4>
-                        How Ansible works
+                        Executing a basic task
                     </h4>
                         <ul>
                             <li>Create SSH connection to a host or list of
@@ -355,31 +355,58 @@
                         </ul>
                 </section>
                 <section>
-                    <img src="" />
+                    <h3>
+                        Running Ansible
+                    </h3>
+                    <ul>
+                        <li class="fragment" data-fragment-index="0">
+                            There are two ways to run ansible:
+                        </li>
+                        <li class="fragment" data-fragment-index="1">
+                            ad hoc
+                            <ul>
+                                <li>Run a single task</li>
+                                <li>Use <code>ansible</code> on the command line</li>
+                            </ul>
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            playbook
+                            <ul>
+                                <li>Run multiple tasks sequentially</li>
+                                <li>Use <code>ansible-playbook</code> on the command line</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                       
                 </section>
                 <section>
                     <h3>Ansible Basics</h3>
                     <h4>
                         Terminology
+                    </h4>
+                    <div style="width:50%;float:left;">
+                        <dl>
+                            <dt>Task      </dt> <dd>   An action to perform</dd>
+                            <dt>Play      </dt> <dd>   a collection of tasks</dd>
+                            <dt>Playbook</dt>   <dd> YAML file containing one or more plays</dd>
+                        </dl>
+                    </div>
+                    <div style="width:50%;float:left;">
+                        <img src="img/ansible-workflow.png" />
+                    </div>
+                </section>
+                <section>
+                    <h3>Ansible Basics</h3>
+                    <h4>
+                        More Terminology
                     </h4>
                     <dl>
-                        <dt>Task      </dt> <dd>   An action to perform</dd>
-                        <dt>Play      </dt> <dd>   a collection of tasks</dd>
-                        <dt>Playbook</dt>   <dd> YAML file containing one or more plays</dd>
+                        <dt>Module    </dt> <dd>Blob of Python code which is executed to perform task</dd>
+                        <dt>Inventory </dt> <dd>File containing hosts and groups of hosts to run tasks</dd>
                     </dl>
-                </section>
-Ansible Basics
-                <section>
-                    <h3>Ansible Basics</h3>
-                    <h4>
-                        Terminology
-                    </h4>
-                    <ul>
-                        <li>Play - a group of tasks and optionally roles to run on a specific host or hosts</li>
-                        <li>Playbook - file containing one or more plays</li>
-                        <li>Ad-hoc command - a way of running a single task</li>
-                        <li>Inventory - a list of hosts and groups of hosts available to run plays on</li>
-                    </ul>
+                    
                 </section>
                 <section>
                     <h3>Playbooks</h3>
