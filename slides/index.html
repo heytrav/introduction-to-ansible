@@ -713,6 +713,31 @@ testserver | SUCCESS => {
 
                     </section>
 
+                    <section>
+                        <h3>
+                            Simplifying the inventory file
+                        </h3>
+                        <h4>
+                            ansible.cfg file
+                        </h4>
+                        <li>Can move some config from inventory file</li>
+                        <li>4 possible locations in order of priority
+                            <ul>
+                                <li>File specified by ANSIBLE_CONFIG</li>
+                                <li>Current directory (ansible.cfg)</li>
+                                <li>Home directory (.ansible.cfg)</li>
+                                <li>/etc/ansible/ansible.cfg</li>
+                            </ul>
+                        </li>
+                    </section>
+                    <section>
+                        <pre><code data-trim>
+                            $ cp $WORKDIR/ansible.cfg.sample $WORKDIR/lesson1/ansible.cfg
+                            $ cat $WORKDIR/lesson1/hosts
+                            testserver ansible_host=127.0.0.1 ansible_port=2200
+                        </code></pre>
+                    </section>
+
                 <section>
                     <h3>Ansible Modules</h3>
                     <ul>
@@ -809,6 +834,22 @@ testserver | SUCCESS => {
                 </section>
                 </section>
 
+                <section>
+                    <section>
+                        <h2>
+                            Bigger applications
+                        </h2>
+                    </section>
+                    
+
+                    <section>
+                        <pre><code data-trim>
+                            $ cd $WORKDIR/sample-code/lesson2
+                            $ ls ansible
+
+                        </code></pre>
+                    </section>
+                </section>
 <section>
                 <section>
                     <h3>Running Ansible</h3>
