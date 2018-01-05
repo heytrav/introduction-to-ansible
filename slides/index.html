@@ -540,13 +540,18 @@ $ /home/train/ansible-venv/bin/ansible --version
 
                         <div >
                             <ul>
-                                <li>
+                                <li class="fragment" data-fragment-index="0">
                                     Perform basic operations with Ansible 
                                 </li>
-                                <li>
-                                    Our remote server will actually be a VM
-                                    running on your machine
-                                </li>
+                                
+<li class="fragment" data-fragment-index="1">
+                                                 For demo purposes in this course we will be using <a
+                                                     href="https://www.vagrantup.com/intro/index.html">Vagrant</a> to simulate
+                                                  remote hosts.
+                            </li>
+                            <li class="fragment" data-fragment-index="2">
+                                Instance(s) use a centos 7 image
+                            </li>
                             </ul>
                         </div>
                     
@@ -556,14 +561,7 @@ $ /home/train/ansible-venv/bin/ansible --version
                             Simulating a remote server
                         </h3>
                         <ul>
-                            <li class="fragment" data-fragment-index="0">
-                                                 For demo purposes in this course we will be using <a
-                                                     href="https://www.vagrantup.com/intro/index.html">Vagrant</a> to simulate
-                                                 running 1 or more remote hosts.
-                            </li>
-                            <li class="fragment" data-fragment-index="0">
-                                Instance(s) use a centos 7 image
-                            </li>
+                            
                         </ul>
 
                         <pre class="fragment" data-fragment-index="1"><code data-trim>
@@ -574,6 +572,10 @@ $ /home/train/ansible-venv/bin/ansible --version
                                 .
                                 
                                 ==&gt; default: Machine booted and ready!
+                                $ vagrant ssh
+                                [vagrant@localhost]$ exit
+                                $
+
                             </code></pre>
                             <p class="fragment" data-fragment-index="2">
                             If all went well you now have a remote host to manage!
@@ -601,10 +603,17 @@ $ /home/train/ansible-venv/bin/ansible --version
                                     <li>
                                         <code>.ini</code> syntax
                                     </li>
-                                    <li>identifies hosts for ansible to interact with</li>
+                                    <li>Identifies hosts for ansible to interact with</li>
                                     
-                                    <li>provides optional arguments for
-                                        ansible to connect to hosts</li>
+                                    <li>Provides optional arguments 
+                                        <ul>
+                                            <li>connection information</li>
+                                            <li>
+                                                other arbitrary variables for
+                                                specific host
+                                            </li>
+                                        </ul>
+                                    </li>
 
                             </ul></div>
                             <div style="width:50%;float:left">
@@ -629,23 +638,21 @@ $ /home/train/ansible-venv/bin/ansible --version
                             Our first inventory file
                         </h3>
                         <pre><code data-trim>
-                           $ cd $WORKDIR/sample-code/lesson1/ansible
-                           $ ls
-                           hosts
+                            $ cat $WORKDIR/sample-code/lesson1/ansible/hosts
                         </code></pre>
                         <ul>
                             <li>
-                                Our inventory specifies 1 remote host: <em>testserver</em>
+                                Our inventory file specifies 1 remote host: <em>myserver</em>
                             </li>
                             <li>Provides optional arguments for connecting</li>
                             <li>
-                                Because Vagrant we need to
+                                To connect to Vagrant we need to
                                 specify some additional connection options
                                 <ul>
-                                    <li>host location</li>
-                                    <li>port</li>
-                                    <li>user</li>
-                                    <li>private key</li>
+                                    <li><code>ansible_host</code></li>
+                                    <li><code>ansible_user</code></li>
+                                    <li><code>ansible_port</code></li>
+                                    <li><code>ansible_private_key_file</code></li>
                                 </ul>
                             </li>
                             
@@ -674,12 +681,19 @@ Host default
                         </p>
                     </section>
                     <section>
-                        <h4>
+                        <h3>
                             Running Ansible commands
-                        </h4>
-                        ansible &lt;host pattern&gt; [OPTIONS]
+                        </h3>
+                        <p>
+                        <code>ansible &lt;host pattern&gt; [OPTIONS]</code>
+                        </p>
+                        <p class="fragment" data-fragment-index="0">
+                        <em>host pattern</em> can be the name of a specific
+                        host or a <em>group</em> of hosts from the inventory
+                        file
+                        </p>
 
-                        <table>
+                        <table class="fragment" data-fragment-index="1">
                             <tr>
                                 <th>Option    </th>
                                 <th>Argument                  </th>
@@ -694,10 +708,14 @@ Host default
                         </table>
                     </section>
                     <section>
-                        <h3>
+                        <h4>
                             Exercise: Ping our remote host
-                        </h3>
-                        <pre><code data-trim>$ ansible testserver -i ansible/hosts -m ping
+                        </h4>
+                        <p>
+                        Use the <em>ping</em> module to check if our host accepts SSH
+                        connections
+                        </p>
+                        <pre class="fragment" data-fragment-index="0"><code data-trim>$ ansible testserver -i ansible/hosts -m ping
 testserver | SUCCESS => {
     "changed": false,
     "ping": "pong"
@@ -713,41 +731,22 @@ testserver | SUCCESS => {
 
                     </section>
 
-                    <section>
-                        <h3>
-                            Simplifying the inventory file
-                        </h3>
-                        <h4>
-                            ansible.cfg file
-                        </h4>
-                        <li>Can move some config from inventory file</li>
-                        <li>4 possible locations in order of priority
-                            <ul>
-                                <li>File specified by ANSIBLE_CONFIG</li>
-                                <li>Current directory (ansible.cfg)</li>
-                                <li>Home directory (.ansible.cfg)</li>
-                                <li>/etc/ansible/ansible.cfg</li>
-                            </ul>
-                        </li>
-                    </section>
-                    <section>
-                        <pre><code data-trim>
-                            $ cp $WORKDIR/ansible.cfg.sample $WORKDIR/lesson1/ansible.cfg
-                            $ cat $WORKDIR/lesson1/hosts
-                            testserver ansible_host=127.0.0.1 ansible_port=2200
-                        </code></pre>
-                    </section>
 
                 <section>
-                    <h3>Ansible Modules</h3>
+                    <h3>Ansible Module</h3>
                     <ul>
                         <li>Blob of python that performs a very specific action</li>
-                        <li>SCP to temporary directory on target host</li>
-                        <li>Execute python on target host</li>
-                        <li>Returns JSON</li>
-                        <li>Code removed from target host</li>
-                        <li>Local Ansible evaluates returned JSON</li>
-                        <li>Output ok/changed/failed for task based on returned values</li>
+                        <li>
+                            When you run Ansible:
+                            <ul>
+                                <li>SCP to temporary directory on target host</li>
+                                <li>Execute python on target host</li>
+                                <li>Returns JSON</li>
+                                <li>Code removed from target host</li>
+                                <li>Local Ansible evaluates returned JSON</li>
+                                <li>Output ok/changed/failed for task based on returned values</li>
+                            </ul>
+                        </li>
                         <li>Ship with Ansible</li>
                         <li><a href="https://docs.ansible.com/ansible/latest/list_of_all_modules.html">An exhaustive list</a></li>
 
@@ -755,7 +754,7 @@ testserver | SUCCESS => {
                 </section>
                 <section>
                     <h3>
-                        The command module
+                        The <em>command</em> module
                     </h3>
                         <h4>
                             Execute a command on a remote node
@@ -763,7 +762,7 @@ testserver | SUCCESS => {
                     <ul>
                         <li>
                             The default module if you do not explicitly pass one
-                            to ansible. 
+                            to the ansible <code>-m</code> option. 
                         </li><li>
                             The following two commands are the
                             same:
@@ -779,6 +778,37 @@ testserver | SUCCESS => {
                     </ul>
                 </section>
 
+                    <section>
+                        <h3>
+                            Simplifying the inventory file
+                        </h3>
+                        <h4>
+                            ansible.cfg file
+                        </h4>
+                        <ul>
+                            <li>
+                                .ini syntax
+                            </li>
+                            <li>
+                                Specify SSH connection, inventory defaults
+                            </li>
+                            <li>4 possible locations in order of priority
+                                <ul>
+                                    <li>File specified by ANSIBLE_CONFIG</li>
+                                    <li>Current directory (<code>ansible.cfg</code>)</li>
+                                    <li>Home directory (<code>~/.ansible.cfg</code>)</li>
+                                    <li>/etc/ansible/ansible.cfg</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <pre><code data-trim>
+                            $ cp $WORKDIR/ansible.cfg.sample $WORKDIR/lesson1/ansible.cfg
+                            $ cat $WORKDIR/lesson1/hosts
+                            testserver ansible_host=127.0.0.1 ansible_port=2200
+                        </code></pre>
+                    </section>
                 <section>
                     <h4>
                         Exercise: Get tail of system messages on your vagrant host
@@ -788,7 +818,7 @@ testserver | SUCCESS => {
                     centos it will be /var/log/messages
                     </p>
                     <pre class="fragment" data-fragment-index="0"><code data-trim>
-                        $ ansible testserver -i ansible/hosts -b \
+                        $ ansible myserver -i ansible/hosts -b \
                             -a "tail /var/log/messages"
                     </code></pre>
                 </section>
@@ -837,18 +867,81 @@ testserver | SUCCESS => {
                 <section>
                     <section>
                         <h2>
-                            Bigger applications
+                            Ansible Playbooks
                         </h2>
                     </section>
-                    
+                    <section>
+                        <h3>
+                            Ansible Playbook
+                        </h3>
+                        <ul>
+                            <li>
+                                Recipe for running complicated tasks with
+                                Ansible
+                            </li>
+                            <li>YAML syntax</li>
+                            <li>Declarative</li>
+                        </ul>
+                    </section>
 
                     <section>
                         <pre><code data-trim>
                             $ cd $WORKDIR/sample-code/lesson2
-                            $ ls ansible
+                            $ vagrant up
+                        </code></pre>
+                        <ul>
+                            <li>Start new Vagrant VM</li>
+                            <li>
+                                Forwarding ports
+                                <ul>
+                                    <li>8080 to 80</li>
+                                    <li>8443 to 443</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
 
+                    <section>
+                        <h3>
+                            Set up a static web application
+                        </h3>
+                        <p>
+                            Our Ansible playbok needs to do the following on our
+                            Vagrant VM:
+                        </p>
+                        <ul>
+                            <li>Install nginx package</li>
+                            <li>Set up our nginx configuration</li>
+                            <li>Copy our html template file</li>
+                            <li>Re/Start nginx</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
+                            Our playbook
+                        </h3>
+                        <ul>
+                            <li>
+                                Have a look at following files:
+                                <ul>
+                                    <li>$WORKDIR/sample-code/lesson2/playbook.yml</li>
+                                    <li>$WORKDIR/sample-code/lesson2/files/nginx.conf</li>
+                                    <li>$WORKDIR/sample-code/lesson2/templates/index.html.j2</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Run our first playbook
+                        </h3>
+                        <pre><code data-trim>
+                            $ cd $WORKDIR/sample-code/lesson2
+                            $ ansible-playbook ansible/playbook.yml
                         </code></pre>
                     </section>
+
                 </section>
 <section>
                 <section>

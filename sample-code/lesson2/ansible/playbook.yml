@@ -1,0 +1,39 @@
+---
+- name: Set up static website with nginx
+  hosts: testserver
+  become: True
+  tasks:
+
+    - name: Install epel-release
+      yum:
+        name: epel-release
+        state: present
+
+    - name: Install nginx
+      yum:
+        name: nginx
+        state: present
+
+
+    - name: Copy in nginx config file
+      copy:
+        src: files/nginx.conf
+        dest: /etc/nginx/conf.d/nginx.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+
+    - name: Copy up static website html
+      template:
+        src: templates/index.html.j2
+        dest: /usr/share/nginx/html/index.html
+        mode: 0644
+
+    - name: Restart nginx
+      systemd:
+        name: nginx
+        state: started
+
+
+
