@@ -1,6 +1,6 @@
 ---
 - name: Set up static website with nginx
-  hosts: testserver
+  hosts: myserver
   become: True
   tasks:
 

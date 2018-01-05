@@ -333,26 +333,33 @@
                         <li><em>Push</em> based</li>
                     </ul>
                 </section>
+
                 <section>
                     <h3>Ansible Basics</h3>
                     <h4>
-                        Executing a basic task
+                        Terminology
                     </h4>
-                        <ul>
-                            <li>Create SSH connection to a host or list of
-                                hosts (group) in parallel</li>
-                            <li>
-                                Copy a small blob of executable code to each remote
-                                machine
-                            </li>
-                            <li>
-                                Performs task: execute the code; capturing return code and
-                                output
-                            </li>
-                            <li>Removes the blob of code</li>
-                            <li>Closes the SSH connection</li>
-                            <li>Report back on outcome of task</li>
-                        </ul>
+                    <div style="width:50%;float:left;">
+                        <dl>
+                            <dt>Task      </dt> <dd>   An action to perform</dd>
+                            <dt>Play      </dt> <dd>   a collection of tasks</dd>
+                            <dt>Playbook</dt>   <dd> YAML file containing one or more plays</dd>
+                        </dl>
+                    </div>
+                    <div style="width:50%;float:left;">
+                        <img src="img/ansible-workflow.png" />
+                    </div>
+                </section>
+                <section>
+                    <h3>Ansible Basics</h3>
+                    <h4>
+                        More Terminology
+                    </h4>
+                    <dl>
+                        <dt>Module    </dt> <dd>Blob of Python code which is executed to perform task</dd>
+                        <dt>Inventory </dt> <dd>File containing hosts and groups of hosts to run tasks</dd>
+                    </dl>
+                    
                 </section>
                 <section>
                     <h3>
@@ -380,33 +387,6 @@
 
 
                        
-                </section>
-                <section>
-                    <h3>Ansible Basics</h3>
-                    <h4>
-                        Terminology
-                    </h4>
-                    <div style="width:50%;float:left;">
-                        <dl>
-                            <dt>Task      </dt> <dd>   An action to perform</dd>
-                            <dt>Play      </dt> <dd>   a collection of tasks</dd>
-                            <dt>Playbook</dt>   <dd> YAML file containing one or more plays</dd>
-                        </dl>
-                    </div>
-                    <div style="width:50%;float:left;">
-                        <img src="img/ansible-workflow.png" />
-                    </div>
-                </section>
-                <section>
-                    <h3>Ansible Basics</h3>
-                    <h4>
-                        More Terminology
-                    </h4>
-                    <dl>
-                        <dt>Module    </dt> <dd>Blob of Python code which is executed to perform task</dd>
-                        <dt>Inventory </dt> <dd>File containing hosts and groups of hosts to run tasks</dd>
-                    </dl>
-                    
                 </section>
                 <section>
                     <h3>Playbooks</h3>
@@ -583,7 +563,7 @@ $ /home/train/ansible-venv/bin/ansible --version
                         <div >
                             <ul>
                                 <li class="fragment" data-fragment-index="0">
-                                    Perform basic operations with Ansible 
+                                    Perform a few <em>ad hoc</em> operations with Ansible 
                                 </li>
                                 
 <li class="fragment" data-fragment-index="1">
@@ -623,6 +603,30 @@ $ /home/train/ansible-venv/bin/ansible --version
                             If all went well you now have a remote host to manage!
                             </p>
                     </section>
+
+                <section>
+                    <h3>
+                        Executing a basic task
+                    </h3>
+                    <h4>
+                        Ansible does the following
+                    </h4>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">Create SSH connection to a host or list of
+                                hosts (group) in parallel</li>
+                            <li class="fragment" data-fragment-index="1">
+                                Copy a small blob of executable code to each remote
+                                machine
+                            </li>
+                            <li class="fragment" data-fragment-index="2">
+                                Performs task: execute the code; capturing return code and
+                                output
+                            </li>
+                            <li class="fragment" data-fragment-index="3">Removes the blob of code</li>
+                            <li class="fragment" data-fragment-index="4">Closes the SSH connection</li>
+                            <li class="fragment" data-fragment-index="5">Report back on outcome of task</li>
+                        </ul>
+                </section>
                     <section>
                         <h4>
                             Connecting Ansible to your host
@@ -642,12 +646,12 @@ $ /home/train/ansible-venv/bin/ansible --version
                             Telling Ansible about remote hosts
                         </h4>
                         <div style="width:50%;float:left;"><ul>
-                                    <li>
+                                    <li class="fragment" data-fragment-index="0">
                                         <code>.ini</code> syntax
                                     </li>
-                                    <li>Identifies hosts for ansible to interact with</li>
+                                    <li class="fragment" data-fragment-index="1">Identifies hosts for ansible to interact with</li>
                                     
-                                    <li>Provides optional arguments 
+                                    <li class="fragment" data-fragment-index="2">Provides optional arguments 
                                         <ul>
                                             <li>connection information</li>
                                             <li>
@@ -661,6 +665,8 @@ $ /home/train/ansible-venv/bin/ansible --version
                             <div style="width:50%;float:left">
                                 <pre><code data-trim>
                                     # sample inventory
+
+
                                     web1.mycompany.com ansible_host=152.240.43.12 opt2=arg2
                                     web2.mycompany.com
 
@@ -668,6 +674,10 @@ $ /home/train/ansible-venv/bin/ansible --version
 
                                     app1.mycompany.com
                                     app2.mycompany.com
+
+                                    loadbalancer.mycompany.com
+                                    
+                                    # more stuff...
                                 </code></pre>
                             </div>
 
@@ -682,12 +692,17 @@ $ /home/train/ansible-venv/bin/ansible --version
                         </h4>
                         <div style="width:50%;float:left;"><ul>
 
-                                <li>
-                                    Sections used to organise hosts
+                                <li class="fragment" data-fragment-index="0">
+                                    Sections used to organise hosts into
+                                    <em>groups</em>
                                     <ul>
                                         <li>functional roles</li>
                                         <li>separate regions</li>
                                     </ul>
+                                </li>
+                                <li class="fragment" data-fragment-index="1">
+                                    Either group or specific hosts can be used in
+                                    ansible commands
                                 </li>
                               
 
@@ -696,7 +711,7 @@ $ /home/train/ansible-venv/bin/ansible --version
                                 <pre><code data-trim>
                                     # sample inventory
                                     [web]
-                                    web1.mycompany.com ansible_host=152.240.43.12 opt2=arg2
+                                    web1.mycompany.com
                                     web2.mycompany.com
 
                                     [app]
@@ -729,7 +744,7 @@ $ /home/train/ansible-venv/bin/ansible --version
                             </li>
                             <li>Provides optional arguments for connecting</li>
                             <li>
-                                To connect to Vagrant we need to
+                                To connect to our Vagrant VM we need to
                                 specify some additional connection options
                                 <ul>
                                     <li><code>ansible_host</code></li>
@@ -744,10 +759,11 @@ $ /home/train/ansible-venv/bin/ansible --version
                     </section>
                     
                     <section>
-                        <h3>
-                            Tell Ansible how to connect to VM
-                        </h3>
                         
+                        <h4>
+                            Exercise: edit your inventory file to fill in missing
+                            connection information
+                        </h4>
                         <pre><code data-trim>$ vagrant ssh-config
 Host default
     HostName ???
@@ -765,17 +781,21 @@ Host default
                     </section>
                     <section>
                         <h3>
-                            Running Ansible commands
+                            Running <em>ad hoc</em> Ansible commands
                         </h3>
                         <p>
                         <code>ansible &lt;host pattern&gt; [OPTIONS]</code>
                         </p>
-                        <p class="fragment" data-fragment-index="0">
-                        <em>host pattern</em> can be the name of a specific
-                        host or a <em>group</em> of hosts from the inventory
-                        file
-                        </p>
+                        <ul>
+                            <li>
+                                <em>host pattern</em> can be:
+                                <ul>
+                                    <li>the name of a specific host in inventory</li>
+                                    <li>a <em>group</em> of hosts from the inventory</li>
+                                </ul>
+                            </li>
 
+                        </ul>
                         <table class="fragment" data-fragment-index="1">
                             <tr>
                                 <th>Option    </th>
@@ -794,32 +814,116 @@ Host default
                         <h4>
                             Exercise: Ping our remote host
                         </h4>
-                        <p>
+                        <p class="fragment" data-fragment-index="0">
+                        <a
+                                            href="https://docs.ansible.com/ansible/latest/ping_module.html"><em>ping</em></a>
+                        is an Ansible module that just checks whether or not
+                        Ansible can create a SSH sessions with hosts.
+                        </p></h4>
+                        <p class="fragment" data-fragment-index="1">
                         Use the <em>ping</em> module to check if our host accepts SSH
                         connections
                         </p>
-                        <pre class="fragment" data-fragment-index="0"><code data-trim>$ ansible testserver -i ansible/hosts -m ping
-testserver | SUCCESS => {
+                        <pre class="fragment" data-fragment-index="2"><code
+                        data-trim>$ ansible myserver -i ansible/hosts -m ping
+myserver | SUCCESS => {
     "changed": false,
     "ping": "pong"
 }
                         </code></pre>
-                        <p class="fragment" data-fragment-index="0">
-                        <a
-                                            href="https://docs.ansible.com/ansible/latest/ping_module.html"><em>ping</em></a>
-                        is an example of an Ansible module that just checks
-                        whether or not Ansible can create a
-                        SSH sessions with hosts
-                        </p>
+                        
 
                     </section>
 
+                    <section>
+                        <h3>
+                            The ansible.cfg file
+                        </h3>
+                        <h4>
+                            Simplify our inventory file
+                        </h4>
+                        
+                            <ul>
+                                <li class="fragment" data-fragment-index="0">
+                                    A way to set some defaults for ansible
+                                    instead of in inventory file
+
+                                </li>
+                                <li class="fragment" data-fragment-index="1">
+                                    .ini syntax
+                                </li>
+                                <li class="fragment" data-fragment-index="2">
+                                    Specify SSH connection, which inventory
+                                    file to use
+                                </li>
+                            </ul>
+                        <pre class="fragment" data-fragment-index="3"><code data-trim>
+    # sample ansible.cfg
+
+
+    [defaults]
+    inventory = hosts
+    remote_user = vagrant
+    private_key_file = .vagrant/machines/default/virtualbox/private_key
+    host_key_checking = False
+                            </code></pre>    
+                    </section>
+                    <section>
+                        <h3>
+                            The ansible.cfg file
+                        </h3>
+                        <h4>
+                            Where ansible looks for it
+                        </h4>
+
+                        <ul>
+                            <li class="fragment"
+                                data-fragment-index="0">4 possible locations in order of priority
+                                <ul>
+                                    <li>File specified by ANSIBLE_CONFIG</li>
+                                    <li>Current directory (<code>ansible.cfg</code>)</li>
+                                    <li>Home directory (<code>~/.ansible.cfg</code>)</li>
+                                    <li>/etc/ansible/ansible.cfg</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                    </section>
+                    <section>
+                        <h4>
+                            Exercise: Set up ansible.cfg and modify inventory file
+                        </h4>
+                        <p>
+                        Basically just use a method from previous slide to
+                        make
+                        <code>$WORKDIR/sample-code/ansible.cfg.sample</code>
+                        visible to ansible for lesson1.
+                        </p>
+                        <p>
+                        Once you've done this, you can remove some options
+                        from your inventory file.
+                        </p>
+                        
+<pre class="fragment" data-fragment-index="0"><code data-trim>
+                            $ cd $WORKDIR/sample-code/lesson1
+                            $ cp ../ansible.cfg.sample ansible.cfg
+                            $ cat $WORKDIR/lesson1/hosts
+                            myserver ansible_host=127.0.0.1 ansible_port=2200
+                        </code></pre>
+                        <p class="fragment" data-fragment-index="1">
+                        You now no longer need to specify an inventory file
+                        </p>
+                        <pre class="fragment" data-fragment-index="1"><code data-trim>
+                            $ ansible myserver -m ping
+                        </code></pre>
+
+                    </section>
 
                 <section>
                     <h3>Ansible Modules</h3>
                     <ul>
-                        <li>Blob of python that performs a very specific action</li>
-                        <li>
+                        <li class="fragment" data-fragment-index="0">Blob of python that performs a very specific action</li>
+                        <li class="fragment" data-fragment-index="1">
                             When you run Ansible:
                             <ul>
                                 <li>SCP to temporary directory on target host</li>
@@ -830,11 +934,12 @@ testserver | SUCCESS => {
                                 <li>Output ok/changed/failed for task based on returned values</li>
                             </ul>
                         </li>
-                        <li>Ship with Ansible</li>
-                        <li><a href="https://docs.ansible.com/ansible/latest/list_of_all_modules.html">An exhaustive list</a></li>
+                        <li class="fragment" data-fragment-index="2">Ship with Ansible</li>
+                        <li class="fragment" data-fragment-index="3"><a href="https://docs.ansible.com/ansible/latest/list_of_all_modules.html">An exhaustive list</a></li>
 
                     </ul>
                 </section>
+
                 <section>
                     <h3>
                         The <em>command</em> module
@@ -845,15 +950,14 @@ testserver | SUCCESS => {
                     <ul>
                         <li>
                             The default module if you do not explicitly pass one
-                            to the ansible <code>-m</code> option. 
-                        </li><li>
-                            The following two commands are the
-                            same:
+                            to the ansible <code>-m</code> option. Hence these
+                            are equivalent:
                             <ul>
-                                <li><code>ansible testserver -m command -a uptime</code></li>
-                                <li><code>ansible testserver -a uptime</code></li>
+                                <li><code>ansible myserver -m command -a uptime</code></li>
+                                <li><code>ansible myserver -a uptime</code></li>
                             </ul>
                         </li>
+                        
                         <li>
                             <a
                                href="https://docs.ansible.com/ansible/latest/command_module.html">Documentation</a>
@@ -861,37 +965,6 @@ testserver | SUCCESS => {
                     </ul>
                 </section>
 
-                    <section>
-                        <h3>
-                            Simplifying the inventory file
-                        </h3>
-                        <h4>
-                            ansible.cfg file
-                        </h4>
-                        <ul>
-                            <li>
-                                .ini syntax
-                            </li>
-                            <li>
-                                Specify SSH connection, inventory defaults
-                            </li>
-                            <li>4 possible locations in order of priority
-                                <ul>
-                                    <li>File specified by ANSIBLE_CONFIG</li>
-                                    <li>Current directory (<code>ansible.cfg</code>)</li>
-                                    <li>Home directory (<code>~/.ansible.cfg</code>)</li>
-                                    <li>/etc/ansible/ansible.cfg</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </section>
-                    <section>
-                        <pre><code data-trim>
-                            $ cp $WORKDIR/ansible.cfg.sample $WORKDIR/lesson1/ansible.cfg
-                            $ cat $WORKDIR/lesson1/hosts
-                            testserver ansible_host=127.0.0.1 ansible_port=2200
-                        </code></pre>
-                    </section>
                 <section>
                     <h4>
                         Exercise: Get tail of system messages on your vagrant host
@@ -901,8 +974,7 @@ testserver | SUCCESS => {
                     centos it will be /var/log/messages
                     </p>
                     <pre class="fragment" data-fragment-index="0"><code data-trim>
-                        $ ansible myserver -i ansible/hosts -b \
-                            -a "tail /var/log/messages"
+                        $ ansible myserver  -b -a "tail /var/log/messages"
                     </code></pre>
                 </section>
                 <section>
@@ -913,27 +985,26 @@ testserver | SUCCESS => {
                     Let's install and start nginx on our test instance
                     </p>
                     <pre><code data-trim>
-                        $ ansible testserver -i ansible/hosts -b -m yum \
+                        $ ansible myserver -b -m yum \
                             -a "name=epel-release state=present update_cache=yes"
-                        $ ansible testserver -i ansible/hosts -b -m yum \
+                        $ ansible myserver -b -m yum \
                             -a "name=nginx state=present"
-                        $ ansible testserver -i ansible/hosts -b -m service \
+                        $ ansible myserver -b -m service \
                             -a "name=nginx state=restarted"
                         $ vagrant ssh
                         [vagrant@localhost]$ ps waux | grep nginx
                     </code></pre>
                 </section>
+
                 <section>
                     <h3>
                         Summary
                     </h3>
-                    <pre><code data-trim>
-                            $ vagrant halt
-                        </code></pre>
 
                     <ul>
                         <li>
-                            This section has given you a small taste of using Ansible
+                            This section has given you a small taste of using
+                            Ansible in <em>ad hoc</em> mode
                         </li>
                         <li>
                             Interacted with a simulated remote server
@@ -944,6 +1015,14 @@ testserver | SUCCESS => {
                             </ul>
                         </li>
                     </ul>
+                </section>
+                <section>
+                    <h4>
+                        Before we move on...
+                    </h4>
+                    <pre><code data-trim>
+                                $ vagrant halt
+                    </code></pre>
                 </section>
                 </section>
 
