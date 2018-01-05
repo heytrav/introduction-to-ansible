@@ -335,30 +335,45 @@
                 </section>
                 <section>
                     <h3>Ansible Basics</h3>
+                    <h4>
+                        How Ansible works
+                    </h4>
                         <ul>
-                            <li>SSH to a host or list of hosts (group) and execute commands</li>
-                            <li>Inventories: a list of hosts</li>
-                                <ul>
-                                    <li>/etc/ansible/hosts</li>
-                                </ul>
-                            <li>ansible vs. ansible-playbook</li>
-                                <ul>
-                                    <li>ad hoc commands (cssh style)</li>
-                                    <li>commands in a playbook</li>
-                                </ul>
+                            <li>Create SSH connection to a host or list of
+                                hosts (group) in parallel</li>
+                            <li>
+                                Copy a small blob of executable code to each remote
+                                machine
                             </li>
+                            <li>
+                                Performs task: execute the code; capturing return code and
+                                output
+                            </li>
+                            <li>Removes the blob of code</li>
+                            <li>Closes the SSH connection</li>
+                            <li>Report back on outcome of task</li>
                         </ul>
                 </section>
                 <section>
-                    <h3>Ansible Basics</h3>
-                    <ul>
-                        <li>Task - an action to perform</li>
-                        <li>Module - the code that performs a task</li>
-                        <li>Role - a reusable collection of tasks that acomplish a goal</li>
-                    </ul>
+                    <img src="" />
                 </section>
                 <section>
                     <h3>Ansible Basics</h3>
+                    <h4>
+                        Terminology
+                    </h4>
+                    <dl>
+                        <dt>Task      </dt> <dd>   An action to perform</dd>
+                        <dt>Play      </dt> <dd>   a collection of tasks</dd>
+                        <dt>Playbook</dt>   <dd> YAML file containing one or more plays</dd>
+                    </dl>
+                </section>
+Ansible Basics
+                <section>
+                    <h3>Ansible Basics</h3>
+                    <h4>
+                        Terminology
+                    </h4>
                     <ul>
                         <li>Play - a group of tasks and optionally roles to run on a specific host or hosts</li>
                         <li>Playbook - file containing one or more plays</li>
@@ -619,15 +634,56 @@ $ /home/train/ansible-venv/bin/ansible --version
                             <div style="width:50%;float:left">
                                 <pre><code data-trim>
                                     # sample inventory
+                                    web1.mycompany.com ansible_host=152.240.43.12 opt2=arg2
+                                    web2.mycompany.com
+
+                                    db1.mycompany.com
+
+                                    app1.mycompany.com
+                                    app2.mycompany.com
+                                </code></pre>
+                            </div>
+
+
+                    </section>
+                    <section>
+                        <h3>
+                            The Inventory File
+                        </h3>
+                        <h4>
+                            Grouping your remote hosts
+                        </h4>
+                        <div style="width:50%;float:left;"><ul>
+
+                                <li>
+                                    Sections used to organise hosts
+                                    <ul>
+                                        <li>functional roles</li>
+                                        <li>separate regions</li>
+                                    </ul>
+                                </li>
+                              
+
+                            </ul></div>
+                            <div style="width:50%;float:left">
+                                <pre><code data-trim>
+                                    # sample inventory
                                     [web]
                                     web1.mycompany.com ansible_host=152.240.43.12 opt2=arg2
                                     web2.mycompany.com
 
-                                    [database]
-                                    db1.mycompany.com
-
                                     [app]
-                                    app.mycompany.com
+                                    app1.mycompany.com
+                                    app2.mycompany.com
+
+                                    [wellington]
+                                    web1.mycompany.com
+                                    app1.mycompany.com
+
+                                    [auckland]
+                                    web2.mycompany.com
+                                    app2.mycompany.com
+
                                 </code></pre>
                             </div>
 
@@ -733,7 +789,7 @@ testserver | SUCCESS => {
 
 
                 <section>
-                    <h3>Ansible Module</h3>
+                    <h3>Ansible Modules</h3>
                     <ul>
                         <li>Blob of python that performs a very specific action</li>
                         <li>
