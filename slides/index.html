@@ -658,41 +658,59 @@ $ /home/train/ansible-venv/bin/ansible --version
                         <h4>
                             Telling Ansible about remote hosts
                         </h4>
-                        <div style="width:50%;float:left;"><ul>
-                                    <li class="fragment" data-fragment-index="0">
-                                        <code>.ini</code> syntax
-                                    </li>
-                                    <li class="fragment" data-fragment-index="1">Identifies hosts for ansible to interact with</li>
-                                    
-                                    <li class="fragment" data-fragment-index="2">Provides optional arguments 
-                                        <ul>
-                                            <li>connection information</li>
-                                            <li>
-                                                other arbitrary variables for
-                                                specific host
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                            </ul></div>
-                            <div style="width:50%;float:left">
-                                <pre><code data-trim>
+                        
+                        <pre><code data-trim>
                                     # sample inventory
 
-
+                                    [web]
                                     web1.mycompany.com ansible_host=152.240.43.12 opt2=arg2
                                     web2.mycompany.com
 
+                                    [db]
                                     db1.mycompany.com
 
+                                    [app]
                                     app1.mycompany.com
                                     app2.mycompany.com
 
+                                    [lb]
                                     loadbalancer.mycompany.com
-                                    
-                                    # more stuff...
-                                </code></pre>
-                            </div>
+                        </code></pre>
+
+
+                    </section>
+                    <section>
+                        <h3>
+                            The Inventory File
+                        </h3>
+                        <h4>
+                            Telling Ansible about remote hosts
+                        </h4>
+                        <ul>
+                            
+                            <li class="fragment" data-fragment-index="0">
+                                A text file in <code>.ini</code> syntax
+                            </li>
+                            <li class="fragment" data-fragment-index="1">Identifies hosts for ansible to interact with
+                                <ul>
+                                    <li>
+                                        each host on a separate line
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="fragment" data-fragment-index="2">Provides optional arguments 
+                                <ul>
+                                    <li>connection information</li>
+                                    <li>
+                                        other arbitrary variables for
+                                        specific host
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                            
 
 
                     </section>
@@ -753,12 +771,12 @@ $ /home/train/ansible-venv/bin/ansible --version
                         </code></pre>
                         <ul>
                             <li>
-                                Our inventory file specifies 1 remote host: <em>myserver</em>
+                                Our inventory file specifies single remote host: <em>myserver</em>
                             </li>
                             <li>Provides optional arguments for connecting</li>
                             <li>
                                 To connect to our Vagrant VM we need to
-                                specify some additional connection options
+                                set some special connection variables
                                 <ul>
                                     <li><code>ansible_host</code></li>
                                     <li><code>ansible_user</code></li>
@@ -855,24 +873,8 @@ myserver | SUCCESS => {
                         <h4>
                             Simplify our inventory file
                         </h4>
-                        
-                            <ul>
-                                <li class="fragment" data-fragment-index="0">
-                                    A way to set some defaults for ansible
-                                    instead of in inventory file
-
-                                </li>
-                                <li class="fragment" data-fragment-index="1">
-                                    .ini syntax
-                                </li>
-                                <li class="fragment" data-fragment-index="2">
-                                    Specify SSH connection, which inventory
-                                    file to use
-                                </li>
-                            </ul>
-                        <pre class="fragment" data-fragment-index="3"><code data-trim>
+                        <pre class="fragment" data-fragment-index="0"><code data-trim>
     # sample ansible.cfg
-
 
     [defaults]
     inventory = hosts
@@ -880,6 +882,21 @@ myserver | SUCCESS => {
     private_key_file = .vagrant/machines/default/virtualbox/private_key
     host_key_checking = False
                             </code></pre>    
+                        
+                            <ul>
+                                <li class="fragment" data-fragment-index="1">
+                                    A way to set some defaults for ansible
+                                    instead of in inventory file
+
+                                </li>
+                                <li class="fragment" data-fragment-index="2">
+                                    .ini syntax
+                                </li>
+                                <li class="fragment" data-fragment-index="3">
+                                    Specify SSH connection, which inventory
+                                    file to use
+                                </li>
+                            </ul>
                     </section>
                     <section>
                         <h3>
@@ -907,21 +924,17 @@ myserver | SUCCESS => {
                             Exercise: Set up ansible.cfg and modify inventory file
                         </h4>
                         <p>
-                        Basically just use a method from previous slide to
-                        make
                         <code>$WORKDIR/sample-code/ansible.cfg.sample</code>
-                        visible to ansible for lesson1.
                         </p>
                         <p>
-                        Once you've done this, you can remove some options
-                        from your inventory file.
+                        Use config to simplify your inventory file.
                         </p>
                         
 <pre class="fragment" data-fragment-index="0"><code data-trim>
                             $ cd $WORKDIR/sample-code/lesson1
                             $ cp ../ansible.cfg.sample ansible.cfg
                             $ cat $WORKDIR/lesson1/hosts
-                            myserver ansible_host=127.0.0.1 ansible_port=2200
+                            myserver ansible_host=127.0.0.1 ansible_port=2222
                         </code></pre>
                         <p class="fragment" data-fragment-index="1">
                         You now no longer need to specify an inventory file
@@ -963,7 +976,7 @@ myserver | SUCCESS => {
                     <ul>
                         <li>
                             The default module if you do not explicitly pass one
-                            to the ansible <code>-m</code> option. Hence these
+                            to the ansible <code>-m</code> option</li><li>These
                             are equivalent:
                             <ul>
                                 <li><code>ansible myserver -m command -a uptime</code></li>
@@ -992,20 +1005,22 @@ myserver | SUCCESS => {
                 </section>
                 <section>
                     <h3>
-                        Installing stuff with Ansible
+                        Installing packages with Ansible
                     </h3>
-                    <p>
-                    Let's install and start nginx on our test instance
+                    <p >
+                    Let's install firefox on our test instance
                     </p>
                     <pre><code data-trim>
-                        $ ansible myserver -b -m yum \
-                            -a "name=epel-release state=present update_cache=yes"
-                        $ ansible myserver -b -m yum \
-                            -a "name=nginx state=present"
-                        $ ansible myserver -b -m service \
-                            -a "name=nginx state=restarted"
-                        $ vagrant ssh
-                        [vagrant@localhost]$ ps waux | grep nginx
+                        $ ansible myserver -b -m yum -a "name=firefox state=present"
+                    </code></pre>
+                    <p class="fragment" data-fragment-index="0">
+                    What happens when you try to install it again?
+                    </p>
+                    <p  class="fragment" data-fragment-index="1">
+                    Now remove firefox
+                    </p>
+                    <pre class="fragment" data-fragment-index="1"><code data-trim>
+                        $ ansible myserver -b -m yum -a "name=firefox state=absent"
                     </code></pre>
                 </section>
 
@@ -1029,14 +1044,7 @@ myserver | SUCCESS => {
                         </li>
                     </ul>
                 </section>
-                <section>
-                    <h4>
-                        Before we move on...
-                    </h4>
-                    <pre><code data-trim>
-                                $ vagrant halt
-                    </code></pre>
-                </section>
+                
                 </section>
 
                 <section>
@@ -1051,7 +1059,7 @@ myserver | SUCCESS => {
                         </h3>
                         <ul>
                             <li>
-                                Recipe for running complicated tasks with
+                                Recipe for running complex tasks with
                                 Ansible
                             </li>
                             <li>YAML syntax</li>
@@ -1060,9 +1068,24 @@ myserver | SUCCESS => {
                     </section>
 
                     <section>
+                        <h3>
+                            Set up a static website
+                        </h3>
+                        <img src="img/ansible-nginx-install.svg" />
+                    </section>
+
+                    <section>
                         <pre><code data-trim>
                             $ cd $WORKDIR/sample-code/lesson2
-                            $ vagrant up
+                            .
+                            ├── ansible
+                            │   ├── files
+                            │   │   └── nginx.conf
+                            │   ├── hosts
+                            │   ├── playbook.yml
+                            │   └── templates
+                            │       └── index.html.j2
+                            └── ansible.cfg
                         </code></pre>
                         <ul>
                             <li>Start new Vagrant VM</li>
