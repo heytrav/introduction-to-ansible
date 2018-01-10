@@ -362,33 +362,6 @@
                     
                 </section>
                 <section>
-                    <h3>
-                        Running Ansible
-                    </h3>
-                    <ul>
-                        <li class="fragment" data-fragment-index="0">
-                            There are two ways to run ansible:
-                        </li>
-                        <li class="fragment" data-fragment-index="1">
-                            ad hoc
-                            <ul>
-                                <li>Run a single task</li>
-                                <li>Use <code>ansible</code> on the command line</li>
-                            </ul>
-                        </li>
-                        <li class="fragment" data-fragment-index="2">
-                            playbook
-                            <ul>
-                                <li>Run multiple tasks sequentially</li>
-                                <li>Use <code>ansible-playbook</code> on the command line</li>
-                            </ul>
-                        </li>
-                    </ul>
-
-
-                       
-                </section>
-                <section>
                     <h3>Playbooks</h3>
                         <ul>
                             <li>A DSL expressed as YAML</li>
@@ -551,6 +524,44 @@ $ /home/train/ansible-venv/bin/ansible --version
                             First steps with Ansible
                         </h2>
                     </section>
+
+                <section>
+                    <h3>
+                        Running Ansible
+                    </h3>
+                    <ul>
+                        <li class="fragment" data-fragment-index="0">
+                            There are two ways to run ansible:
+                            <ul>
+                                <li class="fragment" data-fragment-index="1">
+                                    ad hoc
+                                    <ul>
+                                        <li class="fragment" data-fragment-index="2">Run a single task
+                                            <ul>
+                                                <li>Install a package</li>
+                                                <li>Run a system command</li>
+                                            </ul>
+                                        
+                                        </li>
+                                        <li class="fragment" data-fragment-index="3"><code>ansible &lt;pattern&gt; [options]</code></li>
+                                    </ul>
+                                </li>
+
+                                <li class="fragment" data-fragment-index="4">
+                                    playbook
+                                    <ul>
+                                        <li>Run multiple tasks sequentially</li>
+                                        <li><code>ansible-playbook &lt;pattern&gt; [options]</code></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                    </ul>
+
+
+                       
+                </section>
                     <section>
                         <h3>
                            Simulating a remote server
