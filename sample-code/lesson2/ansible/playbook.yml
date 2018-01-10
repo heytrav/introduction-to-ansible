@@ -1,7 +1,7 @@
 ---
 - name: Set up static website with nginx
   hosts: myserver
-  become: True
+  become: true
   tasks:
 
     - name: Install epel-release

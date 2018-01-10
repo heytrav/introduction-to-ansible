@@ -15,6 +15,7 @@
 
         <link rel="stylesheet" href="css/reveal.css">
         <link rel="stylesheet" href="css/theme/catalyst.css" id="theme">
+        <link rel="stylesheet" href="css/asciinema-player.css">
 
         <!-- For syntax highlighting -->
         <!-- <link rel="stylesheet" href="lib/css/zenburn.css"> -->
@@ -949,7 +950,12 @@ myserver | SUCCESS => {
                     <h3>Ansible Modules</h3>
                     <ul>
                         <li class="fragment" data-fragment-index="0">Blob of python that performs a very specific action</li>
-                        <li class="fragment" data-fragment-index="1">
+                        <li class="fragment" data-fragment-index="1">Ship with Ansible</li>
+                        <li class="fragment" data-fragment-index="2">More than
+                            200 <a
+                                href="https://docs.ansible.com/ansible/latest/list_of_all_modules.html">Ansible
+                            modules</a></li>
+                        <li class="fragment" data-fragment-index="3">
                             When you run Ansible:
                             <ul>
                                 <li>SCP to temporary directory on target host</li>
@@ -960,23 +966,23 @@ myserver | SUCCESS => {
                                 <li>Output ok/changed/failed for task based on returned values</li>
                             </ul>
                         </li>
-                        <li class="fragment" data-fragment-index="2">Ship with Ansible</li>
-                        <li class="fragment" data-fragment-index="3"><a href="https://docs.ansible.com/ansible/latest/list_of_all_modules.html">An exhaustive list</a></li>
 
                     </ul>
                 </section>
 
                 <section>
                     <h3>
-                        The <em>command</em> module
+                        Example: The <em>command</em> module
                     </h3>
-                        <h4>
-                            Execute a command on a remote node
-                        </h4>
+                    <p style="font-size:16pt;">
+                    <code>ansible &lt;host pattern&gt; -m command -a &lt;args to command&gt;</code>
+                    </p>
+                        
                     <ul>
-                        <li>
-                            The default module if you do not explicitly pass one
-                            to the ansible <code>-m</code> option</li><li>These
+                        <li class="fragment" data-fragment-index="0">Execute
+                            arbitrary command on remote system</li>
+                        <li class="fragment" data-fragment-index="1">The
+                            default module. Note: these
                             are equivalent:
                             <ul>
                                 <li><code>ansible myserver -m command -a uptime</code></li>
@@ -984,7 +990,7 @@ myserver | SUCCESS => {
                             </ul>
                         </li>
                         
-                        <li>
+                        <li class="fragment" data-fragment-index="2">
                             <a
                                href="https://docs.ansible.com/ansible/latest/command_module.html">Documentation</a>
                         </li>
@@ -1004,23 +1010,54 @@ myserver | SUCCESS => {
                     </code></pre>
                 </section>
                 <section>
-                    <h3>
-                        Installing packages with Ansible
-                    </h3>
+                    <h4>Exercise: install a package</h4>
                     <p >
-                    Let's install firefox on our test instance
+                    Use the <a href="https://docs.ansible.com/ansible/latest/yum_module.html"><em>yum</em></a> module to install <em>mtr</em> (network
+                    monitoring tool)
                     </p>
-                    <pre><code data-trim>
-                        $ ansible myserver -b -m yum -a "name=firefox state=present"
+                    <pre class="fragment" data-fragment-index="0"><code data-trim>
+                        $ ansible myserver -b -m yum -a "name=mtr state=present"
                     </code></pre>
-                    <p class="fragment" data-fragment-index="0">
-                    What happens when you try to install it again?
-                    </p>
-                    <p  class="fragment" data-fragment-index="1">
-                    Now remove firefox
-                    </p>
-                    <pre class="fragment" data-fragment-index="1"><code data-trim>
-                        $ ansible myserver -b -m yum -a "name=firefox state=absent"
+<asciinema-player class="fragment" data-fragment-index="1"  autoplay="0"  loop="loop" font-size="medium" speed="1"
+     theme="solarized-light" src="lib/ansible-install-mtr.json" cols="200" rows="17"></asciinema-player>
+                </section>
+
+                <section>
+                    <h3>
+                        Module documentation
+                    </h3>
+
+                    <ul>
+                        <li class="fragment" data-fragment-index="0">
+                            Places you can find module documentation
+
+                            <ul>
+                                <li class="fragment" data-fragment-index="1"><a
+                                        href="https://docs.ansible.com/ansible/latest/list_of_all_modules.html">The
+                                        ansible community docs</a></li>
+                                <li class="fragment" data-fragment-index="2">
+                                    Inline documentation
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <pre class="fragment" data-fragment-index="2"><code data-trim>
+    $ ansible-doc yum
+
+    &gt; YUM    (~/venv/local/lib/python2.7/site-packages/ansible/modules/packaging/os/yum.py)
+
+            Installs, upgrade, downgrades, removes, and lists packages and groups with the `yum' package manager.
+
+    OPTIONS (= is mandatory):
+
+    - allow_downgrade
+            Specify if the named package and version is allowed to downgrade a maybe already installed higher version of that package. Note that setting
+            allow_downgrade=True can make this module behave in a non-idempotent way. The task could end up with a set of packages that does not match the complete
+            list of specified packages to install (because dependencies between the downgraded package and others can cause changes to the packages which were in
+            the earlier transaction).
+            (Choices: yes, no)[Default: no]
+            version_added: 2.4
                     </code></pre>
                 </section>
 
@@ -1059,22 +1096,28 @@ myserver | SUCCESS => {
                         </h3>
                         <ul>
                             <li>
-                                Recipe for running complex tasks with
-                                Ansible
+                                Run sequences of tasks
                             </li>
-                            <li>YAML syntax</li>
-                            <li>Declarative</li>
+                            <li>Primary means of:
+                                <ul>
+                                    <li>Provisioning</li>
+                                    <li>Configuration</li>
+                                    <li>Orchestration</li>
+                                    <li>
+                                        Deploying applications
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </section>
 
-                    <section>
-                        <h3>
-                            Set up a static website
-                        </h3>
-                        <img src="img/ansible-nginx-install.svg" />
-                    </section>
+                    
 
                     <section>
+                        <h3>
+                            Working with Ansible Playbooks
+                        </h3>
+                        
                         <pre><code data-trim>
                             $ cd $WORKDIR/sample-code/lesson2
                             .
@@ -1087,48 +1130,48 @@ myserver | SUCCESS => {
                             │       └── index.html.j2
                             └── ansible.cfg
                         </code></pre>
-                        <ul>
-                            <li>Start new Vagrant VM</li>
-                            <li>
-                                Forwarding ports
-                                <ul>
-                                    <li>8080 to 80</li>
-                                    <li>8443 to 443</li>
-                                </ul>
-                            </li>
-                        </ul>
+                        
+                       <table>
+                           <tr>
+                               <th>Name  </th>
+                               <th>Type </th>
+                               <th>Description</th>
+                           </tr>
+                           <tr><td>playbook.yml</td>  <td>file      </td><td>  Ansible Playbook</td></tr>
+                           <tr><td>files       </td>  <td>directory </td><td> Contains artefacts to be placed on remote host</td></tr>
+                           <tr><td>templates   </td>  <td>directory </td><td>
+                                   Contains templates that will be rendered
+                                   and uploaded to remote host</td></tr>
+                       </table>
                     </section>
 
                     <section>
                         <h3>
                             Set up a static web application
                         </h3>
-                        <p>
-                            Our Ansible playbok needs to do the following on our
+                        <img src="img/ansible-nginx-install.svg" />
+                        <ul>
+                        <li>
+                            Our Ansible playbook needs to do the following on our
                             Vagrant VM:
-                        </p>
-                        <ul>
-                            <li>Install nginx package</li>
-                            <li>Set up our nginx configuration</li>
-                            <li>Copy our html template file</li>
-                            <li>Re/Start nginx</li>
+
+                            <ul>
+                                <li class="fragment" data-fragment-index="0">Install nginx package</li>
+                                <li class="fragment"
+                                    data-fragment-index="1">Copy our nginx
+                                    config (<code>files/nginx.conf</code>)</li>
+                                <li class="fragment"
+                                    data-fragment-index="2">Render
+                                     template file
+                                     (<code>templates/index.html.j2</code>)
+                                     and place it on host</li>
+                                <li class="fragment" data-fragment-index="3">Re/Start nginx</li>
+                            </ul>
+
+                        </li>
                         </ul>
                     </section>
-                    <section>
-                        <h3>
-                            Our playbook
-                        </h3>
-                        <ul>
-                            <li>
-                                Have a look at following files:
-                                <ul>
-                                    <li>$WORKDIR/sample-code/lesson2/playbook.yml</li>
-                                    <li>$WORKDIR/sample-code/lesson2/files/nginx.conf</li>
-                                    <li>$WORKDIR/sample-code/lesson2/templates/index.html.j2</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </section>
+                    
 
                     <section>
                         <h3>
@@ -1138,7 +1181,83 @@ myserver | SUCCESS => {
                             $ cd $WORKDIR/sample-code/lesson2
                             $ ansible-playbook ansible/playbook.yml
                         </code></pre>
+                        
+<asciinema-player  autoplay="0"  loop="loop" font-size="medium" speed="1"
+     theme="solarized-light" src="lib/basic-static-site.json" cols="200" rows="17"></asciinema-player>
                     </section>
+                    <section>
+                        <h3>
+                            Ansible Playbook Structure
+                        </h3>
+                        
+
+                        <img src="img/playbook-anatomy.svg"/>
+                          
+
+                        
+
+                    </section>
+
+                    <section>
+<h3>
+                            Ansible Playbook Structure
+                        </h3>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">
+                                Each play is a YAML dictionary
+                            </li>
+                            <li class="fragment" data-fragment-index="1">
+                                A play must contain:
+                                <ul>
+                                    <li class="fragment" data-fragment-index="2">hosts
+                                        <ul>
+                                            <li>
+                                                These are what you will configure
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="fragment" data-fragment-index="3">tasks
+                                        <ul>
+                                            <li>
+                                                What you want to do
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="fragment" data-fragment-index="4">
+                                Optionally
+                                <ul>
+                                    <li>name - description of the play</li>
+                                    <li>vars - variables scoped to the play</li>
+                                    <li>etc.</li>
+                                </ul>
+                            </li>
+                        </ul></section>
+                    <section>
+                        <h3>
+                            Structure of a playbook task
+                        </h3>
+                        <img src="img/playbook-task-anatomy.svg"/>
+                    </section>
+                    <section>
+                        <h3>
+                            Structure of a playbook task
+                        </h3>
+                        <ul>
+                            <li>
+                                A task is a dictionary object containing
+                                <ul>
+                                    <li>name - optional but highly highly highly recommended</li>
+                                    <li>module to be used in the task</li>
+                                    <li>arguments to the module</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                    </section>
+
+
 
                 </section>
 <section>
@@ -1793,6 +1912,7 @@ $ sudo chown -R root:root /var/www/html
 
         <script src="lib/js/head.min.js"></script>
         <script src="js/reveal.js"></script>
+        <script src="js/asciinema-player.js"></script>
 
         <script>
 
