@@ -10,9 +10,68 @@
     <p>
     This website was configured by Ansible
     </p>
+    {% if foo is defined %}
+    <h3>
+    Inventory variables
+    </h3>
     <p>
-    {{ ansible_managed }}
+    host_vars:
     </p>
+    <p>
+    The value for foo is <em>{{ foo }}</em>
+    </p>
+    {% endif %}
+    {% if bizz is defined %}
+    <p>
+    group_vars:
+    </p>
+    <p>
+    The value for bizz is <em>{{ bizz }}</em>
+    </p>
+    <hr>
+    {% endif %}
+    {% if course is defined %}
+    <h3>
+    Play scoped variables
+    </h3>
+    <p>
+    You are taking the course {{ course }}
+    </p>
+    {% endif %}
+    {% if lesson is defined %}
+    <table border=1>
+    <tr> <th>Name</th> <th>Session</th> </tr>
+    <tr> <td> {{ lesson.name }}   </td> <td> {{ lesson.session }}</td> </tr>
+    </table>
+    {% endif %}
+    {% if participant_name is defined%}
+    <p>
+    Participant: {{ participant_name }}
+    </p>
+    <hr>
+    {% endif %}
+    {% if person_name is defined %}
+    <h3>
+    Task variables
+    </h3>
+    <p>
+    Name of person: {{ person_name }}
+    </p>
+    {% endif %}
+    {% if uptime_output is defined %}
+    uptime:
+    <pre>
+    {{ uptime_output.stdout }}    
+    </pre>
+    {% endif %}
+    <hr>
+{% if ansible_distribution is defined %}
+    <!--
+        <p>
+            System facts: {{ ansible_distribution }} {{ ansible_distribution_major_version }} {{ ansible_architecture }}
+        </p>
+    -->
+{% endif %}
   </body>
 
 </html>

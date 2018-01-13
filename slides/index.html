@@ -1173,18 +1173,7 @@ myserver | SUCCESS => {
                     </section>
                     
 
-                    <section>
-                        <h3>
-                            Run our first playbook
-                        </h3>
-                        <pre><code data-trim>
-                            $ cd $WORKDIR/sample-code/lesson2
-                            $ ansible-playbook ansible/playbook.yml
-                        </code></pre>
-                        
-<asciinema-player  autoplay="0"  loop="loop" font-size="medium" speed="1"
-     theme="solarized-light" src="lib/basic-static-site.json" cols="200" rows="17"></asciinema-player>
-                    </section>
+                    
                     <section>
                         <h3>
                             Ansible Playbook Structure
@@ -1253,12 +1242,523 @@ myserver | SUCCESS => {
                                     <li>arguments to the module</li>
                                 </ul>
                             </li>
+                            <li>
+                                Executed sequentially from top to bottom
+                            </li>
                         </ul>
                         
                     </section>
+<section>
+                        <h3>
+                            Run our first playbook
+                        </h3>
+                        <pre><code data-trim>
+                            $ cd $WORKDIR/sample-code/lesson2
+                            $ ansible-playbook ansible/playbook.yml
+                        </code></pre>
+                        
+<asciinema-player  autoplay="0"  loop="loop" font-size="medium" speed="1"
+     theme="solarized-light" src="lib/basic-static-site.json" cols="200" rows="15"></asciinema-player>
+ <p class="fragment" data-fragment-index="0">
+ Visit <a href="http://localhost:8080">static site</a>
+ </p>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Summary 
+                        </h3>
+                        <ul>
+                            <li>Use Ansible Playbook to run complex tasks</li>
+                            <li>Playbook consists of array of YAML dictionaries called <em>plays</em></li>
+                            <li>
+                                Each play contains array of tasks that are
+                                executed on remote host
+                            </li>
+                        </ul>
+
+                    </section>
+
+                </section>
+
+                <section>
+                    <section>
+                        <h2>
+                            Ansible Variables
+                        </h2>
+                    </section>
+                    <section>
+                        <ul>
+                            <li>
+                                Several different types of variables:
+                                <ul>
+                                    <li>inventory variables</li>
+                                    <li>play scoped variables</li>
+                                    <li>task variables</li>
+                                    <li>
+                                        extra variables
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+
+<section>
+                        <h3>
+                            Inventory Variables
+                        </h3>
+                        <ul>
+                            <li>
+                                Are scoped to a host throughout the execution of a playbook
+                            </li>
+                            <li>
+                                Assigned in 
+                                <ul>
+                                    <li>
+                                        the inventory file
+                                    </li>
+                                    <li>
+                                        certain directories
+                                        <ul>
+                                            <li>host_vars/&lt;host&gt;</li>
+                                            <li>group_vars/&lt;group&gt;</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                Can be referenced directly when executing play on
+                                host
+                            </li>
+                            <li>
+                                Available in <em>hostvars</em> dictionary
+                            </li>
+                            
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>
+                            Inventory Variables
+                        </h2>
+
+                        <h3>
+                            In inventory file
+                        </h3>
+<pre class="fragment" data-fragment-index="0"><code data-trim>
+                                    # assign variable to single host
+                                    [web]
+                                    web1.mycompany.com ansible_host=152.240.43.12 opt2=arg2
+                                    web2.mycompany.com
+                                    .
+                        </code></pre>
+<pre class="fragment" data-fragment-index="1"><code data-trim>
+                                    # assign variable to group of hosts
+
+                                    [web]
+                                    web1.mycompany.com ansible_host=152.240.43.12
+                                    web2.mycompany.com
+
+                                    [web:vars]
+                                    proxy=web.mycompany.com
+
+                        </code></pre>
+                    </section>
+
+
+                    
+
+                    <section>
+                        <h3>
+                            Inventory Variables
+                        </h3>
+                        <h4>
+                            host_vars/&lt;host&gt;
+                        </h4>
+                        <p>
+                        Create a <em>host_vars</em> directory and variable file 
+                        </p>
+                        <pre><code data-trim>
+                            $ mkdir $WORKDIR/sample-code/lesson2/ansible/host_vars
+                            $ vim $WORKDIR/sample-code/lesson2/ansible/host_vars/myserver.yaml
+                        </code></pre>
+                        <pre><code data-trim>
+                            # variables for myserver
+                            ---
+                            foo: bar
+                        </code></pre>
+
+                    </section>
+                    <section>
+                        <h3>
+                            Inventory Variables
+                        </h3>
+                        <h4>
+                            group_vars/&lt;group&gt;
+                        </h4>
+                        <pre><code data-trim>
+                            $ less $WORKDIR/sample-code/lesson2/ansible/hosts
+                        </code></pre>
+                        <p>
+                        Create a <em>group_vars</em> directory and variable file 
+                        </p>
+                        <pre><code data-trim>
+                            $ mkdir $WORKDIR/sample-code/lesson2/ansible/group_vars
+                            $ vim $WORKDIR/sample-code/lesson2/ansible/group_vars/web.yaml
+                        </code></pre>
+                        <pre><code data-trim>
+                            # variables for "web" group
+                            ---
+                            bizz: buzz
+                        </code></pre>
+
+                    </section>
+                    <section>
+                        <h3>
+                            Using Inventory variables
+                        </h3>
+                        <pre><code data-trim>
+                        $ less $WORKDIR/sample-code/lesson2/ansible/templates/index.html.j2
+                        .
+                        .
+                        {% if foo is defined %}
+                        &lt;p&gt;
+                        The value for foo is &lt;em&gt;{{ foo }}&lt;/em&gt;
+                        &lt;/p&gt;
+                        {% endif %}
+                        {% if bizz is defined %}
+                        &lt;p&gt;
+                        The value for bizz is &lt;em&gt;{{ bizz }}&lt;/em&gt;
+                        &lt;/p&gt;
+                        {% endif %}
+                        .
+                        .
+                        </code></pre>
+                        <p>
+                        Inventory variables accessed directly in templates
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Using Inventory Variables
+                        </h3>
+                        <pre><code data-trim>
+                            $ ansible-playbook ansible/playbook.yaml
+                        </code></pre>
+                        <ul>
+                            <li>Run the ansible-playbook again</li>
+                            <li>Note behaviour of <em>Copy up static website html</em> task</li>
+                            <li>Reload <a href="http://localhost:8080">website</a>  when finished</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
+                            Play scoped variables
+                        </h3>
+
+                        <ul>
+                            <li>
+                                Declared in control section of a play
+                                <ul>
+                                    <li>vars - static declaration</li>
+                                    <li>vars_prompt - interactively prompt user when running playbook</li>
+                                </ul>
+                            </li>
+                            <li>
+                                Can be referenced directly while in play
+                            </li>
+                            <li>
+                                Can be reference in <em>hostvars</em> dictionary for specific host
+                            </li>
+                        </ul>
+
+
+                    </section>
+                    <section>
+                        <h3>
+                            Play scoped varibles
+                        </h3>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">
+                                Open <code>playbook.yml</code> in editor
+                            </li>
+                            <li class="fragment" data-fragment-index="1">
+                                Edit as seen below:
+                            </li>
+                            <li class="fragment" data-fragment-index="2">
+                                Rerun ansible-playbook
+                            </li>
+                        </ul>
+                        
+                        <pre class="fragment" data-fragment-index="1"><code data-trim>
+    - name: Set up static website with nginx
+      hosts: myserver
+      become: true
+      # new section
+      vars_prompt:
+        - name: "participant_name"
+          prompt: "What is your name"
+          private: no
+      vars:
+        course: Introduction to ansible
+        lesson:
+          name: Working with play variables
+          session: 1
+      # end new section
+      tasks:
+      .
+      .
+
+                        </code></pre>
+
+
+                    </section>
+
+                    <section>
+                        <h3>
+                            Task Variables
+                        </h3>
+                        <ul>
+                            <li>Contain data discovered while executing a task</li>
+                            <li>Gathering facts phase of play execution</li>
+                            <li>
+                                Tasks that gather user input
+                            </li>
+                            <li>Become part of the host scope once defined</li>
+                            <li>In a play they can be directly referenced</li>
+                            <li>In subsequent plays are available in hostvars dictionary for host</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h3>
+                            Assigning task variables
+                        </h3>
+                        <h4>
+                            Using the <code>set_fact</code> module
+                        </h4>
+                        
+
+                        <pre><code data-trim>
+                        tasks:
+                          - name: Assign an arbitrary variable
+                            set_fact:
+                              name: Homer Simpson
+
+                          - name: Assign dictionary
+                            set_fact:
+                              person_details:
+                                street: 754 Evergreen Terrace
+                                city: Springfield
+                                state: ST
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>
+                            Assigning task variables
+                        </h3>
+                        <h4>
+                            Capturing output with <em>register</em> attribute
+                        </h4>
+
+                        <pre><code data-trim>
+                            - name: Execute code and capture the output
+                              command: uptime
+                              register: uptime_output
+
+                              .
+                              .
+                            - name: do something with output of uptime
+                              debug:
+                                var: {{ uptime_output.stdout }}
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h4>
+                            Exercise: Assign some task variables
+                        </h4>
+                        <ul>
+                            <li>
+                                Use <code>set_fact</code> and
+                                <code>register</code> in playbook.yml to assign task variables
+                            </li>
+                            <li>
+                                Rerun ansible playbook
+                            </li>
+                        </ul>
+
+                        <pre><code data-trim>
+    tasks:
+        - name: set name of person
+          set_fact:
+            person_name: Homer Simpson
+
+        - name: Get output of uptime
+          command: uptime
+          register: uptime_output
+        .
+        .
+                        </code></pre>
+
+                    </section>
+
+                    <section>
+                        <h3>
+                            Gathering facts
+                        </h3>
+                        <ul>
+                            <li>
+                                Plugin run  before play executes
+                                <ul>
+                                    <li>
+                                        <code>setup</code> module
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                Collects detail information about host and attaches to host scope
+                            </li>
+                            <li>
+                                You can get an idea by running
+                                <ul>
+                                    <li>
+                                        <code> ansible myserver -m setup </code>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                Filter facts to find variables you are
+                                interested in:
+                                <ul>
+                                    <li>
+                                        <code style="font-size:15pt;">
+                                            ansible myserver -m setup -a 'filter=ansible_distribution*'
+                                        </code>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </section>
+
+                    <section>
+                        <h3>
+                            Exercise: Display system facts
+                        </h3>
+
+                        <p>
+                        Uncomment area in templates/index.html.j2
+                        </p>
+
+
+                        <pre><code data-trim>
+        &lt;!--   remove line
+        {% if ansible_distribution is defined %}
+            &lt;p&gt;  
+            System facts: {{ ansible_distribution }} {{ ansible_distribution_major_version }} {{ ansible_architecture }}
+            &lt;/p&gt;
+        {% endif %}
+        --&gt;   remove line
+                        </code></pre>
+                        <p class="fragment" data-fragment-index="0">
+                        Re-run ansible-playbook and visit <a href="http://localhost:8080">static website</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Exercise: Turn off gather facts
+                        </h3>
+                        <p>
+                        Edit playbook.yml as follows
+                        </p>
+
+                        <pre><code data-trim>
+                            - name: Set up static website with nginx
+                              hosts: myserver
+                              become: true
+                              gather_facts: false   # &lt;-- add this line
+                              tasks:
+                                .
+                                .
+                        </code></pre>
+<p class="fragment" data-fragment-index="0">
+                        Re-run ansible-playbook and visit <a href="http://localhost:8080">static website</a>
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Extra variables
+                        </h3>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">
+                                Variables passed to ansible or
+                                ansible-playbook via
+                                command line
+                            <ul>
+                                <li class="fragment"
+                                    data-fragment-index="1"><code
+                                        style="font-size:15pt;">ansible-playbook
+                                        --extra-vars="key1=value1 key2=value2"
+                                playbook.yml</code></li>
+                                <li class="fragment"
+                                    data-fragment-index="2"><code
+                                    style="font-size:15pt;">ansible-playbook
+                                    -e key1=value1 -e key2=value2 playbook.yml</code></li>
+                                <li class="fragment"
+                                    data-fragment-index="3"><code
+                                        style="font-size:15pt;">ansible-playbook
+                                        -e @extra-variables.yml playbook.yml</code></li>
+                            </ul>
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
+                            Variable precedence
+                        </h3>
+                        <ul><li>
+                                Ansible variable precedence: highest to lowest
+                                <ul>
+                                    <li>extra vars</li>
+                                    <li>set_facts/registered variables</li>
+                                    <li>include_vars</li>
+                                    <li>task vars</li>
+                                    <li>play vars_files</li>
+                                    <li>play vars</li>
+                                    <li>host facts</li>
+                                    <li>inventory file</li>
+                                </ul>
+                            </li></ul>
+
+                    </section>
+                    <section>
+                        <h3>
+                            Exercise: variable precedence
+                        </h3>
+                        <p>
+                        Pass extra vars to ansible playbook to override
+                        previous examples
+                        </p>
+
+                        <pre><code data-trim>
+                        $ ansible-playbook ansible/playbook.yml \
+                           -e person_name="Marge Simpson" \
+                           -e '{"lesson": {"name": "Override variables", \
+                           "session": 2}}'
+                        </code></pre>
+                    </section>
+                    
 
 
 
+
+
+
+
+                
                 </section>
 <section>
                 <section>
