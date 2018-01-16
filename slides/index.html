@@ -1648,7 +1648,7 @@ myserver | SUCCESS => {
                         </h3>
 
                         <p>
-                        Uncomment area in templates/index.html.j2
+                        Uncomment area in <code>templates/index.html.j2</code>
                         </p>
 
 
@@ -1758,7 +1758,155 @@ myserver | SUCCESS => {
 
 
 
+
                 
+                </section>
+
+                <section>
+                    <section>
+                        <h2>
+                            Templating in Ansible
+                        </h2>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Templating in Ansible
+                        </h3>
+                        <ul>
+                            <li>
+                                Sometimes you need dynamic behaviour in tasks
+                                <ul>
+                                    <li>File locations</li>
+                                    <li>Fill in prompted information</li>
+                                    <li>
+                                        secret info (passwords, API keys)
+                                    </li>
+                                    <li>Generally sourced from a variable</li>
+                                </ul>
+                            </li>
+                            <li>
+                                Ansible uses a template syntax called Jinja2
+                            </li>
+                        </ul></section>
+
+                        <section>
+                            <h3>
+                                Jinja2
+                            </h3>
+                            <h5>
+                                A very very brief intro
+                            </h5>
+
+
+                            <ul>
+                                
+                                <li>
+                                    Provides tools for
+                                    <ul>
+                                        <li>passing variables</li>
+                                        <li>evaluating expressions</li>
+                                        <li>filters</li>
+                                        <li>etc.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    References
+                                    <ul>
+                                        <li><a href="https://docs.ansible.com/ansible/latest/playbooks_templating.html">Templating in Ansible</a></li>
+                                        <li><a href="http://jinja.pocoo.org/docs/2.10/templates/">Jinja2 official docs</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h3>
+                                Basic Jinja2
+                            </h3>
+                            <h5>
+                                Variables
+                            </h5>
+                            <ul>
+                                <li>
+                                    Simple variables
+                                    <ul>
+                                        <li>
+                                            <code style="font-size:15pt;">{{ person_name  }}</code> 
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    Dictionaries
+                                    <ul>
+                                        <li><code style="font-size:15pt;">{{ lesson['name'] }}</code></li>
+                                        <li><code style="font-size:15pt;">{{ lesson.name }}</code></li>
+                                        <li><code style="font-size:15pt;">{{ hostvars['myserver'].ansible_distribution }}</code></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+
+                        </section>
+
+                        <section>
+                            <h3>Basic Jinja2</h3>
+
+                            <h5>
+                                Filters
+                            </h5>
+                            <ul>
+                                <li>Let's just look at the <a href="https://docs.ansible.com/ansible/latest/playbooks_filters.html">offical documentation</a></li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>
+                                Exercise: Templating in our playbook
+                            </h4>
+                            <ul>
+                                <li>
+                                    Edit <code>vars</code> section in <code>playbook.yml</code> to add:
+                                    <ul>
+                                        <li><code style="font-size:15pt;">static_file_directory</code></li>
+                                        <li><code style="font-size:15pt;">nginx_conf_directory</code></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            <pre><code data-trim>
+                                vars:
+                                  .
+                                  static_file_directory: /usr/share/nginx/html
+                                  nginx_conf_directory: /etc/nginx/conf.d 
+                                tasks:
+                            </code></pre>
+                        </section>
+
+                        
+                        <section>
+                            <h4>
+                                Exercise: Templating in our playbook
+                            </h4>
+                            <ul>
+                                <li>
+                                    Modify tasks to use variables
+                                </li>
+                            </ul>
+
+                            <pre><code data-trim>
+        - name: Copy in nginx config file
+          copy:
+            .
+            dest: "{{ nginx_conf_directory }}/nginx.conf"
+            .
+
+        - name: Copy up static website html
+          template:
+            .
+            dest: "{{ static_file_directory }}/index.html"
+            .
+                            </code></pre>
+                        </section>
+
                 </section>
 <section>
                 <section>
