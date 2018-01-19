@@ -1250,15 +1250,9 @@ myserver | SUCCESS => {
                                 </ul>
                             </li>
                         </ul></section>
-                    <section>
-                        <h3>
-                            Structure of a playbook task
-                        </h3>
-                        <img src="img/playbook-task-anatomy.svg"/>
 
 
-                    </section>
-                    <section>
+<section>
                         <h3>
                             Structure of a playbook task
                         </h3>
@@ -1275,11 +1269,18 @@ myserver | SUCCESS => {
                                             </li>
                                         </ul></li>
                                         <li>module 
-                                            <ul><li>
-                                                    The Python module which will perform
-                                                    task
+                                            <ul>
+                                                <li>
+                                                    Dictionary object
                                                 </li>
-                                                May have arguments
+                                                <li>
+                                                    Key represents Python
+                                                    module which will perform
+                                                    tasks
+                                                </li>
+                                                <li>
+                                                    May have arguments
+                                                </li>
                                             </ul>
 
                                         </li>
@@ -1289,6 +1290,39 @@ myserver | SUCCESS => {
                         </ul>
                         
                     </section>
+                    <section>
+                        <h3>
+                            Structure of a playbook task
+                        </h3>
+                        
+                        <div style="width:50%;float:left;">
+                            <img src="img/playbook-task-anatomy.svg"/>
+                        </div>
+                        <div style="width:50%;float:left;">
+                            <ul>
+                                <li>
+                                    Two styles of module object in tasks
+                                    <ul>
+                                        <li>string form</li>
+                                        <li>dictionary form</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    Dictionary form is more suitable for complex
+                                    arguments
+                                </li>
+                                <li>
+                                    Matter of
+                                    preference/style
+                                </li>
+                            </ul>
+
+
+                        </div>
+
+
+                    </section>
+                    
 <section>
                         <h3>
                             Run our first playbook
@@ -1329,9 +1363,12 @@ myserver | SUCCESS => {
                         </h2>
                     </section>
                     <section>
+                        <h3>
+                            Ansible Variables
+                        </h3>
                         <ul>
                             <li>
-                                Several different types of variables:
+                                Several different types:
                                 <ul>
                                     <li>inventory variables</li>
                                     <li>play scoped variables</li>
@@ -1345,6 +1382,7 @@ myserver | SUCCESS => {
                     </section>
 
 <section>
+
                         <h3>
                             Inventory Variables
                         </h3>
