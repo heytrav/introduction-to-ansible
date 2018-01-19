@@ -2,5 +2,10 @@
   hosts: localhost
   vars_files:
     - provision-vagrant-vars.yml
+  tasks:
+
+    - name: Create Vagrant file
+      template:
+        src: templates/Vagrantfile.j2
 
 
