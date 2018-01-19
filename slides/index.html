@@ -1254,33 +1254,8 @@ myserver | SUCCESS => {
                         <h3>
                             Structure of a playbook task
                         </h3>
-                        <div style="width:50%;float:left;">
-                            <img src="img/playbook-task-anatomy.svg"/>
-                        </div>
+                        <img src="img/playbook-task-anatomy.svg"/>
 
-<div style="width:50%;float:left;"><ul>
-                                <li>
-                                    A task is a dictionary object containing
-                                    <ul>
-                                        <li>name 
-                                            <ul>
-                                                <li>Describes what the task does</li>
-                                                <li>
-                                                    optional but highly recommended
-                                                </li>
-                                            </ul></li>
-                                            <li>module 
-                                                <ul><li>
-                                                        The Python module which will perform
-                                                        task
-                                                    </li></ul>
-
-                                            </li>
-                                            <li>arguments to the module</li>
-                                    </ul>
-                                </li>
-
-                            </ul></div>
 
                     </section>
                     <section>
@@ -1288,6 +1263,30 @@ myserver | SUCCESS => {
                             Structure of a playbook task
                         </h3>
                         
+                        <ul>
+                            <li>
+                                A task is a dictionary object containing
+                                <ul>
+                                    <li>name 
+                                        <ul>
+                                            <li>Describes what the task does</li>
+                                            <li>
+                                                optional but highly recommended
+                                            </li>
+                                        </ul></li>
+                                        <li>module 
+                                            <ul><li>
+                                                    The Python module which will perform
+                                                    task
+                                                </li>
+                                                May have arguments
+                                            </ul>
+
+                                        </li>
+                                </ul>
+                            </li>
+
+                        </ul>
                         
                     </section>
 <section>
