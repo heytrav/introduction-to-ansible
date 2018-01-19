@@ -1,0 +1,6 @@
+---
+default_flavour: centos/7
+boxes:
+  - name: vagrant1
+    flavour: "{{ default_flavour }}"
+    guest_http_port:
