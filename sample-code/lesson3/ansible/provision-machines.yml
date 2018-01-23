@@ -11,4 +11,9 @@
         owner: "{{ ansible_env.USER }}"
         mode: '0640'
 
+    - name: Start Vagrant machines
+      command: vagrant up --provider virtualbox
+
+
+
 
