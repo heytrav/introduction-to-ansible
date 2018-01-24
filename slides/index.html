@@ -538,10 +538,7 @@ $ /home/train/ansible-venv/bin/ansible --version
                                     ad hoc
                                     <ul>
                                         <li class="fragment" data-fragment-index="2">Run a single task
-                                            <ul>
-                                                <li>Install a package</li>
-                                                <li>Run a system command</li>
-                                            </ul>
+                                            
                                         
                                         </li>
                                         <li class="fragment" data-fragment-index="3"><code>ansible &lt;pattern&gt; [options]</code></li>
@@ -565,27 +562,25 @@ $ /home/train/ansible-venv/bin/ansible --version
                 </section>
                     <section>
                         <h3>
-                           Simulating a remote server
+                           Ad hoc tasks with Ansible
                         </h3>
 
-                        <div >
-                            <img src="img/one-vagrant-vm.png" />
-                        </div>
-
+                        <p>
+                        <code>ansible &lt;pattern&gt; [options]</code>
+                        </p>
                         <div >
                             <ul>
                                 <li class="fragment" data-fragment-index="0">
                                     Perform a few <em>ad hoc</em> operations with Ansible 
+                                    <ul>
+                                        <li>Check connection to server</li>
+                                        <li>Install packages</li>
+                                        <li>
+                                            Run system commands
+                                        </li>
+                                    </ul>
                                 </li>
                                 
-<li class="fragment" data-fragment-index="1">
-                                                 For demo purposes in this course we will be using <a
-                                                     href="https://www.vagrantup.com/intro/index.html">Vagrant</a> to simulate
-                                                  remote hosts.
-                            </li>
-                            <li class="fragment" data-fragment-index="2">
-                                Instance(s) use a centos 7 image
-                            </li>
                             </ul>
                         </div>
                     
@@ -594,24 +589,30 @@ $ /home/train/ansible-venv/bin/ansible --version
                         <h3>
                             Simulating a remote server
                         </h3>
+
+                        <div style="height:50%;">
+                            <img src="img/one-vagrant-vm.png" />
+                        </div>
                         <ul>
+<li class="fragment" data-fragment-index="0">
+                                                 For demo purposes in this course we will be using <a
+                                                     href="https://www.vagrantup.com/intro/index.html">Vagrant</a> to simulate
+                                                  remote hosts.
+                            </li>
+                            <li class="fragment" data-fragment-index="1">
+                                Instance(s) use a centos 7 image
+                            </li>
                             
                         </ul>
 
-                        <pre class="fragment" data-fragment-index="1"><code data-trim>
+                        <pre class="fragment" data-fragment-index="2"><code data-trim>
                                 $ cd $WORKDIR/sample-code/lesson1
                                 $ vagrant up --provider virtualbox
                                 .
-                                .
-                                .
                                 
                                 ==&gt; default: Machine booted and ready!
-                                $ vagrant ssh
-                                [vagrant@localhost]$ exit
-                                $
-
                             </code></pre>
-                            <p class="fragment" data-fragment-index="2">
+                            <p class="fragment" data-fragment-index="3">
                             If all went well you now have a remote host to manage!
                             </p>
                     </section>
@@ -652,17 +653,68 @@ $ /home/train/ansible-venv/bin/ansible --version
                                 Vagrant VM via SSH</li>
                         </ul>
                     </section>
+<section>
+                        <h3>
+                            The Inventory File
+                        </h3>
+                        <h4>
+                            Tell Ansible about remote hosts
+                        </h4>
+                        <div style="width:50%;float:left;"><ul >
+
+                                <li class="fragment" data-fragment-index="0">
+                                    A text file in <code>.ini</code> syntax
+                                </li>
+                                <li class="fragment" data-fragment-index="1">Identifies hosts for ansible to interact with
+                                    <ul>
+                                        <li>
+                                            Each host on a separate line
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="fragment"
+                                    data-fragment-index="2">Provides optional arguments after host
+                                    <ul>
+                                        <li>connection information</li>
+                                        <li>
+                                            other arbitrary variables for
+                                            specific host
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul></div>
+
+                            <div class="fragment" data-fragment-index="1" style="float:left;width:50%;"><pre><code data-trim>
+                            #sample inventory
+
+                            web1.mycompany.com
+                            web2.mycompany.com
+                            app1.mycompany.com
+
+                            db.mycompany.com
+                            lb.mycompany.com
+
+                            [auckland]
+                            web1.mycompany.com
+                            
+                            [wellington]
+                            web2.mycompany.com
+                            </code></pre></div>
+                            
+
+
+                    </section>
                     <section>
                         <h3>
                             The Inventory File
                         </h3>
                         <h4>
-                            Telling Ansible about remote hosts
+                            Sample inventory file
                         </h4>
                         
                         <pre><code data-trim>
-                                    # sample inventory
-
                                     [web]
                                     web1.mycompany.com ansible_host=152.240.43.12 opt2=arg2
                                     web2.mycompany.com
@@ -680,41 +732,7 @@ $ /home/train/ansible-venv/bin/ansible --version
 
 
                     </section>
-                    <section>
-                        <h3>
-                            The Inventory File
-                        </h3>
-                        <h4>
-                            Telling Ansible about remote hosts
-                        </h4>
-                        <ul>
-                            
-                            <li class="fragment" data-fragment-index="0">
-                                A text file in <code>.ini</code> syntax
-                            </li>
-                            <li class="fragment" data-fragment-index="1">Identifies hosts for ansible to interact with
-                                <ul>
-                                    <li>
-                                        each host on a separate line
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="fragment" data-fragment-index="2">Provides optional arguments 
-                                <ul>
-                                    <li>connection information</li>
-                                    <li>
-                                        other arbitrary variables for
-                                        specific host
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                            
-
-
-                    </section>
+                    
                     <section>
                         <h3>
                             The Inventory File
@@ -739,7 +757,7 @@ $ /home/train/ansible-venv/bin/ansible --version
                               
 
                             </ul></div>
-                            <div style="width:50%;float:left">
+                            <div class="fragment" data-fragment-index="0" style="width:50%;float:left">
                                 <pre><code data-trim>
                                     # sample inventory
                                     [web]
@@ -771,11 +789,10 @@ $ /home/train/ansible-venv/bin/ansible --version
                             $ cat $WORKDIR/sample-code/lesson1/ansible/hosts
                         </code></pre>
                         <ul>
-                            <li>
+                            <li class="fragment" data-fragment-index="0">
                                 Our inventory file specifies single remote host: <em>myserver</em>
                             </li>
-                            <li>Provides optional arguments for connecting</li>
-                            <li>
+                            <li class="fragment" data-fragment-index="1">
                                 To connect to our Vagrant VM we need to
                                 set some special connection variables
                                 <ul>
@@ -784,6 +801,9 @@ $ /home/train/ansible-venv/bin/ansible --version
                                     <li><code>ansible_port</code></li>
                                     <li><code>ansible_private_key_file</code></li>
                                 </ul>
+                            </li>
+                            <li class="fragment" data-fragment-index="2">
+                                Variables specified on same line as host
                             </li>
                             
                         </ul>
@@ -1086,9 +1106,9 @@ myserver | SUCCESS => {
 
                 <section>
                     <section>
-                        <h2>
-                            Ansible Playbooks
-                        </h2>
+                        <h3>
+                            Configuration management with Ansible
+                        </h3>
                     </section>
                     <section>
                         <h3>
@@ -1100,12 +1120,12 @@ myserver | SUCCESS => {
                             </li>
                             <li>Primary means of:
                                 <ul>
-                                    <li>Provisioning</li>
-                                    <li>Configuration</li>
-                                    <li>Orchestration</li>
+                                    <li>Configuration management</li>
                                     <li>
                                         Deploying applications
                                     </li>
+                                    <li>Provisioning</li>
+                                    <li>Orchestration</li>
                                 </ul>
                             </li>
                         </ul>
@@ -1147,7 +1167,7 @@ myserver | SUCCESS => {
 
                     <section>
                         <h3>
-                            Set up a static web application
+                            Deploy and configure an application
                         </h3>
                         <img src="img/ansible-nginx-install.svg" />
                         <ul>
@@ -1381,14 +1401,7 @@ myserver | SUCCESS => {
                         </ul>
                     </section>
 
-<section>
-    <section>
-        <section>
-            <h2>
-                Managing Multiple Servers
-            </h2>
-        </section>
-    </section>
+                    <section>
 
                         <h3>
                             Inventory Variables
@@ -1404,7 +1417,7 @@ myserver | SUCCESS => {
                                         the inventory file
                                     </li>
                                     <li>
-                                        certain directories
+                                         Subdirectories
                                         <ul>
                                             <li>host_vars/&lt;host&gt;</li>
                                             <li>group_vars/&lt;group&gt;</li>
