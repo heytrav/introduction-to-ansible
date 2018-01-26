@@ -1,0 +1,131 @@
+---
+- name: Provision a set of hosts in the Catalyst Cloud
+  hosts: localhost
+  vars:
+    # optional suffix to namespace resources
+    suffix: ""
+    ssh_user: train
+    # change if required or override at runtime using --extra-vars
+    ssh_public_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
+    keypair_name: "training-key{{ suffix }}"
+    ssh_remote_cidr: "{{ lookup('dig', 'myip.opendns.com', '@resolver1.opendns.com') + '/32' | default('0.0.0.0/0', true) }}"
+    network_name: "training-net{{ suffix }}"
+    public_net_name: public-net
+    subnet_name: "training-subnet{{ suffix }}"
+    router_name: "training-router{{ suffix }}"
+    subnet_prefix: 192.168.99
+    subnet_cidr: "{{ subnet_prefix }}.0/24"
+    subnet_dhcp_start: "{{ subnet_prefix }}.98"
+    subnet_dhcp_end: "{{ subnet_prefix }}.200"
+    default_os_image: centos-7-x86_64
+    default_flavor: c1.c1r1
+    region_nameservers:
+      nz-por-1: [202.78.247.197, 202.78.247.198, 202.78.247.199]
+      nz_wlg_2: [202.78.240.213, 202.78.240.214, 202.78.240.215]
+      nz-hlz-1: [202.78.244.85, 202.78.244.86, 202.78.244.87]
+
+    default_nameservers: "{{ region_nameservers[lookup('env', 'OS_REGION_NAME')] }}"
+    security_groups:
+      - {group: "managed-{{ suffix }} ", port: 22, remote_ip_prefix: "202.78.240.7/32"}
+      - {group: "managed-{{ suffix }} ", port: 22, remote_ip_prefix: "{{ ssh_remote_cidr }}"}
+      - {group: "web-{{ suffix }} ", port: 80, remote_ip_prefix: "0.0.0.0/0"}
+      - {group: "web-{{ suffix }} ", port: 443, remote_ip_prefix: "0.0.0.0/0"}
+      - {group: "app-{{ suffix }} ", port: 5000, remote_group: "web-{{ suffix }}"}
+      - {group: "db-{{ suffix }} ", port: 5432, remote_group: "app-{{ suffix }}"}
+
+    security_group_names: "{{ security_groups | map(attribute='group') | unique | list }}"
+
+  tasks:
+    - name: Connect to Catalyst Cloud
+      os_auth:
+
+    - name: Create keypair
+      os_keypair:
+        name: "{{ keypair_name }}"
+        public_key: "{{ ssh_public_key }}"
+
+    - name: Create Network
+      os_network:
+        name: "{{ network_name }}"
+        state: present
+
+    - name: Create subnet
+      os_subnet:
+        name: "{{ subnet_name }}"
+        network_name: "{{ network_name }}"
+        state: present
+        cidr: "{{ subnet_cidr }}"
+        allocation_pool_start: "{{ subnet_dhcp_start }}"
+        allocation_pool_end: "{{ subnet_dhcp_end }}"
+        ip_version: 4
+        dns_nameservers: "{{ default_nameservers }}"
+
+    - name: Create router
+      os_router:
+        state: present
+        name: "{{ router_name }}"
+        network: "{{ public_net_name }}"
+        interfaces:
+          - "{{ subnet_name }}"
+
+    - name: Create security groups
+      os_security_group:
+        state: present
+        name: "{{ item }}"
+      with_items: "{{ security_group_names }}"
+
+    - name: Add rules for security group
+      os_security_group_rule:
+        state: present
+        security_group: "{{ item.group }}"
+        protocol: "{{ item.proto | default('tcp') }}"
+        port_range_min: "{{ omit if item.port == 'any' else item.port }}"
+        port_range_max: "{{ omit if item.port == 'any' else item.port_end | default(item.port) }}"
+        remote_ip_prefix: "{{ item.remote_ip_prefix | default(omit) }}"
+        remote_group: "{{ item.remote_group | default(omit) }}"
+      with_items: "{{ security_groups }}"
+
+
+    - name: Create web servers
+      os_server:
+        state: present
+        name: "{{ hostvars[item].ansible_host }}"
+        image: "{{ default_os_image }}"
+        key_name: "{{ keypair_name  }}"
+        flavor: "{{ default_flavor }}"
+        nics:
+          - net-name: "{{ subnet_name }}"
+        security_groups: "{{ default_security_groups }}"
+      with_items: "{{ groups['all'] }}"
+
+    - name: Assign floating ips
+      os_floating_ip:
+        state: present
+        reuse: yes
+        wait: true
+        server: "{{ item.name }}"
+      register: floating_ip_info
+      with_items:
+        - "{{ cc_servers }}"
+
+    - name: Append floating ip to host info
+      add_host:
+        name: "{{ item.item.name }}"
+        ansible_host: "{{ item.floating_ip.floating_ip_address }}"
+        fixed_ip: "{{ item.floating_ip.fixed_ip_address }}"
+        ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+        ansible_python_interpreter: /usr/bin/python
+      with_items: "{{ floating_ip_info.results }}"
+
+    - wait_for:
+        host: "{{ hostvars[item.name].ansible_host }}"
+        port: 22
+      with_items: "{{ cc_servers }}"
+      tags: wait_for
+
+    - name: Remove floating ips from known_hosts
+      known_hosts:
+        name: "{{ item.ip }}"
+        state: absent
+      with_items: "{{ cc_floating_ips }}"
+

@@ -1,0 +1,74 @@
+- name: Add hosts to /etc/myapp/config
+  hosts: localhost
+  become: yes
+  vars:
+    allowed_host1: fakehost1.mycompany.com
+    allowed_host2: fakehost2.mycompany.com
+    allowed_host3: fakehost3.mycompany.com
+    listen_ports:
+      - 80
+      - 443
+      - 5000
+      - 8000
+
+  tasks:
+
+    - name: Make sure /etc/myapp directory exists
+      file:
+        path: /etc/myapp
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Make sure /etc/myapp/config exists if it doesn't already
+      file:
+        path: /etc/myapp/config
+        state: touch
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Add allowed_hosts entry for allowed_host1
+      lineinfile:
+        path: /etc/myapp/config
+        line: "allow_from: {{ allowed_host1 }}"
+        insertafter: EOF
+
+    - name: Add allowed_hosts entry for allowed_host2
+      lineinfile:
+        path: /etc/myapp/config
+        line: "allow_from: {{ allowed_host2 }}"
+        insertafter: EOF
+
+    - name: Add allowed_hosts entry for allowed_host3
+      lineinfile:
+        path: /etc/myapp/config
+        line: "allow_from: {{ allowed_host3 }}"
+        insertafter: EOF
+
+
+    - name: Add listen port entry 0
+      lineinfile:
+        path: /etc/myapp/config
+        line: "listen: {{ listen_ports[0] }}"
+        insertafter: EOF
+
+    - name: Add listen port entry 1
+      lineinfile:
+        path: /etc/myapp/config
+        line: "listen: {{ listen_ports[1] }}"
+        insertafter: EOF
+
+    - name: Add listen port entry 2
+      lineinfile:
+        path: /etc/myapp/config
+        line: "listen: {{ listen_ports[2] }}"
+        insertafter: EOF
+
+    - name: Add listen port entry 3
+      lineinfile:
+        path: /etc/myapp/config
+        line: "listen: {{ listen_ports[3] }}"
+        insertafter: EOF
+

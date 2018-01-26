@@ -1,0 +1,63 @@
+--- 
+- name: Add app credentials config for myapp
+  hosts: localhost
+  become: yes
+  vars:
+    database:
+      staging:
+        name: myapp_db_staging
+        user: admin
+        host: db-staging.mycompany.com
+        password: staging_password1!
+      production:
+        name: myapp_db
+        user: admin
+        host: db.mycompany.com
+        password: password1!
+    env_name: staging
+
+  tasks:
+
+    - name: Make sure /etc/myapp directory exists
+      file:
+        path: /etc/myapp
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Make sure /etc/myapp/app_config exists if it doesn't already
+      file:
+        path: /etc/myapp/app_config
+        state: touch
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Add database name to app_config
+      lineinfile:
+        path: /etc/myapp/app_config
+        line: "database_name={{ database[env_name].name }}"
+        regexp: "^database_name=.*"
+        insertafter: EOF
+
+    - name: Add database user to app_config
+      lineinfile:
+        path: /etc/myapp/app_config
+        line: "database_user={{ database[env_name].user }}"
+        regexp: "^database_user=.*"
+        insertafter: EOF
+
+    - name: Add database host to app_config
+      lineinfile:
+        path: /etc/myapp/app_config
+        line: "database_host={{ database[env_name].host }}"
+        regexp: "^database_host=.*"
+        insertafter: EOF
+
+    - name: Add database password to app_config
+      lineinfile:
+        path: /etc/myapp/app_config
+        line: "database_password={{ database[env_name].password }}"
+        regexp: "^database_password=.*"
+        insertafter: EOF

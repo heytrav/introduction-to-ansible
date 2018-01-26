@@ -1,0 +1,12 @@
+server1
+server2
+server3
+
+[web]
+server1
+
+[db]
+server2
+
+[app]
+server3

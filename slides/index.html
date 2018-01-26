@@ -118,39 +118,49 @@
                     <h3>
                         Typical application
                     </h3>
-                    <div style="width:50%;float:left;">
-                        <ul>
-                            <li class="fragment" data-fragment-index="0">Web servers</li>
-                            <li class="fragment" data-fragment-index="1">App servers</li>
-                            <li class="fragment" data-fragment-index="2">Load balancers</li>
-                            <li class="fragment" data-fragment-index="3">Database</li>
-                            <li class="fragment" data-fragment-index="4">Caching systems</li>
-                            <li class="fragment" data-fragment-index="5">
-                                Network infrastructure: firewalls, subnets
-                                routers, etc.
-                            </li>
-                            <li class="fragment"
-                                data-fragment-index="6">Spread across multiple
-                            regions for redundancy</li>
-
-
-                        </ul>
-                    </div>
-                    <div style="width:50%;float:left;">
+<div style="width:50%;float:left;">
                         <img src="img/application-network.svg" alt="basic app
                         network"  >
                     </div>
+                    <div style="width:50%;float:left;">
+                        <ul style="font-size:18pt;"><li>
+                                Applications have many components
+                                <ul style="font-size:16pt;">
+                                    <li class="fragment" data-fragment-index="0">Web servers</li>
+                                    <li class="fragment" data-fragment-index="1">App servers</li>
+                                    <li class="fragment" data-fragment-index="2">Load balancers</li>
+                                    <li class="fragment" data-fragment-index="3">Database</li>
+                                    <li class="fragment" data-fragment-index="4">Caching systems</li>
+                                    <li class="fragment" data-fragment-index="5">
+                                        Network infrastructure: firewalls, subnets
+                                        routers, etc.
+                                    </li>
+
+
+                                </ul>
+                            </li>
+
+                                    <li class="fragment"
+                                        data-fragment-index="6">Spread across multiple
+                                        regions for redundancy</li>
+                        </ul>
+                    </div>
+                    
                 </section>
                 <section>
                     <h3>
                         Disadvantages of manual deployment
                     </h3>
-                    <p class="fragment" data-fragment-index="0">
-                    SSHing into every machine in your stack to install
-                    packages, edit configuration files, deploy code is:
-                    </p>
                     <ul>
-                        <li class="fragment" data-fragment-index="1">Time consuming</li>
+                    <li class="fragment" data-fragment-index="0">
+                        You could SSH into every machine in your network to
+                        <ul>
+                            <li>install packages</li>
+                            <li>update configuration</li>
+                            <li>deploy code</li>
+                        </ul>
+                    </li>
+                        <li class="fragment" data-ragment-index="1">Time consuming</li>
                         <li class="fragment" data-fragment-index="2">Error prone</li>
                     </ul>
                     
@@ -205,25 +215,32 @@
                 <section>
                     <h3>Provisioning</h3>
                     <ul>
+                        <li>
+                            The act of creating a server, network router,
+                            loadbalancer, etc. from some type of image
+                        </li>
                         <li>Usually bare metal</li>
                         <li>OS installation</li>
-                        <li>Then bootstrap configuration management</li>
                     </ul>
                 </section>
                 <section>
-                    <h3>Provisioning</h3>
+                    <h3>Provisioning Tools</h3>
                     <ul>
                         <li>Red Hat Kickstart</li>
                         <li><a href="http://fai-project.org/">FAI</a></li>
                         <li>Debian Preseed</li>
                         <li>Cobbler</li>
+                        <li>
+                            <a href="https://www.ansible.com/">Ansible</a>
+                        </li>
                     </ul>
                 </section>
                 <section>
                     <h3>Configuration Management</h3>
                     <ul>
                         <li>Best known, often equated with "Automation"</li>
-                        <li>Mostly about configuring servers (instances)</li>
+                        <li>Determining the state servers/applications should be in and
+                            making sure that conditions are met</li>
                         <li>Agentless vs Agents</li>
                         <li>Often declarative syntax</li>
                     </ul>
@@ -240,6 +257,22 @@
                 <section>
                     <h3>Application Deployment</h3>
                     <ul>
+                        <li>
+                            Take an artefact of development
+                            <ul>
+                                <li>libraries</li>
+                                <li>executable code</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Place it on server(s)
+                        </li>
+
+                        <li>
+                            Make sure it runs on the server
+                        </li>
+
+                    
                         <li>Overlaps/integrates with CI/CD tools (eg Jenkins)</li>
                         <li>Quite often bespoke software</li>
                     </ul>
@@ -251,15 +284,24 @@
                         <li><a href="http://capistranorb.com/">Capistrano</a></li>
                         <li><a href="https://www.ansible.com/">Ansible</a></li>
                         <li><a href="https://www.thoughtworks.com/go/">GoCD</a></li>
+                        <li><a href="https://www.ansible.com/">Ansible</a></li>
                     </ul>
                 </section>
                 <section>
                     <h3>Orchestration</h3>
                     <ul>
-                        <li>Build the entire stack (networks, routers, security groups, instances etc.)</li>
-                        <li>Some tools are cross cloud (ansible, terraform)</li>
-                        <li>Higher level than configuration management on individual instances</li>
-                        <li>Orchestration of other services (DNS, CDN, LB etc.)</li>
+                        <li>
+                            Concerned with automating workflows
+                        </li>
+                        <li>
+                            Interconnecting components of an application
+                            <ul>
+                                <li>webservers</li>
+                                <li>databases</li>
+                                <li>message queues</li>
+                                <li>application</li>
+                            </ul>
+                        </li>
                     </ul>
                 </section>
                 <section>
@@ -267,9 +309,9 @@
                     <ul>
                         <li><a href="https://aws.amazon.com/cloudformation/">AWS CloudFormation</a></li>
                         <li><a href="https://wiki.openstack.org/wiki/Heat">OpenStack Heat</a></li>
-                        <li><a href="https://www.ansible.com/">Ansible</a></li>
                         <li><a href="https://www.redhat.com/en/technologies/cloud-computing/cloudforms">Red Hat CloudForms</a></li>
                         <li><a href="https://www.terraform.io/">Hashicorp Terraform</a></li>
+                        <li><a href="https://www.ansible.com/">Ansible</a></li>
                     </ul>
                 </section>
                 <section>
@@ -326,7 +368,7 @@
                         </ul>
                     </section>
                 <section>
-                    <h3>Ansible Basics</h3>
+                    <h3>Ansible Features</h3>
                     <ul>
                         <li>Based on Python</li>
                         <li>Agentless (nothing to install on remote host)</li>
@@ -334,6 +376,141 @@
                         <li><em>Push</em> based</li>
                     </ul>
                 </section>
+
+                </section>
+
+                <section>
+                    <section>
+                        <h2>
+                            First steps with Ansible
+                        </h2>
+                    </section>
+
+
+                    <section>
+                        <h3>Installing Ansible</h3>
+
+
+                        <ul>
+                            <li>
+                                Target Ansible version &ge; 2.4.2.0
+                            </li>
+                            <li><a
+                               href="http://docs.ansible.com/ansible/latest/intro_installation.html">
+                                    Offical documentation</a></li>
+
+                            <li>
+                                Explore a couple approaches using:
+                                <ul>
+                                    <li>OS package manager</li>
+                                    <li>Python package manager (pip)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <aside class="notes">
+                            Users should become familiar with Ansible's online docs,
+                            therefore many slides will reference those pages directly.
+                        </aside>
+                    </section>
+                    <section>
+                        <h3>Requirements</h3>
+                        <ul>
+                            <li>Requires Python 2.6 or 2.7 on the control machine</li>
+                            <li>Requires Python 2.6 on managed nodes</li>
+                            <li>Python 3 support is currently a tech preview</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Install Ansible using OS packages</h3>
+                        <p>
+                        Ansible version available with OS typically a bit out of
+                        date
+                        </p>
+                        <asciinema-player autoplay="0"  loop="loop" font-size="medium" speed="1"
+                                                                                       theme="solarized-light" src="lib/apt-cache-policy-ansible.json" cols="200" rows="10"></asciinema-player>
+
+                                                                                   <p>
+                                                                                   Add PPA and install from latest source for OS (See
+                                                                                   <a href="http://docs.ansible.com/ansible/latest/intro_installation.html#installing-the-control-machine">documentation</a>)
+                                                                                   </p>
+                    </section>
+
+                    <section>
+                        <h3>Installing Ansible in Python virtual environment</h3>
+                        <ul>
+                            <li><a href="https://pip.pypa.io/en/stable/">PIP</a> - PyPAs <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for installing Python packages.</li>
+                            <li><a href="https://pypi.python.org/pypi/virtualenv">Virtualenv</a> - PyPAs <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for creating isolated Python environments</li>
+                            <li>PyPA = Python Packaging Authority</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Install Python Tools</h3>
+                        <pre><code data-trim contenteditable>
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get install python-pip python-virtualenv
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Install Ansible</h3>
+                        <pre><code data-trim contenteditable>
+$ virtualenv ansible-venv
+$ source ansible-venv/bin/activate
+(ansible-venv) $ pip install -U pip
+(ansible-venv) $ pip install ansible
+                        </code></pre>
+                        <ul>
+                            <li>Create a python virtual environment named <em>ansible-venv</em></li>
+                            <li>Activate ansible-venv as base of Python interpreter</li>
+                            <li>Update Python package manager (pip)</li>
+                            <li>Use Python package manager to install Ansible</li>
+                        </ul>
+
+                    </section>
+                    <!--<section>
+                        <h3>Understanding Virtual Environments</h3>
+                        <pre><code data-trim contenteditable>
+$ which ansible
+/home/train/ansible-venv/bin/ansible
+$ ansible --version
+ansible 2.4.1.0
+  config file = None
+  configured module search path = [u'/home/train/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/train/ansible-venv/local/lib/python2.7/site-packages/ansible
+  executable location = /home/train/ansible-venv/bin/ansible
+  python version = 2.7.6 (default, Oct 26 2016, 20:30:19) [GCC 4.8.4]
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Understanding Virtual Environments</h3>
+                        <pre><code data-trim contenteditable>
+$ env | grep PATH
+PATH=/home/train/ansible-venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+$ which ansible
+/home/train/ansible-venv/bin/ansible
+$ deactivate
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Understanding Virtual Environments</h3>
+                        <pre><code data-trim contenteditable>
+$ which ansible
+$ ansible --version
+The program 'ansible' is currently not installed. You can install it by typing:
+sudo apt install ansible
+$ /home/train/ansible-venv/bin/ansible --version
+                        </code></pre>
+                    </section>-->
+
+                    <section>
+                        <h3>Releases</h3>
+                        <ul>
+                            <li>It is worth keeping up to date with Ansible <a href="https://docs.ansible.com/ansible/latest/release_and_maintenance.html">releases</a></li>
+                            <li>Use pip or a PPA to get a recent version</li>
+                            <li>Ansible is developed and released on a flexible 4 months release cycle</li>
+                            <li>Ansible supports the two most recent major stable releases</li>
+                        </ul>
+                    </section>
 
                 <section>
                     <h3>Ansible Basics</h3>
@@ -362,170 +539,6 @@
                     </dl>
                     
                 </section>
-                <section>
-                    <h3>Playbooks</h3>
-                        <ul>
-                            <li>A DSL expressed as YAML</li>
-                            <ul>
-                                <li>Plays</li>
-                                <ul>
-                                    <li>Hosts</li>
-                                    <li>Variables</li>
-                                    <li>Encrypted Variables (Vault)</li>
-                                    <li>Tasks</li>
-                                    <li>Includes</li>
-                                    <li>Roles</li>
-                                    <li>Handlers (multiple notifies will only trigger one reload at end of play)</li>
-                                </ul>
-                            </ul>
-                        </ul>
-                </section>
-                <section>
-                    <h3>Other features</h3>
-                    <ul>
-                        <li>Templates (jinja2)</li>
-                        <li>Conditionals (when:)</li>
-                        <li>Loops (with_items:)</li>
-                    </ul>
-                </section>
-                </section>
-
-<section>
-                <section>
-                    <h3>Installing Ansible</h3>
-                      
-
-                    <ul>
-                        <li>
-                            Target Ansible version &ge; 2.4.2.0
-                        </li>
-                        <li><a
-                                href="http://docs.ansible.com/ansible/latest/intro_installation.html">
-                                Offical documentation</a></li>
-                    
-                        <li>
-                            Explore a couple approaches using:
-                            <ul>
-                                <li>OS package manager</li>
-                                <li>Python package manager (pip)</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <aside class="notes">
-                        Users should become familiar with Ansible's online docs,
-                        therefore many slides will reference those pages directly.
-                    </aside>
-                </section>
-                <section>
-                    <h3>Requirements</h3>
-                    <ul>
-                        <li>Requires Python 2.6 or 2.7 on the control machine</li>
-                        <li>Requires Python 2.6 on managed nodes</li>
-                        <li>Python 3 support is currently a tech preview</li>
-                    </ul>
-                </section>
-<section>
-                    <h3>Install Ansible using OS packages</h3>
-                    <p>
-                    You may need to remove default OS packages
-                    </p>
-                    <pre><code data-trim contenteditable>
-$ sudo apt-get install ansible
-$ which ansible
-/usr/bin/ansible
-$ ansible --version
-ansible 1.5.4
-$ sudo apt-get purge ansible
-                    </code></pre>
-                    <p>
-                    Add PPA and install from latest source for OS (See
-                    <a href="http://docs.ansible.com/ansible/latest/intro_installation.html#installing-the-control-machine">documentation</a>)
-                    </p>
-                </section>
-                <section>
-                    <h3>Installing Ansible in Python virtual environment</h3>
-                    <ul>
-                        <li><a href="https://pip.pypa.io/en/stable/">PIP</a> - PyPAs <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for installing Python packages.</li>
-                        <li><a href="https://pypi.python.org/pypi/virtualenv">Virtualenv</a> - PyPAs <a href="https://packaging.python.org/guides/tool-recommendations/">recommended tool</a> for creating isolated Python environments</li>
-                        <li>PyPA = Python Packaging Authority</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Install Python Tools</h3>
-                    <pre><code data-trim contenteditable>
-$ sudo apt-get update
-$ sudo apt-get upgrade
-$ sudo apt-get install python-pip python-virtualenv
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Install Ansible</h3>
-                    <pre><code data-trim contenteditable>
-$ virtualenv ansible-venv
-$ source ansible-venv/bin/activate
-(ansible-venv) $ pip install -U pip
-(ansible-venv) $ pip install ansible
-                    </code></pre>
-                    <ul>
-                        <li>Create a python virtual environment named <em>ansible-venv</em></li>
-                        <li>Activate ansible-venv as base of Python interpreter</li>
-                        <li>Update Python package manager (pip)</li>
-                        <li>Use Python package manager to install Ansible</li>
-                    </ul>
-
-                </section>
-                <!--<section>
-                    <h3>Understanding Virtual Environments</h3>
-                    <pre><code data-trim contenteditable>
-$ which ansible
-/home/train/ansible-venv/bin/ansible
-$ ansible --version
-ansible 2.4.1.0
-  config file = None
-  configured module search path = [u'/home/train/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
-  ansible python module location = /home/train/ansible-venv/local/lib/python2.7/site-packages/ansible
-  executable location = /home/train/ansible-venv/bin/ansible
-  python version = 2.7.6 (default, Oct 26 2016, 20:30:19) [GCC 4.8.4]
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Understanding Virtual Environments</h3>
-                    <pre><code data-trim contenteditable>
-$ env | grep PATH
-PATH=/home/train/ansible-venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-$ which ansible
-/home/train/ansible-venv/bin/ansible
-$ deactivate
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Understanding Virtual Environments</h3>
-                    <pre><code data-trim contenteditable>
-$ which ansible
-$ ansible --version
-The program 'ansible' is currently not installed. You can install it by typing:
-sudo apt install ansible
-$ /home/train/ansible-venv/bin/ansible --version
-                    </code></pre>
-                </section>-->
-                
-                <section>
-                    <h3>Releases</h3>
-                    <ul>
-                        <li>It is worth keeping up to date with Ansible <a href="https://docs.ansible.com/ansible/latest/release_and_maintenance.html">releases</a></li>
-                        <li>Use pip or a PPA to get a recent version</li>
-                        <li>Ansible is developed and released on a flexible 4 months release cycle</li>
-                        <li>Ansible supports the two most recent major stable releases</li>
-                    </ul>
-                </section>
-                </section>
-                <section>
-                    <section>
-                        <h2>
-                            First steps with Ansible
-                        </h2>
-                    </section>
-
                 <section>
                     <h3>
                         Running Ansible
@@ -924,17 +937,16 @@ myserver | SUCCESS => {
                             The ansible.cfg file
                         </h3>
                         <h4>
-                            Where ansible looks for it
+                            Where Ansible looks for it
                         </h4>
 
                         <ul>
-                            <li class="fragment"
-                                data-fragment-index="0">4 possible locations in order of priority
+                            <li class="fragment" data-fragment-index="0">4 possible locations in order of priority
                                 <ul>
-                                    <li>File specified by ANSIBLE_CONFIG</li>
-                                    <li>Current directory (<code>ansible.cfg</code>)</li>
-                                    <li>Home directory (<code>~/.ansible.cfg</code>)</li>
-                                    <li>/etc/ansible/ansible.cfg</li>
+                                    <li class="fragment" data-fragment-index="1">File specified by ANSIBLE_CONFIG</li>
+                                    <li class="fragment" data-fragment-index="2">Current directory (<code>ansible.cfg</code>)</li>
+                                    <li class="fragment" data-fragment-index="3">Home directory (<code>~/.ansible.cfg</code>)</li>
+                                    <li class="fragment" data-fragment-index="4">/etc/ansible/ansible.cfg</li>
                                 </ul>
                             </li>
                         </ul>
@@ -1001,16 +1013,17 @@ myserver | SUCCESS => {
                     <ul>
                         <li class="fragment" data-fragment-index="0">Execute
                             arbitrary command on remote system</li>
-                        <li class="fragment" data-fragment-index="1">The
-                            default module. Note: these
-                            are equivalent:
+                        <li class="fragment" data-fragment-index="1">The default module
+                        </li>
+                        <li class="fragment" data-fragment-index="2">
+                            These are equivalent:
                             <ul>
                                 <li><code>ansible myserver -m command -a uptime</code></li>
                                 <li><code>ansible myserver -a uptime</code></li>
                             </ul>
                         </li>
                         
-                        <li class="fragment" data-fragment-index="2">
+                        <li class="fragment" data-fragment-index="3">
                             <a
                                href="https://docs.ansible.com/ansible/latest/command_module.html">Documentation</a>
                         </li>
@@ -1022,8 +1035,7 @@ myserver | SUCCESS => {
                         Exercise: Get tail of system messages on your vagrant host
                     </h4>
                     <p>
-                    Note: on ubuntu this will probably be /var/log/syslog. On
-                    centos it will be /var/log/messages
+                    <em>Note</em>: On centos it will be /var/log/messages
                     </p>
                     <pre class="fragment" data-fragment-index="0"><code data-trim>
                         $ ansible myserver  -b -a "tail /var/log/messages"
@@ -1092,12 +1104,15 @@ myserver | SUCCESS => {
                             Ansible in <em>ad hoc</em> mode
                         </li>
                         <li>
-                            Interacted with a simulated remote server
+                            Interacted with a remote server
                             <ul>
                                 <li>Check if SSH works</li>
                                 <li>Install OS packages</li>
                                 <li>Start services</li>
                             </ul>
+                        </li>
+                        <li>
+                            Explore documetation with <code>ansible-doc</code>
                         </li>
                     </ul>
                 </section>
@@ -1107,6 +1122,7 @@ myserver | SUCCESS => {
                 <section>
                     <section>
                         
+                        <h3>
                             Configuration management with Ansible
                         </h3>
                     </section>
@@ -1270,6 +1286,47 @@ myserver | SUCCESS => {
                                 </ul>
                             </li>
                         </ul></section>
+                        <section>
+                            <h3>
+                                Privilege Escalation
+                            </h3>
+
+                            <ul style="width:90%;font-size:18pt;">
+                                <li>
+                                    Note the <em>become</em> line in <code>playbook.yml</code>
+                                    
+                                    <pre style="font-size:18pt;"><code data-trim>
+    - name: Set up static website with nginx
+      hosts: myserver
+      become: true &lt;--
+      tasks:
+                                    </code></pre>
+                                </li>
+                                <li class="fragment" data-fragment-index="0">
+                                    Normally ansible tasks run on a host as an unprivileged user
+                                </li>
+                                <li class="fragment" data-fragment-index="1">
+                                    Most tasks in our playbook require <em>sudo</em> privileges to run
+                                </li>
+                                <li class="fragment" data-fragment-index="2">
+                                    The <em>become</em> clause:
+                                    <ul>
+                                        <li class="fragment" data-fragment-index="3">
+                                            Tells ansible to run tasks as a certain
+                                            user (default sudo)
+                                        </li>
+                                        <li class="fragment" data-fragment-index="4">
+                                            Can be in play or task scope
+                                        </li>
+                                        <li class="fragment" data-fragment-index="5">
+                                            Accepts: <em>true</em> or
+                                            <em>yes</em>, <em>false</em> or <em>no</em>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        </section>
 
 
 <section>
@@ -1550,6 +1607,66 @@ myserver | SUCCESS => {
                             <li>Reload <a href="http://localhost:8080">website</a>  when finished</li>
                         </ul>
                     </section>
+                    <section><h3>
+                            hostvars
+                        </h3>
+                        <ul style="font-size:18pt;width:100%;">
+                            <li class="fragment" data-fragment-index="0">
+                                dictionary with                                variables from each host (including inventory variables) </li>
+                            <li class="fragment" data-fragment-index="1">
+                                    indexed on hostname from inventory 
+                                <ul>
+                                    <li><code>hostvars['myserver']['foo'] ==  hostvars.myserver.foo</code></li>
+                                </ul>
+                            </li>
+                            <li class="fragment" data-fragment-index="2">
+                                Can be accessed across plays in the same playbook run
+                            </li>
+                            <li class="fragment" data-fragment-index="3">
+                                Have a look at <code>playbook-localhost.yml</code>
+                            </li>
+                            <li class="fragment" data-fragment-index="4">
+                                Run <code>playbook.yml</code> and <code>playbook-localhost.yml</code>
+                                <pre ><code data-trim>
+                                $ ansible-playbook ansible/playbook.yml ansible/playbook-localhost.yml
+                                </code></pre>
+                                
+                            </li>
+                            <li class="fragment" data-fragment-index="6">
+                                Change <code style="color:red;">foo</code> to
+                                <code style="color:red;">hostvars.myserver.foo</code> in
+                                <code>playbook-localhost.yml</code> and run
+                                playbooks
+                            </li>
+                            
+                        </ul>
+
+                    
+                    </section>
+
+                    <section>
+                        <h4>
+                            Excercise: View a group variable from hostvars
+                        </h4>
+                        <ul style="width:100%;">
+                            <li>
+                                The bizz variable still appears as undefined in
+                                playbook run
+                            </li>
+                            <li>
+                                How would you find that in hostvars?
+                            </li>
+                            <li>
+                                A group variable will be defined for every
+                                host in a group
+                                <pre><code data-trim>
+                                    - name: Output of bizz
+                                      debug:
+                                        var: hostvars.myserver.bizz
+                                </code></pre>
+                            </li>
+                        </ul>
+                    </section>
                     <section>
                         <h3>
                             Play scoped variables
@@ -1566,9 +1683,7 @@ myserver | SUCCESS => {
                             <li>
                                 Can be referenced directly while in play
                             </li>
-                            <li>
-                                Can be reference in <em>hostvars</em> dictionary for specific host
-                            </li>
+                            
                         </ul>
 
 
@@ -1577,19 +1692,14 @@ myserver | SUCCESS => {
                         <h3>
                             Play scoped varibles
                         </h3>
-                        <ul>
+                        <ul style="font-size:18pt;width:100%;">
                             <li class="fragment" data-fragment-index="0">
                                 Open <code>playbook.yml</code> in editor
                             </li>
                             <li class="fragment" data-fragment-index="1">
-                                Edit as seen below:
-                            </li>
-                            <li class="fragment" data-fragment-index="2">
-                                Rerun ansible-playbook
-                            </li>
-                        </ul>
-                        
-                        <pre class="fragment" data-fragment-index="1"><code data-trim>
+                                Edit as shown:
+
+                        <pre style="font-size:18pt;" ><code data-trim>
     - name: Set up static website with nginx
       hosts: myserver
       become: true
@@ -1609,6 +1719,12 @@ myserver | SUCCESS => {
       .
 
                         </code></pre>
+                            </li>
+                            <li class="fragment" data-fragment-index="2">
+                                Rerun ansible-playbook
+                            </li>
+                        </ul>
+                        
 
 
                     </section>
@@ -1677,17 +1793,7 @@ myserver | SUCCESS => {
                         <h4>
                             Exercise: Assign some task variables
                         </h4>
-                        <ul>
-                            <li>
-                                Use <code>set_fact</code> and
-                                <code>register</code> in playbook.yml to assign task variables
-                            </li>
-                            <li>
-                                Rerun ansible playbook
-                            </li>
-                        </ul>
-
-                        <pre><code data-trim>
+<pre class="fragment" data-fragment-index="0"><code data-trim>
     tasks:
         - name: set name of person
           set_fact:
@@ -1699,6 +1805,17 @@ myserver | SUCCESS => {
         .
         .
                         </code></pre>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">
+                                Use <code>set_fact</code> and
+                                <code>register</code> in playbook.yml to assign task variables
+                            </li>
+                            <li class="fragment" data-fragment-index="1">
+                                Rerun ansible playbook
+                            </li>
+                        </ul>
+
+                        
 
                     </section>
 
@@ -1716,7 +1833,7 @@ myserver | SUCCESS => {
                                 </ul>
                             </li>
                             <li>
-                                Collects detail information about host and attaches to host scope
+                                Collects detailed information about host and attaches to host scope
                             </li>
                             <li>
                                 You can get an idea by running
@@ -1819,18 +1936,24 @@ myserver | SUCCESS => {
                             Variable precedence
                         </h3>
                         <ul><li>
-                                Ansible variable precedence: highest to lowest
+                                Ansible variables in order of increasing
+                                precedence:
                                 <ul>
-                                    <li>extra vars</li>
-                                    <li>set_facts/registered variables</li>
-                                    <li>include_vars</li>
-                                    <li>task vars</li>
-                                    <li>play vars_files</li>
-                                    <li>play vars</li>
-                                    <li>host facts</li>
                                     <li>inventory file</li>
+                                    <li>host facts</li>
+                                    <li>play vars_files</li>
+                                    <li>task vars</li>
+                                    <li>include_vars</li>
+                                    <li>set_facts/registered variables</li>
+                                    <li>extra vars</li>
                                 </ul>
-                            </li></ul>
+                            </li>
+                            <li class="fragment" data-fragment-index="0">
+                            <a
+                                href="https://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable">complete
+                                list</a>
+                            </li>
+                        </ul>
 
                     </section>
                     <section>
@@ -1850,6 +1973,21 @@ myserver | SUCCESS => {
                         </code></pre>
                     </section>
                     
+                    <section>
+                        <h3>
+                            Summary
+                        </h3>
+                        <ul><li>
+                                There are several types of variables in Ansible
+                                <ul>
+                                    <li>inventory</li>
+                                    <li>play scoped</li>
+                                    <li>task variables</li>
+                                    <li>extra </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
 
 
 
@@ -1874,7 +2012,7 @@ myserver | SUCCESS => {
                         </h3>
                         <ul>
                             <li>
-                                Sometimes you need dynamic behaviour in tasks
+                                Sometimes you need dynamic behaviour in plays/tasks
                                 <ul>
                                     <li>File locations</li>
                                     <li>Fill in prompted information</li>
@@ -1927,10 +2065,13 @@ myserver | SUCCESS => {
                             </h5>
                             <ul>
                                 <li>
-                                    Simple variables
+                                    Simple variables or expressions
                                     <ul>
                                         <li>
                                             <code style="font-size:15pt;">{{ person_name  }}</code> 
+                                        </li>
+                                        <li>
+                                            <code style="font-size:15pt;">{{ 1 + 1 }}</code> 
                                         </li>
                                     </ul>
                                 </li>
@@ -1987,11 +2128,15 @@ myserver | SUCCESS => {
                             </h4>
                             <ul>
                                 <li>
-                                    Modify tasks to use variables
+                                    Use template syntax to replace path for
+                                    <ul>
+                                        <li>nginx</li>
+                                        <li>index.html</li>
+                                    </ul>
                                 </li>
                             </ul>
 
-                            <pre><code data-trim>
+                            <pre class="fragment" data-fragment-index="0"><code data-trim>
         - name: Copy in nginx config file
           copy:
             .
@@ -2004,9 +2149,466 @@ myserver | SUCCESS => {
             dest: "{{ static_file_directory }}/index.html"
             .
                             </code></pre>
+                            <p class="fragment" data-fragment-index="1">
+                            Re-run the ansible playbook
+                            </p>
+                        </section>
+                        <section>
+                            <h3>
+                                Templates and Quoting
+                            </h3>
+                            <ul style="width:80%;">
+                                <li>
+                                    Be aware that you will often need to put quotes
+                                    around values when using templates
+                                    <pre><code data-trim>
+                                        dest: "{{ nginx_conf_directory }}/nginx.conf"
+                                    </code></pre>
+                                </li>
+                                <li>
+                                    However sometimes you do not need them
+                                    <pre><code data-trim>
+                                        command: ls {{ nginx_conf_directory }
+                                    </code></pre>
+
+                                </li>
+                            </ul>
                         </section>
 
                 </section>
+                <section>
+                    <section>
+                        <h2>
+                            Iteration and Conditionals in Ansible
+                        </h2>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Iteration and Conditionals in Ansible
+                        </h3>
+                        <pre><code data-trim>
+                            $ cd $WORKDIR/sample-code/lesson3
+                            $ tree
+                            .
+                            ├── ansible
+                            │   ├── hosts
+                            │   ├── playbook-dict.yml
+                            │   └── playbook-lists.yml
+                            └── ansible.cfg
+                        </code></pre>
+                    </section>
+
+                        <section>
+                            <h2>
+                                Iterating through lists
+                            </h2>
+                        </section>
+                        <section>
+                            <h3>
+                                Iterating through lists
+                            </h3>
+                            <h4>
+                                <code>with_items</code>
+                            </h4>
+                            <ul>
+                                <li>Step through an array</li>
+                                <li>Each element is assigned to variable <em>item</em></li>
+                            </ul>
+                            <pre><code data-trim>
+                                - name: Process a list of items
+                                  copy:
+                                    src: "/path/to/local/{{ item }}"
+                                    dest: "/path/to/remote/{{ item }}"
+                                  with_items: "{{ list_of_files }}"
+                            </code></pre>
+
+                        </section>
+                        <section>
+                            <h3>
+                                Configuring our fake application <em>myapp</em>
+                            </h3>
+                            
+                            <ul>
+                                <li class="fragment" data-fragment-index="0">
+                                    Have a look at <code>ansible/playbook-lists.yml</code>
+                                </li>
+                                <li class="fragment" data-fragment-index="1">
+                                    Run the playbook and then have a look in
+                                    /etc/myapp/config
+                                </li>
+
+                                <li class="fragment" data-fragment-index="2">
+                                    It adds lines to a configuration file for a fake
+                                    app
+                                </li>
+                                <li class="fragment" data-fragment-index="3">
+                                    There are a number of things we can optimise
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>
+                                Exercise: Remove repetitive allowed_host(s) tasks from playbook
+                            </h4>
+                            <ul>
+                                <li>
+                                    Use <code>with_items</code> to simplify allowed_host tasks
+                                </li>
+                                <li class="fragment" data-fragment-index="0">
+                                    Replace all the allowed host tasks with:
+                                </li>
+                            </ul>
+
+                            <pre class="fragment" data-fragment-index="0"><code data-trim>
+        - name: Add allowed_hosts entries
+          lineinfile:
+            path: /etc/myapp/config
+            line: "allow_from: {{ item }}"
+            insertafter: EOF
+          with_items:
+            - "{{ allowed_host1 }}"
+            - "{{ allowed_host2 }}"
+            - "{{ allowed_host3 }}"
+
+                            </code></pre>
+
+                        </section>
+                        <section>
+                            <h4>
+                                Exercise: Remove repetitive listen tasks from playbook
+                            </h4>
+                            <ul>
+                                <li>
+                                    Use <code>with_items</code> to simplify listen tasks
+                                </li>
+                                <li class="fragment" data-fragment-index="0">
+                                    Replace all the listen tasks with:
+                                </li>
+                            </ul>
+
+                            <pre class="fragment" data-fragment-index="0"><code data-trim>
+
+    - name: Add listen port entries
+      lineinfile:
+        path: /etc/myapp/config
+        line: "listen: {{ item }}"
+        insertafter: EOF
+      with_items: "{{ listen_ports }}"
+                            </code></pre>
+
+                        </section>
+                        <section>
+                            <h3>
+                                Nesting Loops
+                            </h3>
+                            <h4>
+                                <code>with_nested</code>
+                            </h4>
+                            <ul style="width:100%;"><li>
+                                    It is also possible to loop over two lists at once
+                                    
+
+                                </li></ul>
+<pre><code data-trim>
+                                    - name: Add allowed ports for each host
+                                      lineinfile:
+                                        path: /etc/myapp/config
+                                        line: "host: {{ item[0] }}:{{ item[1] }}"
+                                        insertafter: EOF
+                                      with_nested:
+                                        - [ "{{ allowed_host1 }}", "{{ allowed_host2 }}", "{{ allowed_host3 }}"]
+                                        - "{{ listen_ports }}"
+                                    </code></pre>
+
+
+                        </section>
+
+                        <section>
+                            <h2>
+                                Iterating through dictionaries
+                            </h2>
+                        </section>
+                    
+                        <section>
+                            <h3>
+                                Iterating through dictionaries
+                            </h3>
+                            <h4><code>with_dict</code></h4>
+                            <ul>
+                                <li>
+                                    Takes a dictionary as argument
+                                </li>
+                                <li>
+                                    Each item has
+                                    <ul>
+                                        <li>key</li>
+                                        <li>value</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <pre><code data-trim>
+                                - name: Task that iterates over a dictionary
+                                  somemodule:
+                                    arg: "{{ item.key }}"
+                                    arg2: "{{ item.value }}"
+                                  with_dict: "{{ dictionary }}"
+                            </code></pre>
+                        </section>
+
+                        <section><h3>
+                                More configuration for myapp
+                            </h3>
+                            <ul>
+                                <li class="fragment" data-fragment-index="0">
+                                    <code>ansible/playbook-dict.yml</code> sets up
+                                    database config for fake application
+                                </li>
+                                <li class="fragment" data-fragment-index="1">
+                                    Adds each element of <em>database</em>
+                                    variable to config
+                                </li>
+
+                                <li class="fragment" data-fragment-index="2">
+                                    Run the playbook and have a look at
+                                    /etc/myapp/app_config 
+                                </li>
+                            </ul>
+
+                        </section>
+
+                        <section>
+                            <h4>
+                                Exercise: Remove repetition from playbook-dict.yml
+                            </h4>
+                            <ul>
+                                
+                                <li >
+                                    Refactor playbook using <code>with_dict</code> to
+                                    remove repetitive tasks.
+                                </li>
+                            </ul>
+                            <pre class="fragment" data-fragment-index="0"><code data-trim>
+                                - name: Add database config to /etc/myapp/config
+                                  lineinfile:
+                                    path: /etc/myapp/app_config
+                                    line: "database_{{ item.key }}={{ item.value }}"
+                                  with_dict: "{{ database[env_name] }}"
+                            </code></pre>
+
+                        </section>
+
+                        <section>
+                            <h2>
+                                Conditionals
+                            </h2>
+                        </section>
+
+
+                        <section>
+                            <h3>
+                                The <em>when</em> statement
+                            </h3>
+
+                            <ul>
+                                <li class="fragment" data-fragment-index="0">
+                                    The main way to conditionally do something in
+                                    Ansible is to use the <em>when</em> statement
+                                </li>
+                                <li class="fragment" data-fragment-index="1">
+                                    Identical semantics to a Python <em>if</em> block
+                                    <ul>
+                                        <li class="fragment" data-fragment-index="2">
+                                            <code>when: some_variable is defined</code>
+                                        </li>
+                                        <li class="fragment" data-fragment-index="2">
+                                            <code>when: env_name == 'staging'</code>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <pre class="fragment" data-fragment-index="4"><code data-trim>
+                                - name: Some task
+                                  command: do something
+                                  when: &lt;condition is true&gt;
+                            </code></pre>
+                        </section>
+                        
+                        <section>
+                            <h4>
+                                Exercise: Make our tasks conditional 
+                            </h4>
+                            <ul>
+
+                            <li>
+                                Tasks in <code>ansible/playbook-dict.yml</code> assume a staging environment
+                            </li>
+                                <li>Add conditional to <code>lineinfile</code> task</li>
+                                <li>Only execute if <code>env_name</code> is <em>production</em></li>
+                                <li>
+                                    re run the playbook
+                                </li>
+                            </ul>
+                            
+                            <pre  class="fragment" data-fragment-index="0"><code data-trim>
+                                    - name: Add database config to /etc/myapp/config
+                                      lineinfile:
+                                      .
+                                      .
+                                      when: env_name == 'production'
+                            </code></pre>
+
+
+                        </section>
+                        <section>
+                            <h4>
+                                Exercise: Override default <em>env_name</em> to run tasks
+                            </h4>
+                            <ul>
+                                <li><em>env_name</em> is set to <em>staging</em> by default in vars section</li>
+                                <li>Override this to be <em>production</em> and re-run playbook</li>
+                                <li>Hint: What type of variable has precedence?</li>
+                            </ul>
+                            <pre  class="fragment" data-fragment-index="0"><code data-trim>
+                                $ ansible-playbook ansible/playbook-dict.yml -K \
+                                     -e env_name=production
+                            </code></pre>
+                        </section>
+                        
+                </section>
+                <section>
+                    <section>
+                        <h2>Protecting Secrets in Ansible</h2>
+                    </section>
+                    <section>
+                        <h3>
+                            Protecting secrets in Ansible
+                        </h3>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">One problem with playbook-dict.yml</li>
+                            <li class="fragment" data-fragment-index="1">Database passwords are out in the open</li>
+                            <li class="fragment" data-fragment-index="2">Ansible provides a built in tool for managing secrets</li>
+                            <li class="fragment" data-fragment-index="3">
+                                <code>ansible-vault</code> helps you
+                                encrypt/decrypt files containing secrets for
+                                your app
+                            </li>
+                        </ul>
+                        <pre class="fragment" data-fragment-index="4"><code data-trim>
+                            $ ansible-vault --help
+
+                            Usage: ansible-vault [create|decrypt|edit|encrypt|encrypt_string|rekey|view] [options] [vaultfile.yml]
+
+                            encryption/decryption utility for Ansible data files
+
+                            Options:
+                            --ask-vault-pass      ask for vault password
+                            -h, --help            show this help message and exit
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>
+                            About Ansible Vault
+                        </h3>
+                        <ul>
+                            <li>
+                                Uses AES256 encryption
+                            </li>
+                            <li>
+                                Secret files can be 
+                                <ul>
+                                    <li>Loaded automatically as <code>host_vars</code> or <code>group_vars</code> inventory files</li>
+                                    <li>included <em>include_vars</em> or <em>vars_files</em></li>
+                                </ul>
+                            </li>
+                            <li>
+                                Encrypted files can be distributed with your
+                                application
+                            </li>
+                        </ul>
+                        
+                    </section>
+                    <section>
+                        <h3>
+                            Protecting our database passwords
+                        </h3>
+                        <ul style="width:90%;">
+                            <li>
+                                Create a new yml file:
+                                <pre><code data-trim>
+                                  $ $EDITOR $WORKDIR/sample-code/lesson3/ansible/secrets.yml
+                                    ---
+                                    vault_staging_database_password: &lt;some password&gt;
+                                    vault_staging_database_password: &lt;some password&gt;
+                                </code></pre>
+
+                            </li>
+                            <li>
+                                Encrypt ansible/secrets.yml.
+                                <pre><code data-trim>
+                                    $ ansible-vault encrypt ansible/secrets.yml
+                                    New Vault password: 
+                                    Confirm New Vault password: 
+                                    Encryption successful
+                                </code></pre>
+                                <ul>
+                                    <li>
+                                        Make sure you remember your password!
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
+                            Integrating vaulted secrets
+                        </h3>
+                        <ul style="font-size:18pt;">
+                            <li>
+                                Import <code>secrets.yml</code> using vars_files
+                                <pre style="font-size:18pt;"><code data-trim>
+                                    vars_files:
+                                      - secrets.yml
+                                </code></pre>
+                            </li>
+                            <li>
+                                Replace references to staging/production database
+                                passwords
+                                <pre style="font-size:18pt;"><code data-trim>
+                                    database:
+                                      staging:
+                                        .
+                                        password: "{{ vault_staging_database_password }}"
+                                      production:
+                                        .
+                                        password: "{{ vault_production_database_password }}"
+                                </code></pre>
+                            </li>
+                            <li>
+                                Run playbook using <code style="color:red;">--ask-vault-pass</code> flag
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
+                            Summary
+                        </h3>
+                        <ul>
+                            <li>
+                               <code>ansible-vault</code> is a way to keep secrets safe
+                                <ul>
+                                    <li>passwords</li>
+                                    <li>API keys</li>
+                                    <li>SSL keys</li>
+                                </ul>
+                            </li>
+                            <li>Can distribute encrypted secrets with your code</li>
+                            <li>Automatically integrate into automation tasks</li>
+                        </ul>
+                    </section>
+                </section>
+
 <section>
                 <section>
                     <h3>Running Ansible</h3>

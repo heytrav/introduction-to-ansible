@@ -1,0 +1,4 @@
+---
+default_security_groups: 
+  - default
+  - "web-{{ suffix }}"

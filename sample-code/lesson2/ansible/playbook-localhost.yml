@@ -1,0 +1,17 @@
+---
+- name: Access some variables as localhost
+  hosts: localhost
+  tasks:
+
+    - name: Output name of this host
+      debug:
+        var: inventory_hostname
+
+    - name: Output value of foo
+      debug:
+        var: foo
+
+    - name: Output value of bizz
+      debug:
+        var: bizz
+
