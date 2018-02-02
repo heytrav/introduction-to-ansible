@@ -1,4 +1,4 @@
 ---
-default_security_groups:
-  - default
-  - "app-{{ suffix }}"
+
+security_groups:
+  - {group: "app-{{ suffix }} ", port: 5000, remote_group: "web-{{ suffix }}"}

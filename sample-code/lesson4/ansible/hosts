@@ -1,12 +1,13 @@
-server1
-server2
-server3
+[mycluster]
+trav-server1
+trav-server2
+trav-server3
 
 [web]
-server1
+trav-server1
 
 [db]
-server2
+trav-server2
 
 [app]
-server3
+trav-server3
