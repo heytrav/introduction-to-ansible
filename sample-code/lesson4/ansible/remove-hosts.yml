@@ -1,0 +1,89 @@
+---
+- name: Preflight to set up machine specific variables
+  hosts: "mycluster"
+  gather_facts: false
+  tasks:
+
+    - fail:
+      when: suffix is not defined or suffix == ""
+
+
+- name: Provision a set of hosts in the Catalyst Cloud
+  hosts: localhost
+  gather_facts: false
+  vars:
+    # optional suffix to namespace resources
+    suffix: ""
+    host_set: "{{ groups['mycluster'] | unique | list }}"
+    # change if required or override at runtime using --extra-vars
+
+    security_groups: "{{ host_set | map('extract', hostvars, 'security_groups') | sum(start=main_security_groups) | unique | list }}"
+
+    security_group_names: "{{ security_groups | map(attribute='group') | unique | list }}"
+
+  tasks:
+    - name: Connect to Catalyst Cloud
+      os_auth:
+
+    - name: Remove floating ips from known_hosts
+      known_hosts:
+        name: "{{ item }}"
+        state: absent
+      with_items: "{{ host_set }}"
+
+    - name: Remove swarm servers
+      os_server:
+        name: "{{ item }}"
+        state: absent
+        delete_fip: true
+      with_items: "{{ host_set }}"
+
+    - name: Remove ports
+      os_port:
+        name: "{{ item }}"
+        state: absent
+      with_items: "{{ host_set }}"
+
+    - name: Remove swarm keypair
+      os_keypair: 
+        state: absent
+        name: "{{ keypair_name }}"
+
+    - name: Remove swarm router
+      os_router:
+        state: absent
+        name: "{{ router_name }}"
+
+    - name: Remove swarm network
+      os_network:
+        state: absent
+        name: "{{ network_name }}"
+
+    - name: Remove security group
+      os_security_group:
+        name: "{{ item }}"
+        state: absent
+      with_items: "{{ security_group_names }}"
+
+    - name: Remove hosts from local ~/.ssh/config
+      blockinfile:
+        dest: "{{  lookup('env', 'HOME')  }}/.ssh/config"
+        state: absent
+        marker: "# {mark} ANSIBLE MANAGED BLOCK for {{ item }}"
+      with_items: "{{ host_set }}"
+
+    - name: Remove host from /etc/hosts
+      become: yes
+      blockinfile:
+        dest: /etc/hosts
+        state: absent
+        insertafter: EOF
+        marker: "# {mark} ANSIBLE MANAGED BLOCK for {{ item }}"
+      with_items: "{{ host_set }}"
+
+    - name: Remove fake domain from /etc/hosts
+      become: yes
+      blockinfile:
+        dest: /etc/hosts
+        state: absent
+        marker: "# {mark} ANSIBLE MANAGED BLOCK for my-app.cat"

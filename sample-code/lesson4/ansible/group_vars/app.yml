@@ -1,4 +1,8 @@
 ---
 
-security_groups:
-  - {group: "app-{{ suffix }} ", port: 5000, remote_group: "web-{{ suffix }}"}
+machine_security_groups:
+  - {group: "app{{ suffix }}", port: 5000, remote_group: "web{{ suffix }}"}
+
+security_groups: "{{ machine_security_groups + main_security_groups }}"
+
+app_directory: /usr/local/app

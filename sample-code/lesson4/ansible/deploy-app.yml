@@ -1,0 +1,219 @@
+--- 
+
+- name: Update apt cache on all machines
+  hosts: "db:web:app"
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        
+
+
+- name: Set up database machine
+  hosts: "db"
+  become: true
+  tasks:
+
+    - name: Install packages needed for database
+      apt:
+        name: "{{ item }}"
+      with_items:
+        - postgresql
+        - python-psycopg2
+        
+    - name: Make postgres listen on external ports
+      lineinfile:
+        path: /etc/postgresql/9.5/main/postgresql.conf
+        line: "listen_addresses = '*'"
+        insertbefore: '^#listen_addresses'
+      notify: restart postgres
+
+    - name: Add pb_hba rule for hosts
+      lineinfile:
+        path: /etc/postgresql/9.5/main/pg_hba.conf
+        insertafter: "^# IPv4 local connections"
+        line: "host      all    all   192.168.99.0/24     md5"
+      notify: restart postgres
+
+    - name: Create DB user
+      become: true
+      become_user: postgres
+      postgresql_user:
+        name: "{{ database_user }}"
+        password: "{{ database_password }}"
+
+
+    - name: Create the database
+      become: true
+      become_user: postgres
+      postgresql_db:
+        name: "{{ database }}"
+        owner: "{{ database_user }}"
+        encoding: UTF8
+        lc_ctype: en_NZ.UTF-8
+        lc_collate: en_NZ.UTF-8
+        template: template0
+
+  handlers:
+    - name: restart postgres
+      systemd:
+        name: postgresql
+        state: restarted
+
+    
+- name: Set up app and database machine
+  hosts: "db:app"
+  tasks:
+    - name: "Create the pgpass file for user to access database"
+      lineinfile:
+        path: "{{ ansible_env.HOME }}/.pgpass"
+        line: "{{ groups['db'][0] }}:5432:{{ database }}:{{ database_user }}:{{ database_password }}"
+        create: yes
+        mode: 0600
+
+- name: Set up app and database machine
+  hosts: "db"
+  tasks:
+
+
+    - name: Create table for pics 
+      command: |
+        psql -U {{ database_user }} -h {{ groups['db'][0] }} 
+        -c "CREATE TABLE IF NOT EXISTS images (id SERIAL primary key not null,
+        image char(200) not null)" {{ database }}
+                                                                                                                                                                                                                                  
+    - name: Add images to new table
+      command: |
+        psql -U {{ database_user }} -h {{ groups['db'][0] }} 
+        -c "INSERT INTO images (image) VALUES ('{{ item }}')" {{ database }}
+      with_items: "{{ images }}"
+
+
+- name: Set up app server
+  hosts: "app"
+  become: true
+  tasks:
+
+    - name: Install packages needed for app
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - python-dev
+        - python-pip
+        - python-psycopg2
+        - python-setuptools
+        - python-virtualenv
+
+    - name: Install python libraries
+      pip:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - pip
+        - virtualenv
+        - virtualenvwrapper
+          
+
+    - name: Make sure deploy directory exists
+      file:
+        path: "{{ app_directory }}"
+        state: directory
+        owner: train
+        group: train
+
+    - name: Make sure templates directory exists
+      file:
+        path: "{{ app_directory }}/templates"
+        state: directory
+        owner: train
+        group: train
+
+
+    - name: Copy app files into app directory
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: train
+        group: train
+        mode: 0644
+      with_items:
+        - { src: "../wsgi.py", dest: "{{ app_directory }}/wsgi.py" }
+        - { src: "../__init__.py", dest: "{{ app_directory }}/__init__.py" }
+        - { src: "../app.py", dest: "{{ app_directory }}/app.py" }
+        - { src: "../requirements.txt", dest: "{{ app_directory }}/requirements.txt" }
+        - { src: "../templates/index.html", dest: "{{ app_directory }}/templates/index.html" }
+      notify: restart gunicorn
+
+    - name: Add app config
+      template:
+        src: templates/config.py.j2
+        dest: "{{ app_directory }}/config.py"
+        owner: train
+        group: train
+        mode: 0644
+      notify: restart gunicorn
+
+    - name: Install app requirements
+      pip:
+        requirements: "{{ app_directory }}/requirements.txt"
+        virtualenv: "{{ app_directory }}/venv"
+        virtualenv_python: /usr/bin/python3
+
+    - name: Install gunicorn
+      pip:
+        name: gunicorn
+        virtualenv: "{{ app_directory }}/venv"
+
+    - name: Add systemd config
+      template:
+        src: templates/gunicorn.service.j2
+        dest: /etc/systemd/system/gunicorn.service
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart gunicorn
+
+  handlers:
+    - name: restart gunicorn
+      systemd:
+        name: gunicorn
+        state: restarted
+
+
+- name: Set up nginx on web server
+  hosts: "web"
+  become: true
+  tasks:
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Add nginx config
+      template:
+        src: templates/nginx.conf.j2
+        dest: /etc/nginx/sites-available/cats.conf
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart nginx
+
+    - name: Symlink nginx conf to activate 
+      file:
+        src: /etc/nginx/sites-available/cats.conf
+        dest: /etc/nginx/sites-enabled/cats.conf
+        state: link
+
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+
+
+

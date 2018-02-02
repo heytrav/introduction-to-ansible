@@ -1,8 +1,12 @@
 ---
 - name: Preflight to set up machine specific variables
-  hosts: "{{ env_name }}"
+  hosts: "mycluster"
   gather_facts: false
   tasks:
+
+    - fail:
+      when: suffix is not defined or suffix == ""
+
 
 
 - name: Provision a set of hosts in the Catalyst Cloud
@@ -14,7 +18,7 @@
     host_set: "{{ groups['mycluster'] | unique | list }}"
     # change if required or override at runtime using --extra-vars
 
-    security_groups: "{{ host_set | map('extract', hostvars, 'security_groups') | sum(start=main_security_groups) | unique | list }}"
+    security_groups: "{{ host_set | map('extract', hostvars, 'security_groups') | sum(start=[]) | unique | list }}"
 
     security_group_names: "{{ security_groups | map(attribute='group') | unique | list }}"
 
@@ -69,16 +73,29 @@
       with_items: "{{ security_groups }}"
 
 
-    - name: Create web servers
+    - name: Create cluster instances
       os_server:
         state: present
-        name: "{{ hostvars[item].ansible_host }}"
+        name: "{{ item }}"
         image: "{{ default_os_image }}"
         key_name: "{{ keypair_name  }}"
         flavor: "{{ default_flavor }}"
         nics:
-          - net-name: "{{ subnet_name }}"
-        security_groups: "default,{{ security_groups | join(',') }}"
+          - net-name: "{{ network_name }}"
+        security_groups: "default,{{ hostvars[item].security_groups | map(attribute='group') | list | unique | join(',')}}"
+        userdata: |
+                  #cloud-config
+                  datasource:
+                    OpenStack:
+                      metadata_urls: ["http://169.254.169.254"]
+                      max_wait: -1
+                  users:
+                    - name: "{{ hostvars[item].ssh_user }}"
+                      shell: /bin/bash
+                      lock_passwd: true
+                      sudo: ALL=(ALL) NOPASSWD:ALL
+                      ssh_authorized_keys:
+                        - "{{ ssh_public_key }}"
       with_items: "{{ host_set }}"
 
     - name: Assign floating ips
@@ -93,8 +110,9 @@
 
     - name: Append floating ip to host info
       add_host:
-        name: "{{ item.item.name }}"
+        name: "{{ item.item }}"
         ansible_host: "{{ item.floating_ip.floating_ip_address }}"
+        ansible_user: "{{ hostvars[item.item].ssh_user }}"
         fixed_ip: "{{ item.floating_ip.fixed_ip_address }}"
         ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
         ansible_python_interpreter: /usr/bin/python
@@ -104,13 +122,6 @@
         host: "{{ hostvars[item].ansible_host }}"
         port: 22
       with_items: "{{ host_set }}"
-      tags: wait_for
-
-    - name: Remove floating ips from known_hosts
-      known_hosts:
-        name: "{{ item.floating_ip.floating_ip_address }}"
-        state: absent
-      with_items: "{{ floating_ip_info.results }}"
 
 
 - name: Basic host setup
@@ -119,9 +130,7 @@
   gather_facts: false
   vars: 
     host_set: "{{ groups['mycluster']  }}"
-  tags:
-    - basic
-  pre_tasks:
+  tasks:
     - name: Remove floating ip from known hosts
       delegate_to: localhost
       known_hosts:
@@ -130,7 +139,6 @@
 
     - name: "Add {{ inventory_hostname }} to local ~/.ssh/config"
       delegate_to: localhost
-      tags: local-changes
       blockinfile:
         dest: "{{ lookup('env', 'HOME') }}/.ssh/config"
         insertbefore: BOF
@@ -146,7 +154,6 @@
 
     - name: "Add {{ inventory_hostname }} to /etc/hosts"
       delegate_to: localhost
-      tags: local-changes
       become: yes
       blockinfile:
         dest: /etc/hosts
@@ -156,11 +163,40 @@
         marker: "# {mark} ANSIBLE MANAGED BLOCK for {{ inventory_hostname }}"
 
 
-    - debug:
-        var: ssh_user
-
     - name: Update apt cache
       raw: apt update -y
 
-    - include: roles/common/tasks/install-python.yml
+    - name: Install python
+      raw: >
+        which python || apt-get install -y python && echo 'installed'
+      register: python
+      changed_when: python.stdout == 'installed'
+
+    - name: Add NZ locale to all instances
+      locale_gen:
+        name: en_NZ.UTF-8
+        state: present
+
+    - name: Add entry to /etc/hosts for all instance
+      lineinfile:
+        dest: /etc/hosts
+        line: "{{ hostvars[item].fixed_ip }} {{ item }}"
+      with_items: "{{ host_set }}"
+
+
+- name: Extra set up for web demo
+  hosts: "web"
+  become: true
+  gather_facts: false
+  tasks:
+
+    - name: "Add fake domain to /etc/hosts"
+      delegate_to: localhost
+      become: yes
+      blockinfile:
+        dest: /etc/hosts
+        insertafter: EOF
+        block: |
+          {{ ansible_host }} my-app.cat
+        marker: "# {mark} ANSIBLE MANAGED BLOCK for my-app.cat"
 

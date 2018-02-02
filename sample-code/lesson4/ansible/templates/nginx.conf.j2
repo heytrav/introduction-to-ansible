@@ -1,0 +1,9 @@
+server {
+ listen 80;
+ server_name  my-cat-app.train;
+
+ location / {
+  include proxy_params;
+  proxy_pass http://{{ groups['app'][0] }}:5000;
+ }
+}

@@ -1,3 +1,4 @@
 .vagrant
 *.retry
-sample-code/lesson3/images
+sample-code/lesson4/ansible/cloud-hosts
+sample-code/lesson4/ansible/.vault_password
