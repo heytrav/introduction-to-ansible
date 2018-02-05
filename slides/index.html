@@ -176,20 +176,6 @@
                 </section>
                 
                 <section>
-                    <h3>Why Automate?</h3>
-                    <ul>
-                        <li>Scalability</li>
-                        <li>Reliability</li>
-                        <li>Duplication</li>
-                        <li>Consistency</li>
-                        <li>Auditability</li>
-                        <li>Security</li>
-                    </ul>
-                </section>
-                </section>
-               
-                <section>
-                <section>
                     <h3>Types of Automation</h3>
                     <ul>
                         <li>Provisioning</li>
@@ -200,6 +186,71 @@
                         <li>Container Orchestration Engines</li>
                     </ul>
                 </section>
+                <section>
+                    <h3>Why Automate?</h3>
+                    <ul>
+                        <li>Scalability</li>
+                        <li>Reliability</li>
+                        <li>Duplication</li>
+                        <li>Consistency</li>
+                        <li>Auditability</li>
+                        <li>Security</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>What does Automation enable?</h3>
+                    <ul>
+                        <li>Immutable Infrastructure</li>
+                        <li>Continuous Integration</li>
+                        <li>Continuous Delivery</li>
+                        <li>Continuous Deployment</li>
+                        <li>A key DevOps practice</li>
+                        <li>Essential to Microservice deployment at scale</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>How automation helps organisations succeed</h3>
+                    <ul>
+                        <li>Achieve high deployment frequency</li>
+                        <li>Decouple deployments from releases</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>High deployment frequency</h3>
+                    <ul>
+                        <li>Frequent releases of small features</li>
+                        <li>Fast delivery of value to the customer</li>
+                        <li>Per release risk is lower</li>
+                        <li>Faster MTTR</li>
+                        <li>Shorter feedback loops to validate value for users</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Faster and better?</h3>
+                    <p>Jez Humbles research on high performing organizations shows that faster and better is possible.</p>
+                    <ul>
+                        <li>Higher Quality</li>
+                        <li>Faster Delivery</li>
+                        <li>Greater Business Responsiveness</li>
+                        <li>Reduced Costs</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Whiteboard writeup</h3>
+                    <p>Lets take a minute for everyone to come up to the whiteboard and write a word or phrase about automation.</p>
+                </section>
+                <section>
+                    <h3>Recommended reading</h3>
+                    <ul>
+                        <li>Continuous Delivery by David Farley and Jez Humble</li>
+                        <li>The DevOps Handbook by Gene Kim, Jez Humble, Patrick Debois and John Willis</li>
+                        <li>Lean Enterprise by Barry O'Reilly, Jez Humble, and Joanne Molesky</li>
+                        <li>The Phoenix Project by Gene Kim, George Spafford, and Kevin Behr</li>
+                    </ul>
+                </section>
+                </section>
+                <section>
                 <section>
                     <h3>Teachback - Ansible use cases</h3>
                     <p>Each group will review a one of the Ansible <a href="https://www.ansible.com/use-cases">use cases</a> and explain it to the class.</p>
@@ -2609,16 +2660,64 @@ myserver | SUCCESS => {
                     </section>
                 </section>
 
+                <!--<section>
+                <section>
+                    <h3>Continuous integration</h3>
+                    <ul>
+                        <li>Trunk based development</li>
+                        <li>Every developer commit triggers a merge/build/test cycle</li>
+                        <li>Automated testing</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Continuous delivery/deployment</h3>
+                    <ul>
+                        <li>Automated Pipeline from developer commit to production deploy</li>
+                        <li>Requires lots of automated tests</li>
+                        <li>Deploying more frequently lowers risk</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Continuous delivery antipatterns</h3>
+                    <ul>
+                        <li>Deploying software manually</li>
+                        <li>Manual configuration of production environments</li>
+                        <li>Deploying to a production-like environment only after development is complete</li>
+                    </ul>
+                </section>
+                <section class="image-slide">
+                    <h2>DevOps</h2>
+                    <img src="img/picture1_1.png" alt="DevOps" height="496" width="634">
+                </section>
+                <section class="image-slide">
+                    <h2>DevOps</h2>
+                    <img src="img/devops-common-use-cases-architectures-best-practices-22-638.jpg" alt="DevOps" height="359" width="638">
+                </section>
+                <section>
+                    <h3>Microservices</h3>
+                    <ul>
+                        <li>Each microservice needs a full dev to prod pipeline</li>
+                        <li>You have N microservices</li>
+                        <li>Automation is the only reasonable way to achieve this</li>
+                    </ul>
+                </section>
+                [> Large image slide <]
+                <section class="image-slide">
+                    <h2>Netflix Microservices</h2>
+                    <img src="img/netflix-microservices.jpg" alt="Netflix Microservices" height="600" width="800">
+                </section>
+
+                </section>-->
                 <section>
                     <section>
                         <h2>
-                            Deploying Software
+                            Infrastructure as Code
                         </h2>
                     </section>
 
                     <section>
                         <h3>
-                            Deploying Software
+                            Infrastructure as Code
                         </h3>
                         
                         <pre><code data-trim>
@@ -2633,7 +2732,182 @@ myserver | SUCCESS => {
                             └── wsgi.py
 
                         </code></pre>
+                        <ul>
+                            <li>lesson4 directory is set up as a complete application</li>
+                            <li>Infrastructure <em>code</em> in one repo with application code</li>
+                        </ul>
                     </section>
+                <section>
+                    <h3>Immutable Infrastructure</h3>
+                    <ul>
+                        <li><a href="https://blog.engineyard.com/2014/pets-vs-cattle">Cattle vs pets</a></li>
+                        <li><a href="http://martinfowler.com/bliki/SnowflakeServer.html">Snowflake Servers</a> vs. <a href="http://martinfowler.com/bliki/PhoenixServer.html">Phoenix Servers</a></li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Cattle vs Pets</h2>
+                    <img src="img/servers_pets_or_cattle.jpg" alt="Cattle vs Pets" height="600" width="800">
+                </section>
+                <section>
+                    <h3>Immutable Infrastructure</h3>
+                    <ul>
+                        <li>The environment is defined in code (Infrastructure as Code)</li>
+                        <li>If you need to change <em>anything</em> you create a new instance and destroy the old one</li>
+                        <li>Stop Configuration Drift</li>
+                        <li>Practice failure and iterate</li>
+                        <li>Declarative</li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Immutable Infrastructure</h2>
+                    <img src="img/immutable_infrastructure.gif" alt="Immutable Infrastructure" height="600" width="800">
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Blue-green deployments</h2>
+                    <img src="img/blue_green_deployments.png" alt="Blue / Green Deployments" height="600" width="800">
+                    <aside class="notes" >
+                        Blue-green deployment is a technique that reduces downtime and risk by running two identical production environments called Blue and Green. At any time, only one of the environments is live, with the live environment serving all production traffic. For this example, Blue is currently live and Green is idle.
+                    </aside>
+                </section>
+
+
+                </section>
+
+
+
+
+
+                
+                <!--<section>
+                    <h3>Idempotence Revisited</h3>
+                    <ul>
+                        <li>Make the same request repeatedly to produce the same result</li>
+                        <li>ok = I checked and the thing you wanted was already done so I skipped doing it</li>
+                        <li>changed = I checked and the thing you wanted was not done so I did it</li>
+                    </ul>
+                    <pre><code data-trim contenteditable>
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=4    unreachable=0    failed=0
+
+...
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=6    changed=0    unreachable=0    failed=0
+                    </code></pre>
+                </section>-->
+
+                <section>
+                    <section>
+                        <h2>
+                            Deploying Applications
+                        </h2>
+                    </section>
+                    <section>
+                        <h3>
+                            Deploying to multiple machines
+                        </h3>
+                        <img src="img/3-machine-network.svg" />
+                    </section>
+                <section>
+                    <h3>What is Cloud Computing?</h3>
+                    <p>The NIST Definition of Cloud Computing lists five essential characteristics of Cloud Computing:</p>
+                    <ul>
+                        <li>On-demand self-service</li>
+                        <li>Broad network access</li>
+                        <li>Resource pooling</li>
+                        <li>Rapid elasticity</li>
+                        <li>Measured service</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>The Big 3</h3>
+                    <ul>
+                        <li>AWS</li>
+                        <li>Azure</li>
+                        <li>Google Cloud Platform</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>What is OpenStack?</h3>
+                    <ul>
+                        <li>A "cloud operating system"</li>
+                        <li>Sits above your infrastructure providing IaaS</li>
+                        <li>Provides an API to interact with that infrastructure</li>
+                        <li>API provides operations like Create/Delete/Update for various components</li>
+                        <li>Command line tools, libraries, dashboard all interact with services via the API</li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>What is OpenStack?</h2>
+                    <img src="img/Openstack-software-diagram.png" alt="Openstack-software-diagram">
+                </section>
+
+
+                <section>
+                    <h3>OpenStack services</h3>
+                    <ul>
+                        <li>Dashboard (Horizon)</li>
+                        <li>Compute (Nova)</li>
+                        <li>Networking (Neutron)</li>
+                        <li>Object Storage (Swift)</li>
+                        <li>Block Storage (Cinder)</li>
+                        <li>Identity Service (Keystone)</li>
+                        <li>Image Service (Glance)</li>
+                        <li>Telemetry Service (Ceilometer)</li>
+                        <li>Orchestration Service (Heat)</li>
+                    </ul>
+                </section>
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Openstack Architecture</h2>
+                    <img src="img/Openstack_havana_conceptual_arch.png" alt="Openstack_conceptual_arch" height="600" width="800">
+                </section>
+
+                </section>
+                
+
+                
+
+                <section>
+                <section>
+                    <h3>What is Cloud Computing?</h3>
+                    <p>The NIST Definition of Cloud Computing lists five essential characteristics of Cloud Computing:</p>
+                    <ul>
+                        <li>On-demand self-service</li>
+                        <li>Broad network access</li>
+                        <li>Resource pooling</li>
+                        <li>Rapid elasticity</li>
+                        <li>Measured service</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>On-demand self-service</h3>
+                    <p>A consumer can unilaterally provision computing capabilities, such as server time and network storage, as needed automatically without requiring human interaction with each service provider.</p>
+                </section>
+                <section>
+                    <h3>Broad network access</h3>
+                    <p>Capabilities are available over the network and accessed through standard mechanisms that promote use by heterogeneous thin or thick client platforms (e.g., mobile phones, tablets, laptops, and workstations).</p>
+                </section>
+                <section>
+                    <h3>Resource pooling</h3>
+                    <p>The provider's computing resources are pooled to serve multiple consumers using a multi-tenant model, with different physical and virtual resources dynamically assigned and reassigned according to consumer demand. There is a sense of location independence in that the customer generally has no control or knowledge over the exact location of the provided resources but may be able to specify location at a higher level of abstraction (e.g., country, state, or datacenter). Examples of resources include storage, processing, memory, and network bandwidth.</p>
+                </section>
+                <section>
+                    <h3>Rapid elasticity</h3>
+                    <p>Capabilities can be elastically provisioned and released, in some cases automatically, to scale rapidly outward and inward commensurate with demand. To the consumer, the capabilities available for provisioning often appear to be unlimited and can be appropriated in any quantity at any time.</p>
+                </section>
+                <section>
+                    <h3>Measured service</h3>
+                    <p>Cloud systems automatically control and optimize resource use by leveraging a metering capability at some level of abstraction appropriate to the type of service (e.g., storage, processing, bandwidth, and active user accounts). Typically this is done on a pay-per-use or charge-per-use basis. Resource usage can be monitored, controlled, and reported, providing transparency for both the provider and consumer of the utilized service.</p>
+                </section>
+                </section>
+
+                <section>
 
                     <section>
                         <h3>
@@ -2657,11 +2931,7 @@ myserver | SUCCESS => {
                             <dd>Nginx proxy requests to app server</dd>
                         </dl>
                     </section>
-                    <section><h3>
-                            Our cluster layout
-                        </h3>
-                        <img src="img/3-machine-network.svg" />
-                    </section>
+                    
                     <section>
                         <h3>
                             The provisioning playbook
@@ -2691,6 +2961,21 @@ myserver | SUCCESS => {
                         </ul>
 
 
+                    </section>
+
+                    <section>
+                        <h4>
+                            Exercise: check that hosts are running and reachable
+                        </h4>
+                        <ul>
+                            <li>
+                                Use a tool that you have learned to verify that 
+                                all your hosts can be reached by SSH
+                            </li>
+                        </ul>
+                        <pre class="fragment" data-fragment-index="0"><code data-trim>
+                            $ ansible -i ansible/cloud-hosts mycluster -m ping
+                        </code></pre>
                     </section>
                     <section>
                         <h3>
@@ -2757,639 +3042,47 @@ myserver | SUCCESS => {
                         </ul>
                     </section>
 
+                </section>
+                <section>
+                    <section>
+                        <h2>
+                            Wrap up
+                        </h2>
+                    </section>
+                    <section>
+                        <h3>Best Practices</h3>
+                        <ul>
+                            <li>Goto <a href="https://www.ansible.com/blog/ansible-best-practices-essentials">blog post</a></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
+                            Future topics
+                        </h3>
+                        <p>
+                        Things we can cover in the future:
+                        </p>
+                        <ul>
+                            <li>Simplifying playbooks with roles</li>
+                            <li>Managing projects with groups</li>
+                            <li>
+                                Integrated development workflows
+                                <ul>
+                                    <li>Continuous Integration/Deployment</li>
+                                    <li>Rolling updates</li>
+                                </ul>
+                            </li>
+                        </ul>
 
+                    </section>
+                    <section>
+                        <h2>
+                            The end
+                        </h2>
+                    </section>
                 </section>
-
-<section>
-                <section>
-                    <h3>Running Ansible</h3>
-                    <pre><code data-trim contenteditable>
-$ ansible --version
-ansible 2.4.2.0
-  config file = None
-  configured module search path
-  .
-  .
-  python version = 2.7.12 (default, Nov 20 2017, 18:23:56) [GCC 5.4.0 20160609]
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Inline documentation</h3>
-                    <pre><code data-trim contenteditable>
-$ ansible --help
-Usage: ansible <host-pattern> [options]
-
-Define and run a single task 'playbook' against a set of hosts
-
-Options:
-  -a MODULE_ARGS, --args=MODULE_ARGS
-                        module arguments
-  -i INVENTORY, --inventory=INVENTORY, --inventory-file=INVENTORY
-                        specify inventory host path or comma separated host
-                        list. --inventory-file is deprecated
-  --list-hosts          outputs a list of matching hosts; does not execute
-                        anything else
-  -m MODULE_NAME, --module-name=MODULE_NAME
-                        module name to execute (default=command)
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Ad hoc commands</h3>
-                    <pre><code data-trim contenteditable>
-$ cat ansible/hosts
-$ ansible -i ansible/hosts --list-hosts all
-  hosts (1):
-      localhost
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Ad hoc commands</h3>
-                    <pre><code data-trim contenteditable>
-$ ansible localhost -i hosts -m ping
-localhost | SUCCESS => {
-    "changed": false, 
-    "ping": "pong"
-}
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Ad hoc commands</h3>
-                    <pre><code data-trim contenteditable>
-$ ansible localhost -i hosts -a 'uname -a'
-localhost | SUCCESS | rc=0 >>
-Linux first-instance 3.13.0-135-generic #184-Ubuntu SMP Wed Oct 18 11:55:51 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
-                    </code></pre>
-                </section>
-                </section>
-
-                <section>
-                <section>
-                    <h3>What does Automation enable?</h3>
-                    <ul>
-                        <li>Immutable Infrastructure</li>
-                        <li>Continuous Integration</li>
-                        <li>Continuous Delivery</li>
-                        <li>Continuous Deployment</li>
-                        <li>A key DevOps practice</li>
-                        <li>Essential to Microservice deployment at scale</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Immutable Infrastructure</h3>
-                    <ul>
-                        <li><a href="https://blog.engineyard.com/2014/pets-vs-cattle">Cattle vs pets</a></li>
-                        <li><a href="http://martinfowler.com/bliki/SnowflakeServer.html">Snowflake Servers</a> vs. <a href="http://martinfowler.com/bliki/PhoenixServer.html">Phoenix Servers</a></li>
-                    </ul>
-                </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Cattle vs Pets</h2>
-                    <img src="img/servers_pets_or_cattle.jpg" alt="Cattle vs Pets" height="600" width="800">
-                </section>
-                <section>
-                    <h3>Immutable Infrastructure</h3>
-                    <ul>
-                        <li>The environment is defined in code (Infrastructure as Code)</li>
-                        <li>If you need to change <em>anything</em> you create a new instance and destroy the old one</li>
-                        <li>Stop Configuration Drift</li>
-                        <li>Practice failure and iterate</li>
-                        <li>Declarative</li>
-                    </ul>
-                </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Immutable Infrastructure</h2>
-                    <img src="img/immutable_infrastructure.gif" alt="Immutable Infrastructure" height="600" width="800">
-                </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Blue-green deployments</h2>
-                    <img src="img/blue_green_deployments.png" alt="Blue / Green Deployments" height="600" width="800">
-                    <aside class="notes" >
-                        Blue-green deployment is a technique that reduces downtime and risk by running two identical production environments called Blue and Green. At any time, only one of the environments is live, with the live environment serving all production traffic. For this example, Blue is currently live and Green is idle.
-                    </aside>
-                </section>
-                <section>
-                    <h3>Continuous integration</h3>
-                    <ul>
-                        <li>Trunk based development</li>
-                        <li>Every developer commit triggers a merge/build/test cycle</li>
-                        <li>Automated testing</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Continuous delivery/deployment</h3>
-                    <ul>
-                        <li>Automated Pipeline from developer commit to production deploy</li>
-                        <li>Requires lots of automated tests</li>
-                        <li>Deploying more frequently lowers risk</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Continuous delivery antipatterns</h3>
-                    <ul>
-                        <li>Deploying software manually</li>
-                        <li>Manual configuration of production environments</li>
-                        <li>Deploying to a production-like environment only after development is complete</li>
-                    </ul>
-                </section>
-                <section class="image-slide">
-                    <h2>DevOps</h2>
-                    <img src="img/picture1_1.png" alt="DevOps" height="496" width="634">
-                </section>
-                <section class="image-slide">
-                    <h2>DevOps</h2>
-                    <img src="img/devops-common-use-cases-architectures-best-practices-22-638.jpg" alt="DevOps" height="359" width="638">
-                </section>
-                <section>
-                    <h3>Microservices</h3>
-                    <ul>
-                        <li>Each microservice needs a full dev to prod pipeline</li>
-                        <li>You have N microservices</li>
-                        <li>Automation is the only reasonable way to achieve this</li>
-                    </ul>
-                </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Netflix Microservices</h2>
-                    <img src="img/netflix-microservices.jpg" alt="Netflix Microservices" height="600" width="800">
-                </section>
-
-                </section>
-                <section>
-                <section>
-                    <h3>How automation helps organisations succeed</h3>
-                    <ul>
-                        <li>Achieve high deployment frequency</li>
-                        <li>Decouple deployments from releases</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>High deployment frequency</h3>
-                    <ul>
-                        <li>Frequent releases of small features</li>
-                        <li>Fast delivery of value to the customer</li>
-                        <li>Per release risk is lower</li>
-                        <li>Faster MTTR</li>
-                        <li>Shorter feedback loops to validate value for users</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Faster and better?</h3>
-                    <p>Jez Humbles research on high performing organizations shows that faster and better is possible.</p>
-                    <ul>
-                        <li>Higher Quality</li>
-                        <li>Faster Delivery</li>
-                        <li>Greater Business Responsiveness</li>
-                        <li>Reduced Costs</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Whiteboard writeup</h3>
-                    <p>Lets take a minute for everyone to come up to the whiteboard and write a word or phrase about automation.</p>
-                </section>
-                <section>
-                    <h3>Recommended reading</h3>
-                    <ul>
-                        <li>Continuous Delivery by David Farley and Jez Humble</li>
-                        <li>The DevOps Handbook by Gene Kim, Jez Humble, Patrick Debois and John Willis</li>
-                        <li>Lean Enterprise by Barry O'Reilly, Jez Humble, and Joanne Molesky</li>
-                        <li>The Phoenix Project by Gene Kim, George Spafford, and Kevin Behr</li>
-                    </ul>
-                </section>
-                </section>
-
-
-                <!--<section>
-                <section>
-                    <h3>Container Orchestration Engines</h3>
-                    <ul>
-                        <li>Provide a control plane or operating system on which to run containerised workloads</li>
-                        <li>Infrastructure is abstracted so the DevOps team only cares about the application architecture and its scaling requirements</li>
-                        <li>Runs on IaaS somewhere</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Container Orchestration Engines</h3>
-                    <p>"Kubernetes is an open-source system for automating deployment, operations, and scaling of containerized applications."</p>
-                </section>
-                <section>
-                    <h3>Container Orchestration Engines</h3>
-                    <ul>
-                        <li>Kubernetes</li>
-                        <li>Docker Swarm</li>
-                        <li>Apache Mesos / DCOS</li>
-                    </ul>
-                </section>
-                </section>-->
 
                 
-
-
-                
-
-                <section>
-                <section>
-                    <h3>Simple playbook</h3>
-                    <p>Open the file <strong>simple.yaml</strong>, read through the code and try and work out what you expect it to do. Try and think about if it will behave differently the second time you run it.</p>
-                </section>
-                <section>
-                    <h3>Run the simple playbook</h3>
-                    <pre><code data-trim contenteditable>
-$ ansible-playbook -i hosts simple.yaml
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Simple playbook</h3>
-                    <p>Run the playbook a few more times and observe the output</p>
-                </section>
-                <section>
-                    <h3>Things to try</h3>
-                    <ul>
-                        <li>Manually remove the file <strong>/home/train/ansible-files/copy-example.txt</strong> and re-run the playbook</li>
-                        <li>Manually remove the directory <strong>/home/train/ansible-files/</strong> and re-run the playbook</li>
-                        <li>Change the value of the <strong>foo</strong> variable and re-run the playbook</li>
-                        <li>Comment out a task and re-run the playbook</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Things to notice</h3>
-                    <ul>
-                        <li>There is an extra task called <strong>Gathering Facts</strong> that we did not explicitly add</li>
-                        <li>Changed tasks are also ok tasks (see the <strong>PLAY RECAP</strong>)</li>
-                        <li>Look at the where we are using <strong>register:</strong>, do you see how that works?</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Idempotence Revisited</h3>
-                    <ul>
-                        <li>Make the same request repeatedly to produce the same result</li>
-                        <li>ok = I checked and the thing you wanted was already done so I skipped doing it</li>
-                        <li>changed = I checked and the thing you wanted was not done so I did it</li>
-                    </ul>
-                    <pre><code data-trim contenteditable>
-PLAY RECAP *********************************************************************
-localhost                  : ok=6    changed=4    unreachable=0    failed=0
-
-...
-
-PLAY RECAP *********************************************************************
-localhost                  : ok=6    changed=0    unreachable=0    failed=0
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Add a new task</h3>
-                    <ul>
-                        <li>Consult the <a href="https://docs.ansible.com/ansible/latest/modules_by_category.html">documentation</a></li>
-                        <li>There are a number of good candidates in the <a href="https://docs.ansible.com/ansible/latest/list_of_files_modules.html">files section</a>:</li>
-                        <ul>
-                            <li>archive</li>
-                            <li>blockinfile / lineinfile</li>
-                            <li>stat</li>
-                            <li>replace</li>
-                        </ul>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Add the following task</h3>
-                    <pre><code data-trim contenteditable>
-  - name: Install the mtr package
-    apt:
-      name: mtr
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Run the task</h3>
-                    <ul>
-                        <li>What happened?</li>
-                        <li>How can we fix it?</li>
-                        <li>See if you can <a href="https://docs.ansible.com/ansible/latest/become.html">consult the documentation</a> to get this task working</li>
-                    </ul>
-                </section>
-                </section>
-
-                <section>
-                <section>
-                    <h3>What is Cloud Computing?</h3>
-                    <p>The NIST Definition of Cloud Computing lists five essential characteristics of Cloud Computing:</p>
-                    <ul>
-                        <li>On-demand self-service</li>
-                        <li>Broad network access</li>
-                        <li>Resource pooling</li>
-                        <li>Rapid elasticity</li>
-                        <li>Measured service</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>On-demand self-service</h3>
-                    <p>A consumer can unilaterally provision computing capabilities, such as server time and network storage, as needed automatically without requiring human interaction with each service provider.</p>
-                </section>
-                <section>
-                    <h3>Broad network access</h3>
-                    <p>Capabilities are available over the network and accessed through standard mechanisms that promote use by heterogeneous thin or thick client platforms (e.g., mobile phones, tablets, laptops, and workstations).</p>
-                </section>
-                <section>
-                    <h3>Resource pooling</h3>
-                    <p>The provider's computing resources are pooled to serve multiple consumers using a multi-tenant model, with different physical and virtual resources dynamically assigned and reassigned according to consumer demand. There is a sense of location independence in that the customer generally has no control or knowledge over the exact location of the provided resources but may be able to specify location at a higher level of abstraction (e.g., country, state, or datacenter). Examples of resources include storage, processing, memory, and network bandwidth.</p>
-                </section>
-                <section>
-                    <h3>Rapid elasticity</h3>
-                    <p>Capabilities can be elastically provisioned and released, in some cases automatically, to scale rapidly outward and inward commensurate with demand. To the consumer, the capabilities available for provisioning often appear to be unlimited and can be appropriated in any quantity at any time.</p>
-                </section>
-                <section>
-                    <h3>Measured service</h3>
-                    <p>Cloud systems automatically control and optimize resource use by leveraging a metering capability at some level of abstraction appropriate to the type of service (e.g., storage, processing, bandwidth, and active user accounts). Typically this is done on a pay-per-use or charge-per-use basis. Resource usage can be monitored, controlled, and reported, providing transparency for both the provider and consumer of the utilized service.</p>
-                </section>
-                </section>
-
-                <section>
-                <section>
-                    <h3>The Big 3</h3>
-                    <ul>
-                        <li>AWS</li>
-                        <li>Azure</li>
-                        <li>Google Cloud Platform</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>What is OpenStack?</h3>
-                    <ul>
-                        <li>A "cloud operating system"</li>
-                        <li>Sits above your infrastructure providing IaaS</li>
-                        <li>Provides an API to interact with that infrastructure</li>
-                        <li>API provides operations like Create/Delete/Update for various components</li>
-                        <li>Command line tools, libraries, dashboard all interact with services via the API</li>
-                    </ul>
-                </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>What is OpenStack?</h2>
-                    <img src="img/Openstack-software-diagram.png" alt="Openstack-software-diagram">
-                </section>
-                <section>
-                    <h3>OpenStack services</h3>
-                    <ul>
-                        <li>Dashboard (Horizon)</li>
-                        <li>Compute (Nova)</li>
-                        <li>Networking (Neutron)</li>
-                        <li>Object Storage (Swift)</li>
-                        <li>Block Storage (Cinder)</li>
-                        <li>Identity Service (Keystone)</li>
-                        <li>Image Service (Glance)</li>
-                        <li>Telemetry Service (Ceilometer)</li>
-                        <li>Orchestration Service (Heat)</li>
-                    </ul>
-                </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Openstack Architecture</h2>
-                    <img src="img/Openstack_havana_conceptual_arch.png" alt="Openstack_conceptual_arch" height="600" width="800">
-                </section>
-                </section>
-
-                <section>
-                <section>
-                    <h3>First Instance using Ansible</h3>
-                    <ul>
-                        <li><a href="http://docs.catalystcloud.io/first-instance/ansible.html">http://docs.catalystcloud.io/first-instance/ansible.html</a></li>
-                        <li>Clone catalystcloud-ansible repo</li>
-                        <li>Install Ansible</li>
-                        <li>Edit launch-instance and create-network playbooks</li>
-                        <li>Add a prefix (yourname)</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Training room settings</h3>
-                    <ul>
-                        <li>Prefix all resource names with yourname-</li>
-                        <li>eg: yourname-border-router, yourname-private-net</li>
-                        <li>Do this in all three files by editing <strong>prefix_name</strong></li>
-                        <ul>
-                            <li>example-playbooks/create-network.yml</li>
-                            <li>example-playbooks/launch-instance.yml</li>
-                            <li>example-playbooks/remove-stack.yml</li>
-                        </ul>
-                    </ul>
-                </section>
-                <section>
-                    <h3>First Instance using Ansible</h3>
-                    <ul>
-                        <li>Create an SSH Keypair</li>
-                        <li>Login to the <a href="https://dashboard.cloud.catalyst.net.nz/">dashboard</a></li>
-                        <li>Follow the instructions to download an <a href="http://docs.catalystcloud.io/getting-started/cli.html#source-rc-file">OpenStack RC file</a></li>
-                        <li>Follow the instructions to run the create network and launch instance playbooks.</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Create an SSH keypair</h3>
-                    <pre><code data-trim contenteditable>
-$ ssh-keygen -t rsa
-Generating public/private rsa key pair.
-Enter file in which to save the key (/home/train/.ssh/id_rsa):
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
-Your identification has been saved in /home/train/.ssh/id_rsa.
-Your public key has been saved in /home/train/.ssh/id_rsa.pub.
-The key fingerprint is:
-SHA256:1K16QYwSmm2IAyHQBVXj19NW91v1SRbjtKzun6IsEjE train@train01
-The key's randomart image is:
-+---[RSA 2048]----+
-|*o.+o.+       .*+|
-|.... * o = o .*.B|
-|  o + = + * +  =+|
-|   . . E . +  . o|
-|        S o  . . |
-|       . . ..    |
-|        o .  .   |
-|       . o. ..  .|
-|        . .o..oo |
-+----[SHA256]-----+
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>First Instance using Ansible</h3>
-                    <ul>
-                        <li>Create an SSH Keypair</li>
-                        <li>Login to the <a href="https://dashboard.cloud.catalyst.net.nz/">dashboard</a></li>
-                        <li>Follow the instructions to download an <a href="http://docs.catalystcloud.io/getting-started/cli.html#source-rc-file">OpenStack RC file</a></li>
-                        <li>Follow the instructions to run the create network and launch instance playbooks.</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>SSH to your instance</h3>
-                    <ul>
-                        <li>You should now be able to SSH to your cloud instance.</li>
-                        <li>If you are having trouble consult the <a href="http://docs.catalystcloud.io/network.html#why-can-t-i-ssh-to-my-instance">FAQ</a></li>
-                    </ul>
-                </section>
-                </section>
-
-                <section>
-                <section>
-                    <h3>Running your own website</h3>
-                    <p>We are going to create a website on the internet</p>
-                </section>
-                <section>
-                    <h3>Website creation steps - Done</h3>
-                    <ul>
-                        <li>Create a server Ansible (including Security Groups, SSH Keys and Floating IPs)</li>
-                        <li>Ensure that you can connect to the server using SSH</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Website creation steps</h3>
-                    <ul>
-                        <li>Create a static website on your local machine using <a href="https://gohugo.io/">Hugo</a></li>
-                        <li>Configure DNS for the site (trainer)</li>
-                        <li>Upload the website to the server</li>
-                        <li>Configure a webserver (Nginx) to serve up the static site on the internet</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Create a static website</h3>
-                    <ul>
-                        <li>Follow the instructions at <a href="https://gohugo.io/overview/quickstart/">https://gohugo.io/overview/quickstart/</a> to create a static website</li>
-                        <li>Call your site something unique rather than <strong>bookshelf</strong></li>
-                        <li>Choose a <a href="http://themes.gohugo.io/">theme</a> to use</li>
-                        <li>Step 7: baseurl = "http://train01.nz/"</li>
-                        <li>Skip Steps 8, 10 and 12</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Hugo commands 1</h3>
-                    <pre><code data-trim contenteditable>
-$ wget https://github.com/gohugoio/hugo/releases/download/v0.31.1/hugo_0.31.1_Linux-64bit.deb
-$ sudo dpkg -i hugo_0.31.1_Linux-64bit.deb
-$ hugo new site quickstart
-$ cd quickstart/
-$ git init
-$ git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
-$ echo 'theme = "ananke"' >> config.toml
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Hugo commands 2</h3>
-                    <pre><code data-trim contenteditable>
-$ hugo new posts/my-first-post.md
-$ echo "This is my first post!" &gt;&gt; content/posts/my-first-post.md
-$ hugo server -D
-Press Ctrl+C to stop
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Hugo commands 3</h3>
-                    <pre><code data-trim contenteditable>
-$ vi config.toml
-$ cat config.toml
-baseURL = "http://train01.nz/"
-languageCode = "en-nz"
-title = "Ansible Training"
-theme = "ananke"
-$ hugo undraft content/posts/my-first-post.md
-$ hugo
-$ # static html is now stored in public folder
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Configure name resolution</h3>
-                    <p>Edit your /etc/hosts to enable name resolution for your site</p>
-                    <pre><code data-trim contenteditable>
-$ sudo vi /etc/hosts
-$ tail -n 1 /etc/hosts
-150.242.42.156 train01.nz
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Upload the website</h3>
-                    <p>Copy the public directory to the webserver</p>
-                    <pre><code data-trim contenteditable>
-$ cd quickstart/
-$ scp -r public/ ubuntu@150.242.42.156:
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Configure the webserver</h3>
-                    <pre><code data-trim contenteditable>
-$ ssh ubuntu@150.242.42.156
-$ sudo apt install nginx
-$ cd public
-$ sudo mv * /var/www/html
-$ sudo chown -R root:root /var/www/html
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>Visit your site</h3>
-                    <ul>
-                        <li><a href="http://train01.nz">http://train01.nz</a></li>
-                        <li>Is it working?</li>
-                        <li>Can you think why it may not be working?</li>
-                        <li>What action could we do to get it working?</li>
-                    </ul>
-                </section>
-                </section>
-
-                <section>
-                <section>
-                    <h3>Localhost?</h3>
-                    <ul>
-                        <li>Cloud modules are localhost tasks</li>
-                        <li>Modules make API calls in the background</li>
-                        <li>OpenStack modules use shade (cf. boto3)</li>
-                        <li>Ring your mother and ask her to put the kettle on</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Cloud Modules</h3>
-                    <p><a href="https://docs.ansible.com/ansible/list_of_cloud_modules.html">https://docs.ansible.com/ansible/list_of_cloud_modules.html</a></p>
-                </section>
-                </section>
-
-                <section>
-                <section>
-                    <h3>Cleanup and start again</h3>
-                    <ul>
-                        <li>Run the remove-stack.yml playbook</li>
-                        <li>Remove the entry from /etc/hosts</li>
-                        <li>Run create-network.yml</li>
-                        <li>Run launch-instance.yml</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Write a playbook that does the following</h3>
-                    <ul>
-                        <li>Adds a line to /etc/hosts on localhost</li>
-                        <li>Installs nginx on the server</li>
-                        <li>Copies the hugo public directory to /var/www/html on the server</li>
-                    </ul>
-                </section>
-                </section>
-
-                <section>
-                    <h3>Ansible Vault</h3>
-                    <ul>
-                        <li>A feature that allows keeping passwords and keys in encrypted files</li>
-                        <li>ansible-vault command line tool for editing files</li>
-                        <li>--ask-vault-pass or --vault-password-file when used with ansible-playbook</li>
-                        <li>A feature that allows keeping passwords and keys in encrypted files</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Best Practices</h3>
-                    <ul>
-                        <li>Review this best practice <a href="https://www.ansible.com/blog/ansible-best-practices-essentials">blog post</a></li>
-                        <li>Edit best-practice.yml to conform to best practices</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Roles and Includes</h3>
-                    <ul>
-                        <li><a href="https://docs.ansible.com/ansible/latest/playbooks_reuse_roles.html">Roles</a></li>
-                        <li><a href="https://docs.ansible.com/ansible/latest/playbooks_reuse.html">Creating Reusable Playbooks</a></li>
-                        <li><a href="https://docs.ansible.com/ansible/latest/playbooks_reuse_includes.html">Including and Importing</a></li>
-                    </ul>
-                </section>
 
             </div>
 
