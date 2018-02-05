@@ -2609,6 +2609,57 @@ myserver | SUCCESS => {
                     </section>
                 </section>
 
+                <section>
+                    <section>
+                        <h2>
+                            Deploying Software
+                        </h2>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Deploying Software
+                        </h3>
+                        
+                        <pre><code data-trim>
+                            $ cd $WORKDIR/sample-code/lesson4
+                            $ tree
+                            .
+                            ├── ansible
+                            .
+                            .
+                            ├── templates
+                            │   └── index.html
+                            └── wsgi.py
+
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Catalyst Cloud
+                        </h3>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Provisioning Machines
+                        </h3>
+                        <p>
+                        Let's provision 3 machines:
+                        </p>
+                        <dl>
+                            <dt>App server</dt>
+                            <dd>Runs a basic Flask (Python) app</dd>
+                            <dt>DB server</dt>
+                            <dd>Dedicated postgresql database</dd>
+                            <dt>Web server</dt>
+                            <dd>Nginx proxy requests to app server</dd>
+                        </dl>
+                    </section>
+
+                </section>
+
 <section>
                 <section>
                     <h3>Running Ansible</h3>
