@@ -2657,6 +2657,106 @@ myserver | SUCCESS => {
                             <dd>Nginx proxy requests to app server</dd>
                         </dl>
                     </section>
+                    <section><h3>
+                            Our cluster layout
+                        </h3>
+                        <img src="img/3-machine-network.svg" />
+                    </section>
+                    <section>
+                        <h3>
+                            The provisioning playbook
+                        </h3>
+
+                        <ul>
+                            <li>
+                                <code>ansible/provision-hosts.yml</code>
+                            </li>
+                            <li>
+                                This playbook does quite a lot
+                                <ul>
+                                    <li>creates networks/subnets in Catalyst Cloud</li>
+                                    <li>creates security groups to control access</li>
+                                    <li>sets up routers</li>
+                                    <li>creates servers</li>
+                                </ul>
+                            </li>
+                            <li>
+                                Not going to focus on this, just run the playbook
+                                <pre><code data-trim>
+    $ ansible-playbook -i ansible/cloud-hosts \
+        ansible/provision-hosts.yml \
+        -K -e suffix=-$(hostname)
+                                </code></pre>
+                            </li>
+                        </ul>
+
+
+                    </section>
+                    <section>
+                        <h3>
+                            Deploying an application
+                        </h3>
+                        <ul style="font-size:18pt;">
+                            <li>
+                                <code>ansible/deploy-app.yml</code> sets up:
+                            </li>
+                            <li>
+                                the db server
+                                <ul>
+                                    <li>Installs postgresql</li>
+                                    <li>Sets up a db</li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                the app server
+                                <ul>
+                                    <li>Installs a Python virtualenvironment</li>
+                                    <li>Sets up wsgi and gunicorn</li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                the web sever
+                                <ul>
+                                    <li>Installs nginx</li>
+                                    <li>proxy requests to app server</li>
+                                </ul>
+                            </li>
+                
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
+                            Deploy our application
+                        </h3>
+
+                        <pre><code data-trim>
+    $ ansible-playbook -i ansible/cloud-hosts \
+        ansible/deploy-app.yml
+                        </code></pre>
+                        Once it is finished, visit the new <a href="http://my-app.cat/">website</a>
+                    </section>
+                
+
+                    <section>
+                        <h3>
+                            Cleaning up
+                        </h3>
+                        <ul>
+                            <li>
+                                When you're all done playing with cats, please clean
+                                up your cluster
+                            </li>
+
+                            <pre><code data-trim>
+        $ ansible-playbook \
+           -i ansible/cloud-hosts ansible/remove-hosts.yml \
+           -K -e suffix=-$(hostname)
+                            </code></pre>
+                        </ul>
+                    </section>
+
 
                 </section>
 
