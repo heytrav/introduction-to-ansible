@@ -63,7 +63,7 @@
                     <h3>Introduction to automation with Ansible</h3>
                     <h1 class="catalyst-logo">Catalyst</h1>
                     <p class="small-text">
-                        Presented by <a href="#">Donovan Jones</a>
+                        Presented by <a href="#">Travis Holton</a>
                     </p>
                 </section>
 
@@ -77,8 +77,7 @@
                 <section>
                     <h3>About this course</h3>
                     <ul>
-                        <li>A mix of theory and hands on command line tasks</li>
-                        <li>Assumes no prior automation or cloud knowledge</li>
+                        <li>Assumes little or no experience with Ansible</li>
                         <li>Assumes some familiarity with the Linux command line</li>
                         <li>Assumes we are using Ubuntu (trusty)</li>
                     </ul>
@@ -90,6 +89,12 @@
                     <ul>
                         <li>Understand why automation is important</li>
                         <li>Understand what automation tools are available and how Ansible compares</li>
+                        <li>
+                            Explore Ansible basics
+                        </li>
+                        <li>
+                            Emphasis on practical understanding of Ansible
+                        </li>
                     </ul>
                 </section>
 
@@ -113,6 +118,18 @@
                     <h2>
                         Why use automation tools?
                     </h2>
+                </section>
+
+<section>
+                    <h3>What does Automation enable?</h3>
+                    
+                    <img class="fragment" data-fragment-index="0" src="img/old-timer.jpg"
+                    style="float:left;width:30%;margin-right:5px;" />
+                    <img src="img/robot.jpg" class="fragment"
+                                             data-fragment-index="1"
+                    style="float:left;width:30%;margin-right:5px;" />
+                    <img src="img/mass-cars.jpg" style="float:left;width:30%;"
+                    class="fragment" data-fragment-index="2"/>
                 </section>
                 <section>
                     <h3>
@@ -153,14 +170,14 @@
                     </h3>
                     <ul>
                     <li class="fragment" data-fragment-index="0">
-                        You could SSH into every machine in your network to
+                        You could login to every machine in your network to
                         <ul>
                             <li>install packages</li>
                             <li>update configuration</li>
                             <li>deploy code</li>
                         </ul>
                     </li>
-                        <li class="fragment" data-ragment-index="1">Time consuming</li>
+                        <li class="fragment" data-fragment-index="1">Time consuming</li>
                         <li class="fragment" data-fragment-index="2">Error prone</li>
                     </ul>
                     
@@ -174,20 +191,13 @@
                         <li class="fragment" data-fragment-index="1">Automation is the key to speed, consistency, scalability and repeatability.</li>
                     </ul>
                 </section>
-                
+            
                 <section>
-                    <h3>Types of Automation</h3>
-                    <ul>
-                        <li>Provisioning</li>
-                        <li>Configuration Management</li>
-                        <li>Application Deployment and Continious Delivery</li>
-                        <li>Security &amp; Compliance</li>
-                        <li>Orchestration</li>
-                        <li>Container Orchestration Engines</li>
-                    </ul>
+                    <h3>Whiteboard writeup</h3>
+                    <p>Lets take a minute for everyone to come up to the whiteboard and write a word or phrase about automation.</p>
                 </section>
-                <section>
-                    <h3>Why Automate?</h3>
+<section>
+                    <h3>Benefits of Automation</h3>
                     <ul>
                         <li>Scalability</li>
                         <li>Reliability</li>
@@ -198,17 +208,12 @@
                     </ul>
                 </section>
 
-                <section>
-                    <h3>What does Automation enable?</h3>
-                    <ul>
-                        <li>Immutable Infrastructure</li>
-                        <li>Continuous Integration</li>
-                        <li>Continuous Delivery</li>
-                        <li>Continuous Deployment</li>
-                        <li>A key DevOps practice</li>
-                        <li>Essential to Microservice deployment at scale</li>
-                    </ul>
-                </section>
+
+
+
+                
+
+                
                 <section>
                     <h3>How automation helps organisations succeed</h3>
                     <ul>
@@ -225,10 +230,13 @@
                         <li>Faster MTTR</li>
                         <li>Shorter feedback loops to validate value for users</li>
                     </ul>
+                    <aside class="notes">
+                        MTTR - mean time to recovery
+                    </aside>
                 </section>
                 <section>
                     <h3>Faster and better?</h3>
-                    <p>Jez Humbles research on high performing organizations shows that faster and better is possible.</p>
+                    <p><a href="https://www.thoughtworks.com/profiles/jez-humble">Jez Humbles</a> research on high performing organizations shows that faster and better is possible.</p>
                     <ul>
                         <li>Higher Quality</li>
                         <li>Faster Delivery</li>
@@ -236,10 +244,7 @@
                         <li>Reduced Costs</li>
                     </ul>
                 </section>
-                <section>
-                    <h3>Whiteboard writeup</h3>
-                    <p>Lets take a minute for everyone to come up to the whiteboard and write a word or phrase about automation.</p>
-                </section>
+                
                 <section>
                     <h3>Recommended reading</h3>
                     <ul>
@@ -251,7 +256,23 @@
                 </section>
                 </section>
                 <section>
+                    <section>
+                        <h2>
+                            Types of Automation
+                        </h2>
+                    </section>
+
                 <section>
+                    <h3>Types of Automation</h3>
+                    <ul>
+                        <li>Provisioning</li>
+                        <li>Configuration Management</li>
+                        <li>Application Deployment and Continuous Delivery</li>
+                        <li>Security &amp; Compliance</li>
+                        <li>Orchestration</li>
+                    </ul>
+                </section>
+                <!--<section>
                     <h3>Teachback - Ansible use cases</h3>
                     <p>Each group will review a one of the Ansible <a href="https://www.ansible.com/use-cases">use cases</a> and explain it to the class.</p>
                     <ul>
@@ -262,7 +283,7 @@
                         <li><a href="https://www.ansible.com/use-cases/security-and-compliance">Security &amp; Compliance</a></li>
                         <li><a href="https://www.ansible.com/use-cases/orchestration">Orchestration</a></li>
                     </ul>
-                </section>
+                </section>-->
                 <section>
                     <h3>Provisioning</h3>
                     <ul>
@@ -333,7 +354,6 @@
                     <ul>
                         <li><a href="http://www.fabfile.org/">Fabric</a></li>
                         <li><a href="http://capistranorb.com/">Capistrano</a></li>
-                        <li><a href="https://www.ansible.com/">Ansible</a></li>
                         <li><a href="https://www.thoughtworks.com/go/">GoCD</a></li>
                         <li><a href="https://www.ansible.com/">Ansible</a></li>
                     </ul>
@@ -342,7 +362,7 @@
                     <h3>Orchestration</h3>
                     <ul>
                         <li>
-                            Concerned with automating workflows
+                            Concerned with automating workflows/processes
                         </li>
                         <li>
                             Interconnecting components of an application
@@ -353,6 +373,9 @@
                                 <li>application</li>
                             </ul>
                         </li>
+                        <li>
+                            Makes sure components function together as a unit
+                        </li>
                     </ul>
                 </section>
                 <section>
@@ -362,16 +385,36 @@
                         <li><a href="https://wiki.openstack.org/wiki/Heat">OpenStack Heat</a></li>
                         <li><a href="https://www.redhat.com/en/technologies/cloud-computing/cloudforms">Red Hat CloudForms</a></li>
                         <li><a href="https://www.terraform.io/">Hashicorp Terraform</a></li>
+                        <li>
+                            Docker
+                            <ul>
+                                <li><a href="https://docs.docker.com/engine/swarm/">Swarm</a></li>
+                                <li><a href="https://kubernetes.io/">Kubernetes</a></li>
+                            </ul>
+                        </li>
                         <li><a href="https://www.ansible.com/">Ansible</a></li>
                     </ul>
                 </section>
                 <section>
                     <h3>Security &amp; Compliance</h3>
                     <ul>
-                        <li>Test Driven Infrastructure as Code</li>
-                        <li>Regression testing of security issues</li>
-                        <li>PCI or government security standard compliance</li>
-                        <li>Security patching</li>
+                        <li>
+                            Usually driven by some legislative or regulatory law
+                            <ul>
+                                <li>
+                                    Designed to prevent unwanted
+                                    disclosure, alteration or destruction of
+                                    sensitive information
+                                </li>
+                                <li>PCI or government security standard compliance</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Often subject to audit
+                        </li>
+                        <li>Automation removes complexity of managing security
+                            in systems
+                        </li>
                     </ul>
                 </section>
                 <section>
@@ -383,7 +426,7 @@
                         <li><a href="http://serverspec.org/">Serverspec</a> (ruby)</li>
                     </ul>
                 </section>
-                <section>
+                <!--<section>
                     <h3>Teachback - Automation tools</h3>
                     <aside class="notes">Choose an automation tool to research, spend a few minutes reading up on it, then report back to the class describing its use case and five important facts about it.</aside>
                     <p>Choose from the list below or choose something yourself.</p>
@@ -398,7 +441,7 @@
                         <li><a href="https://www.gocd.org/">GoCD</a></li>
                         <li><a href="https://cfengine.com/">CFEngine</a></li>
                     </ul>
-                </section>
+                </section>-->
                 </section>
 
                 <section>
@@ -463,6 +506,7 @@
                             therefore many slides will reference those pages directly.
                         </aside>
                     </section>
+                    
                     <section>
                         <h3>Requirements</h3>
                         <ul>
@@ -470,6 +514,23 @@
                             <li>Requires Python 2.6 on managed nodes</li>
                             <li>Python 3 support is currently a tech preview</li>
                         </ul>
+                    </section>
+
+                    <section>
+                        <h4>
+                            Ansible in this course
+                        </h4>
+                        <ul style="width:90%;">
+                            <li class="fragment" data-fragment-index="0">The following slides describe alternative ways to install Ansible</li>
+                            <li class="fragment" data-fragment-index="1">However, Ansible is already installed on your PCs</li>
+                            <li class="fragment" data-fragment-index="2">
+                                To activate:
+                                <pre><code data-trim>
+                                      $ source ~/catalystcloud-ansible/ansible-venv/bin/activate
+                                </code></pre>
+                            </li>
+                        </ul>
+
                     </section>
                     <section>
                         <h3>Install Ansible using OS packages</h3>
@@ -503,7 +564,7 @@ $ sudo apt-get install python-pip python-virtualenv
                         </code></pre>
                     </section>
                     <section>
-                        <h3>Install Ansible</h3>
+                        <h3>Installing Ansible in Python virtual environment</h3>
                         <pre><code data-trim contenteditable>
 $ virtualenv ansible-venv
 $ source ansible-venv/bin/activate
@@ -562,6 +623,13 @@ $ /home/train/ansible-venv/bin/ansible --version
                             <li>Ansible supports the two most recent major stable releases</li>
                         </ul>
                     </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>
+                            Ansible Basics
+                        </h2>
+                    </section>
 
                 <section>
                     <h3>Ansible Basics</h3>
@@ -590,6 +658,13 @@ $ /home/train/ansible-venv/bin/ansible --version
                     </dl>
                     
                 </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>
+                            Running Ansible
+                        </h2>
+                    </section>
                 <section>
                     <h3>
                         Running Ansible
@@ -1584,15 +1659,19 @@ myserver | SUCCESS => {
                         <p>
                         Create a <em>host_vars</em> directory and variable file 
                         </p>
-                        <pre><code data-trim>
+                        <pre style="width:100%;"><code data-trim>
                             $ mkdir $WORKDIR/sample-code/lesson2/ansible/host_vars
                             $ vim $WORKDIR/sample-code/lesson2/ansible/host_vars/myserver.yaml
+                            # or
+                            $ mkdir $WORKDIR/sample-code/lesson2/ansible/host_vars/myserver
+                            $ vim $WORKDIR/sample-code/lesson2/ansible/host_vars/myserver/vars.yaml
                         </code></pre>
-                        <pre><code data-trim>
+                        <pre style="width:100%;"><code data-trim>
                             # variables for myserver
                             ---
                             foo: bar
                         </code></pre>
+
 
                     </section>
                     <section>
@@ -1602,17 +1681,16 @@ myserver | SUCCESS => {
                         <h4>
                             group_vars/&lt;group&gt;
                         </h4>
-                        <pre><code data-trim>
-                            $ less $WORKDIR/sample-code/lesson2/ansible/hosts
-                        </code></pre>
                         <p>
                         Create a <em>group_vars</em> directory and variable file 
                         </p>
-                        <pre><code data-trim>
+                        <pre style="width:100%;"><code data-trim>
                             $ mkdir $WORKDIR/sample-code/lesson2/ansible/group_vars
                             $ vim $WORKDIR/sample-code/lesson2/ansible/group_vars/web.yaml
-                        </code></pre>
-                        <pre><code data-trim>
+                            # or
+                            $ vim $WORKDIR/sample-code/lesson2/ansible/group_vars/web/vars.yaml
+                            </code></pre>
+                        <pre style="width:100%;"e><code data-trim>
                             # variables for "web" group
                             ---
                             bizz: buzz
