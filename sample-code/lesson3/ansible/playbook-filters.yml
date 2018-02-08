@@ -1,0 +1,23 @@
+--- 
+- name: Experimenting with filters
+  hosts: localhost
+  become: yes
+  vars:
+    sec_groups:
+      - { group: "web", port: 80, remote_ip_address: "0.0.0.0/0"}
+      - { group: "web", port: 443, remote_ip_address: "0.0.0.0/0"}
+      - { group: "app", port: 5000, remote_ip_address: "192.168.0.0/24"}
+      - { group: "db", port: 5432, remote_ip_address: "192.168.0.0/24"}
+    app_config:
+      location:
+        server: xyz.server.com
+        api_key: "{{ vault_api_key }}"
+        ports:
+          - 80
+          - 443
+          - 5000
+          - 5432
+
+      invalid_ip: 153.242.42.257
+  tasks: 
+  # TODO: think of some ways to use filters
