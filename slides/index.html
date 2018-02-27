@@ -193,8 +193,18 @@
                 </section>
             
                 <section>
-                    <h3>Whiteboard writeup</h3>
-                    <p>Lets take a minute for everyone to come up to the whiteboard and write a word or phrase about automation.</p>
+                    <h3>Discussion</h3>
+                    
+                    <ul>
+                        <li>Lets take a minute to discuss automation
+                            <ul>
+                                <li>What do people think of in context of
+                                    automation?</li>
+                                <li>pros and cons</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
                 </section>
 <section>
                     <h3>Benefits of Automation</h3>
@@ -2118,14 +2128,6 @@ myserver | SUCCESS => {
                         </ul>
                     </section>
 
-
-
-
-
-
-
-
-                
                 </section>
 
                 <section>
@@ -2604,6 +2606,256 @@ myserver | SUCCESS => {
                             </code></pre>
                         </section>
                         
+                </section>
+
+                <section>
+                    <section>
+                        <h2>
+                            Filters
+                        </h2>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Filters
+                        </h3>
+                        <ul>
+                            <li>
+                                Subset of functionality provided by Jinja2
+                            </li>
+                            <li>
+                                Toolset for
+                                <ul>
+                                    <li>formatting data</li>
+                                    <li>iteration</li>
+                                    <li>filtering</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Using Filters
+                        </h3>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">
+                                Filter syntax is 
+                                <ul>
+                                    <li class="fragment"
+                                        data-fragment-index="1"><code
+                                            style="color:blue;">variable</code><code
+                                            style="color:red;"> | </code><code style="color:blue;">filtername</code></li>
+                                    <li  class="fragment" data-fragment-index="2">
+                                        The "<code>|</code>" is the <em>pipe</em> symbol
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="fragment" data-fragment-index="3">
+                                Filters will <em>usually</em> be used within Jinja2 expression syntax
+                                <ul>
+                                    <li class="fragment" data-fragment-index="4">
+                                        <code
+                                            style="color:green;">{{</code><code
+                                            style="color:blue;">  data </code><code> | </code><code style="color:blue;">filter</code><code style="color:green;"> }}</code> 
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h3>
+                            Formatting Data
+                        </h3>
+                        <h4> <code>to_yaml</code> &amp; <code>to_json</code> </h4>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">Output data in <em>yaml</em> or <em>json</em> format</li>
+                            <li class="fragment" data-fragment-index="1">Can be used to generate config files that are consumed by applications</li>
+                            <li class="fragment" data-fragment-index="2">
+                                Variants for making output <em>prettier</em>
+                                <ul>
+                                    <li>to_nice_yaml</li>
+                                    <li>to_nice_json</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </section>
+                    <section>
+                        <h4>
+                            Exercise: Output myfirstapp to a yaml formatted file
+                        </h4>
+
+                        <ul class="stretch">
+                            <li class="fragment" data-fragment-index="0">
+                                Add the following task to ansible/playbook-data1.yml
+<pre class="fragment" data-fragment-index="1"><code data-trim>
+        - name: Output myfirstapp as yaml config
+          copy:
+            dest: /home/train/myfirstapp.yml
+            content: "{{ myfirstapp | to_nice_yaml  }}"
+            owner: train
+            group: train
+            mode: 0644
+                        </code></pre>
+                            </li>
+                            <li class="fragment" data-fragment-index="2">
+                                Run the playbook
+                                <ul>
+                                    <li>
+                                        <code>ansible-playbook ansible/playbook-data1.yml</code>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="fragment" data-fragment-index="3">
+                                Try using <code>to_nice_yaml</code> and play with the indentation
+                            </li>
+                        </ul>
+                        
+                    </section>
+                    <section>
+                        <h3>
+                            Dealing with undefined variables
+                        </h3>
+                        <ul>
+                            <li>
+                                How to deal with undefined variables?
+                            </li>
+                            <li class="fragment" data-fragment-index="0">
+                                Force failure
+                                <ul>
+                                    <li>mandatory</li>
+                                </ul>
+                            </li>
+                            <li class="fragment" data-fragment-index="1">
+                                Provide a default
+                                <ul>
+                                    <li>default</li>
+                                </ul>
+                            </li>
+                            <li class="fragment" data-fragment-index="3">
+                                Omit them if not needed
+                            </li>
+                        </ul>
+                           
+
+                    </section>
+                    <section>
+                        <h3>
+                            Making variables mandatory
+                        </h3>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">Run
+                                playbook <code>undefined.yml</code></li>
+                            <li class="fragment" data-fragment-index="2">
+                                The mandatory filter causes playbook to crash as
+                                soon as it attempts to access variable
+                            </li>
+                            <li class="fragment" data-fragment-index="3">After it crashes, run it again with <em>someport</em> defined using an
+                                extra variable</li>
+                            <li class="fragment" data-fragment-index="4">
+                                Using <code>mandatory</code> filter not generally necessary
+                                because ansible will crash anyway if it encounters
+                                an undefined variable in a template
+                            </li>
+                        </ul>
+
+                    </section>
+
+                    <section>
+                        <h3>
+                            Setting default values
+                        </h3>
+                        <ul class="stretch">
+                            <li class="fragment" data-fragment-index="0">
+                                Note value of db_port in playbook output
+
+                                <pre><code data-trim>
+        TASK [Output value of a variable that hasn't been defined] ****
+        ok: [localhost] => {
+            "db_port": "3306"
+        }
+                                </code></pre>
+                            </li>
+                            <li class="fragment" data-fragment-index="1">
+                                Using <code>default</code> filter to set arbitrary value
+                            </li>
+                            <li class="fragment" data-fragment-index="2">
+                                A better approach to handling undefined variables
+                                than <code>mandatory</code>
+                            </li>
+                            <li class="fragment" data-fragment-index="3">
+                                Run playbook with <code>someport2=5432</code> as an extra variable
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
+                            Filtering Lists
+                        </h3>
+
+                        <dl>
+                            <dt>union    </dt><dd> Get union of two lists</dd>
+                            <dt>intersect</dt><dd>  Get interstion of two lists</dd>
+                            <dt>unique   </dt><dd> Get a set of unique items</dd>
+                        </dl>
+
+                    </section>
+
+                    <section>
+                        <h3>
+                            Processing lists
+                        </h3>
+                        <ul class="stretch">
+                            <li>
+                                The map filter is useful for processing lists
+                            </li>
+                            <li>
+                                In playbook-list.yml add the following:
+
+                                <pre><code data-trim>
+                security_group_names: "{{ security_groups |
+                                       map(attribute='name') | 
+                                                      unique | list }}"
+                                </code></pre>
+                                note: should be on one line
+                            </li>
+                        </ul>
+                       
+
+
+                    </section>
+                    <section><h3>
+                            Extracting from containers
+                        </h3>
+                        <h4>
+                            <code>map 'extract'</code>
+                        </h4>
+                        <ul class="stretch">
+                            <li>
+                                We can get data using the <code>map extract</code> filter:
+
+                                <ul style="font-size:18pt;">
+                                    <li><code>{{ [0,2] | map('extract', list1) | list }}</code></li>
+                                    <li><code>{{ ['day', 'year'] | map('extract', dict1) | list }}</code></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    
+                    </section>
+                    <section>
+                        <h3>
+                            Processing IP addresses
+                        </h3>
+                    </section>
+
+
+
+
+                    
+
                 </section>
                 <section>
                     <section>

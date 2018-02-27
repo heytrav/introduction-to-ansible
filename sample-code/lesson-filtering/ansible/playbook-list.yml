@@ -1,0 +1,70 @@
+---
+- name: Formatting data structures
+  hosts: localhost
+  vars:
+
+    list1:
+      - apple
+      - orange
+      - banana
+      - lemmon
+
+    list2:
+      - kiwi
+      - orange
+      - feijoa
+      - grape
+      - apple
+
+    list3: "{{ list1 + list2 }}"
+    dict1:
+      day: Wednesday
+      month: February
+      year: 2018
+
+    security_groups:
+      - {name: "my-sg-1", port: 22, remote_ip_address: "192.168.1.15/32"}
+      - {name: "my-sg-2", port: 80, remote_ip_address: "192.168.1.0/24"}
+      - {name: "my-sg-2", port: 443, remote_ip_address: "192.168.1.0/24"}
+      - {name: "my-sg-3", port: 5000, remote_ip_address: "192.168.1.1/32", end_port: 5010}
+      - {name: "my-sg-3", port: 8000, remote_ip_address: "192.168.1.1/32", end_port: 8010}
+
+    security_group_names: "{{ security_groups|map(attribute='name') | unique | list }}"
+
+
+  tasks:
+    
+    - name: Shuffle items in list
+      debug:
+        var: list1 | shuffle
+
+    - name: Get union of two lists
+      debug:
+        var: list1 | union(list2)
+
+
+    - name: Get items in both lists
+      debug:
+        var: list1 | intersect(list2)
+
+    - name: Get unique item in a list
+      debug:
+        var: list3 | unique
+
+
+    - name: Output list of unique security group names
+      debug:
+        var: security_group_names
+
+    - name: extract items from list1
+      set_fact:
+        subset: "{{  [0,2]|map('extract', list1) | list }}"
+
+    - name: Output subset
+      debug:
+        var: subset
+
+
+
+
+

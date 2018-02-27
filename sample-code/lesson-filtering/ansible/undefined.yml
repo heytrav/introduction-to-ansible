@@ -1,0 +1,19 @@
+---
+- name: Formatting data structures
+  hosts: localhost
+  vars:
+    app_port: "{{ someport | mandatory }}"
+    db_port: "{{ someport2 | default(3306) }}"
+
+  tasks:
+
+    - name: Output value of app_port
+      debug:
+        var: app_port
+
+
+
+    - name: Output value of a variable that hasn't been defined
+      debug:
+        var: db_port
+

@@ -1,0 +1,34 @@
+---
+- name: Formatting data structures
+  hosts: localhost
+  vars:
+    myfirstapp:
+      hostname: myfakeapp.com
+      ports:
+        - 80
+        - 443
+      app_config:
+        db:
+          name: mydb
+          host: myhost
+          port: 5432
+    mysecondapp:
+      hostname: myfakeapp.com
+      ports:
+        - 80
+        - 443
+      app_config:
+        db:
+          name: myseconddb
+          host: otherhost
+
+  tasks:
+
+    - name: Output myfirst app as yaml
+      debug:
+        var: myfirstapp | to_nice_yaml(indent=2)
+
+    - name: Output myfirstapp as json
+      debug:
+        var: myfirstapp | to_json
+
