@@ -2220,16 +2220,6 @@ myserver | SUCCESS => {
                         </section>
 
                         <section>
-                            <h3>Basic Jinja2</h3>
-
-                            <h5>
-                                Filters
-                            </h5>
-                            <ul>
-                                <li>Let's just look at the <a href="https://docs.ansible.com/ansible/latest/playbooks_filters.html">offical documentation</a></li>
-                            </ul>
-                        </section>
-                        <section>
                             <h4>
                                 Exercise: Templating in our playbook
                             </h4>
@@ -2857,18 +2847,20 @@ myserver | SUCCESS => {
                             <li class="fragment" data-fragment-index="0">
                                 Can be used to test validity of IP addresses
                                 <ul>
-                                    <li><code>myvalidip | ipaddr</code></li>
-                                    <li><code>myinvalidip | ipaddr</code></li>
+                                    <li class="fragment" data-fragment-index="1"><code>'192.168.1.1' | ipaddr</code></li>
+                                    <li class="fragment" data-fragment-index="2">returns <code>'192.168.1.1'</code></li>
+                                    <li class="fragment" data-fragment-index="3"><code>'192.168.25.1.25' | ipaddr</code></li>
+                                    <li class="fragment" data-fragment-index="4">returns <code>false</code></li>
                                 </ul>
                             </li>
-                            <li class="fragment" data-fragment-index="1">
+                            <li class="fragment" data-fragment-index="5">
                                 Can handle specific protocol version
                                 <ul>
                                     <li><code>myipv4 | ipv4</code></li>
                                     <li><code>myipv6 | ipv6</code></li>
                                 </ul>
                             </li>
-                            <li class="fragment" data-fragment-index="2">
+                            <li class="fragment" data-fragment-index="6">
                                 Can also extract IP addresses from CIDR notation
 
                                 <ul>
@@ -2880,8 +2872,39 @@ myserver | SUCCESS => {
 
                     </section>
 
+                    <section>
+                        <h3>
+                            Processing filesystem paths
+                        </h3>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">
+                                Get the base file name from a path
+                                <ul>
+                                    <li class="fragment" data-fragment-index="1"><code>'/home/train/somefile.txt' | basename</code> </li>
+                                    <li class="fragment" data-fragment-index="2">returns <code>somefile.txt</code></li>
+                                </ul>
+                            </li>
+                            <li class="fragment" data-fragment-index="3">
+                                Alternatively, get the directory path
+                                <ul>
+                                    <li class="fragment" data-fragment-index="4"><code>'/home/train/somefile.txt' | dirname</code> </li>
+                                    <li class="fragment" data-fragment-index="5">returns <code>/home/train</code></li>
+                                </ul>
+                            </li>
+                        </ul>
 
 
+                    </section>
+
+
+
+                        <section>
+                            <h3>Summary</h3>
+
+                            <ul>
+                                <li>Let's just look at the <a href="https://docs.ansible.com/ansible/latest/playbooks_filters.html">offical documentation</a></li>
+                            </ul>
+                        </section>
 
                     
 
