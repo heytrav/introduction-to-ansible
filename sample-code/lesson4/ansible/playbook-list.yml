@@ -29,41 +29,14 @@
       - {name: "my-sg-3", port: 5000, remote_ip_address: "192.168.1.1/32", end_port: 5010}
       - {name: "my-sg-3", port: 8000, remote_ip_address: "192.168.1.1/32", end_port: 8010}
 
-    security_group_names: "{{ security_groups|map(attribute='name') | unique | list }}"
+    validip: 153.24.54.23
+    invalidip: 122.44.33.22.44
+    myipv4: 192.168.1.2
+    myipv6: 2001:0db8:85a3:0000:0000:8a2e:0370:7334
 
 
   tasks:
     
-    - name: Shuffle items in list
-      debug:
-        var: list1 | shuffle
-
-    - name: Get union of two lists
-      debug:
-        var: list1 | union(list2)
-
-
-    - name: Get items in both lists
-      debug:
-        var: list1 | intersect(list2)
-
-    - name: Get unique item in a list
-      debug:
-        var: list3 | unique
-
-
-    - name: Output list of unique security group names
-      debug:
-        var: security_group_names
-
-    - name: extract items from list1
-      set_fact:
-        subset: "{{  [0,2]|map('extract', list1) | list }}"
-
-    - name: Output subset
-      debug:
-        var: subset
-
 
 
 

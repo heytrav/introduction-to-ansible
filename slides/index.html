@@ -2841,6 +2841,10 @@ myserver | SUCCESS => {
                                     <li><code>{{ ['day', 'year'] | map('extract', dict1) | list }}</code></li>
                                 </ul>
                             </li>
+                            <li >
+                                Add these to the vars section and add debug
+                                tasks to display them
+                            </li>
                         </ul>
 
                     
@@ -2849,6 +2853,31 @@ myserver | SUCCESS => {
                         <h3>
                             Processing IP addresses
                         </h3>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">
+                                Can be used to test validity of IP addresses
+                                <ul>
+                                    <li><code>myvalidip | ipaddr</code></li>
+                                    <li><code>myinvalidip | ipaddr</code></li>
+                                </ul>
+                            </li>
+                            <li class="fragment" data-fragment-index="1">
+                                Can handle specific protocol version
+                                <ul>
+                                    <li><code>myipv4 | ipv4</code></li>
+                                    <li><code>myipv6 | ipv6</code></li>
+                                </ul>
+                            </li>
+                            <li class="fragment" data-fragment-index="2">
+                                Can also extract IP addresses from CIDR notation
+
+                                <ul>
+                                    <li><code>'10.14.33.0/24' | ipaddr('address')</code></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
                     </section>
 
 
@@ -3051,7 +3080,7 @@ myserver | SUCCESS => {
                         </h3>
                         
                         <pre><code data-trim>
-                            $ cd $WORKDIR/sample-code/lesson4
+                            $ cd $WORKDIR/sample-code/lesson5
                             $ tree
                             .
                             ├── ansible
@@ -3063,7 +3092,7 @@ myserver | SUCCESS => {
 
                         </code></pre>
                         <ul>
-                            <li>lesson4 directory is set up as a complete application</li>
+                            <li>lesson5 directory is set up as a complete application</li>
                             <li>Infrastructure <em>code</em> in one repo with application code</li>
                         </ul>
                     </section>
