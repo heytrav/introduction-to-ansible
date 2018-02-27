@@ -301,8 +301,10 @@
                             The act of creating a server, network router,
                             loadbalancer, etc. from some type of image
                         </li>
-                        <li>Usually bare metal</li>
-                        <li>OS installation</li>
+                        <li>Can be on bare metal or in cloud hosted
+                            virtualisation</li>
+                        <li>Example: Installation of centos image on a virtual
+                        host</li>
                     </ul>
                 </section>
                 <section>
@@ -1431,10 +1433,11 @@ myserver | SUCCESS => {
                                 <li>
                                     Note the <em>become</em> line in <code>playbook.yml</code>
                                     
-                                    <pre style="font-size:18pt;"><code data-trim>
+                                    <pre style="font-size:18pt;"><code
+                                    data-trim data-noescape>
     - name: Set up static website with nginx
       hosts: myserver
-      become: true &lt;--
+      <mark >become: true</mark>
       tasks:
                                     </code></pre>
                                 </li>
@@ -1751,9 +1754,9 @@ myserver | SUCCESS => {
                         </h3>
                         <ul style="font-size:18pt;width:100%;">
                             <li class="fragment" data-fragment-index="0">
-                                dictionary with                                variables from each host (including inventory variables) </li>
+                                Dictionary with                                variables from each host (including inventory variables) </li>
                             <li class="fragment" data-fragment-index="1">
-                                    indexed on hostname from inventory 
+                                    Indexed on hostname from inventory 
                                 <ul>
                                     <li><code>hostvars['myserver']['foo'] ==  hostvars.myserver.foo</code></li>
                                 </ul>
@@ -1838,11 +1841,12 @@ myserver | SUCCESS => {
                             <li class="fragment" data-fragment-index="1">
                                 Edit as shown:
 
-                        <pre style="font-size:18pt;" ><code data-trim>
+                        <pre style="font-size:18pt;" ><code data-trim
+                        data-noescape>
     - name: Set up static website with nginx
       hosts: myserver
       become: true
-      # new section
+      <mark>
       vars_prompt:
         - name: "participant_name"
           prompt: "What is your name"
@@ -1851,8 +1855,8 @@ myserver | SUCCESS => {
         course: Introduction to ansible
         lesson:
           name: Working with play variables
-          session: 1
-      # end new section
+          session: 1</mark>
+
       tasks:
       .
       .
@@ -1897,7 +1901,7 @@ myserver | SUCCESS => {
                         tasks:
                           - name: Assign an arbitrary variable
                             set_fact:
-                              name: Homer Simpson
+                              person_name: Homer Simpson
 
                           - name: Assign dictionary
                             set_fact:
@@ -2609,6 +2613,24 @@ myserver | SUCCESS => {
                         <h3>
                             Filters
                         </h3>
+                        <pre><code data-trim>
+                            $ cd $WORKDIR/sample-code/lesson4
+                            $ tree
+
+                            ├── ansible
+                            │   ├── hosts
+                            │   ├── playbook-formatting.yml
+                            │   ├── playbook-list.yml
+                            │   └── undefined.yml
+                            └── ansible.cfg
+                        </code></pre>
+                    </section>
+                    
+
+                    <section>
+                        <h3>
+                            Filters
+                        </h3>
                         <ul>
                             <li>
                                 Subset of functionality provided by Jinja2
@@ -2626,7 +2648,7 @@ myserver | SUCCESS => {
 
                     <section>
                         <h3>
-                            Using Filters
+                            Using filters
                         </h3>
                         <ul>
                             <li class="fragment" data-fragment-index="0">
@@ -2637,14 +2659,18 @@ myserver | SUCCESS => {
                                             style="color:blue;">variable</code><code
                                             style="color:red;"> | </code><code style="color:blue;">filtername</code></li>
                                     <li  class="fragment" data-fragment-index="2">
+                                        <code>variable</code> contains data of
+                                        some kind
+                                    </li>
+                                    <li  class="fragment" data-fragment-index="3">
                                         The "<code>|</code>" is the <em>pipe</em> symbol
                                     </li>
                                 </ul>
                             </li>
-                            <li class="fragment" data-fragment-index="3">
+                            <li class="fragment" data-fragment-index="4">
                                 Filters will <em>usually</em> be used within Jinja2 expression syntax
                                 <ul>
-                                    <li class="fragment" data-fragment-index="4">
+                                    <li class="fragment" data-fragment-index="5">
                                         <code
                                             style="color:green;">{{</code><code
                                             style="color:blue;">  data </code><code> | </code><code style="color:blue;">filter</code><code style="color:green;"> }}</code> 
@@ -2679,7 +2705,7 @@ myserver | SUCCESS => {
 
                         <ul class="stretch">
                             <li class="fragment" data-fragment-index="0">
-                                Add the following task to ansible/playbook-formatting.yml
+                                Add the following task to <code>playbook-formatting.yml</code>
 <pre class="fragment" data-fragment-index="1"><code data-trim>
         - name: Output myfirstapp as yaml config
           copy:
