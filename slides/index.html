@@ -2604,6 +2604,138 @@ myserver | SUCCESS => {
 
                 <section>
                     <section>
+                        <h2>Protecting Secrets in Ansible</h2>
+                    </section>
+                    <section>
+                        <h3>
+                            Protecting secrets in Ansible
+                        </h3>
+                        <ul>
+                            <li class="fragment" data-fragment-index="0">One problem with playbook-dict.yml</li>
+                            <li class="fragment" data-fragment-index="1">Database passwords are out in the open</li>
+                            <li class="fragment" data-fragment-index="2">Ansible provides a built in tool for managing secrets</li>
+                            <li class="fragment" data-fragment-index="3">
+                                <code>ansible-vault</code> helps you
+                                encrypt/decrypt files containing secrets for
+                                your app
+                            </li>
+                        </ul>
+                        <pre class="fragment" data-fragment-index="4"><code data-trim>
+                            $ ansible-vault --help
+
+                            Usage: ansible-vault [create|decrypt|edit|encrypt|encrypt_string|rekey|view] [options] [vaultfile.yml]
+
+                            encryption/decryption utility for Ansible data files
+
+                            Options:
+                            --ask-vault-pass      ask for vault password
+                            -h, --help            show this help message and exit
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>
+                            About Ansible Vault
+                        </h3>
+                        <ul>
+                            <li>
+                                Uses AES256 encryption
+                            </li>
+                            <li>
+                                Secret files can be 
+                                <ul>
+                                    <li>Loaded automatically as <code>host_vars</code> or <code>group_vars</code> inventory files</li>
+                                    <li>included <em>include_vars</em> or <em>vars_files</em></li>
+                                </ul>
+                            </li>
+                            <li>
+                                Encrypted files can be distributed with your
+                                application
+                            </li>
+                        </ul>
+                        
+                    </section>
+                    <section>
+                        <h3>
+                            Protecting our database passwords
+                        </h3>
+                        <ul style="width:90%;">
+                            <li>
+                                Create a new yml file:
+                                <pre><code data-trim>
+                                  $ $EDITOR $WORKDIR/sample-code/lesson3/ansible/secrets.yml
+                                    ---
+                                    vault_staging_database_password: &lt;some password&gt;
+                                    vault_staging_database_password: &lt;some password&gt;
+                                </code></pre>
+
+                            </li>
+                            <li>
+                                Encrypt ansible/secrets.yml.
+                                <pre><code data-trim>
+                                    $ ansible-vault encrypt ansible/secrets.yml
+                                    New Vault password: 
+                                    Confirm New Vault password: 
+                                    Encryption successful
+                                </code></pre>
+                                <ul>
+                                    <li>
+                                        Make sure you remember your password!
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
+                            Integrating vaulted secrets
+                        </h3>
+                        <ul style="font-size:18pt;">
+                            <li>
+                                Import <code>secrets.yml</code> using vars_files
+                                <pre style="font-size:18pt;"><code data-trim>
+                                    vars_files:
+                                      - secrets.yml
+                                </code></pre>
+                            </li>
+                            <li>
+                                Replace references to staging/production database
+                                passwords
+                                <pre style="font-size:18pt;"><code data-trim>
+                                    database:
+                                      staging:
+                                        .
+                                        password: "{{ vault_staging_database_password }}"
+                                      production:
+                                        .
+                                        password: "{{ vault_production_database_password }}"
+                                </code></pre>
+                            </li>
+                            <li>
+                                Run playbook using <code style="color:red;">--ask-vault-pass</code> flag
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
+                            Summary
+                        </h3>
+                        <ul>
+                            <li>
+                               <code>ansible-vault</code> is a way to keep secrets safe
+                                <ul>
+                                    <li>passwords</li>
+                                    <li>API keys</li>
+                                    <li>SSL keys</li>
+                                </ul>
+                            </li>
+                            <li>Can distribute encrypted secrets with your code</li>
+                            <li>Automatically integrate into automation tasks</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <section>
                         <h2>
                             Filters
                         </h2>
@@ -2934,138 +3066,6 @@ myserver | SUCCESS => {
 
                     
 
-                </section>
-                <section>
-                    <section>
-                        <h2>Protecting Secrets in Ansible</h2>
-                    </section>
-                    <section>
-                        <h3>
-                            Protecting secrets in Ansible
-                        </h3>
-                        <ul>
-                            <li class="fragment" data-fragment-index="0">One problem with playbook-dict.yml</li>
-                            <li class="fragment" data-fragment-index="1">Database passwords are out in the open</li>
-                            <li class="fragment" data-fragment-index="2">Ansible provides a built in tool for managing secrets</li>
-                            <li class="fragment" data-fragment-index="3">
-                                <code>ansible-vault</code> helps you
-                                encrypt/decrypt files containing secrets for
-                                your app
-                            </li>
-                        </ul>
-                        <pre class="fragment" data-fragment-index="4"><code data-trim>
-                            $ ansible-vault --help
-
-                            Usage: ansible-vault [create|decrypt|edit|encrypt|encrypt_string|rekey|view] [options] [vaultfile.yml]
-
-                            encryption/decryption utility for Ansible data files
-
-                            Options:
-                            --ask-vault-pass      ask for vault password
-                            -h, --help            show this help message and exit
-                        </code></pre>
-                    </section>
-                    <section>
-                        <h3>
-                            About Ansible Vault
-                        </h3>
-                        <ul>
-                            <li>
-                                Uses AES256 encryption
-                            </li>
-                            <li>
-                                Secret files can be 
-                                <ul>
-                                    <li>Loaded automatically as <code>host_vars</code> or <code>group_vars</code> inventory files</li>
-                                    <li>included <em>include_vars</em> or <em>vars_files</em></li>
-                                </ul>
-                            </li>
-                            <li>
-                                Encrypted files can be distributed with your
-                                application
-                            </li>
-                        </ul>
-                        
-                    </section>
-                    <section>
-                        <h3>
-                            Protecting our database passwords
-                        </h3>
-                        <ul style="width:90%;">
-                            <li>
-                                Create a new yml file:
-                                <pre><code data-trim>
-                                  $ $EDITOR $WORKDIR/sample-code/lesson3/ansible/secrets.yml
-                                    ---
-                                    vault_staging_database_password: &lt;some password&gt;
-                                    vault_staging_database_password: &lt;some password&gt;
-                                </code></pre>
-
-                            </li>
-                            <li>
-                                Encrypt ansible/secrets.yml.
-                                <pre><code data-trim>
-                                    $ ansible-vault encrypt ansible/secrets.yml
-                                    New Vault password: 
-                                    Confirm New Vault password: 
-                                    Encryption successful
-                                </code></pre>
-                                <ul>
-                                    <li>
-                                        Make sure you remember your password!
-                                    </li>
-                                </ul>
-                            </li>
-                            
-                        </ul>
-                    </section>
-                    <section>
-                        <h3>
-                            Integrating vaulted secrets
-                        </h3>
-                        <ul style="font-size:18pt;">
-                            <li>
-                                Import <code>secrets.yml</code> using vars_files
-                                <pre style="font-size:18pt;"><code data-trim>
-                                    vars_files:
-                                      - secrets.yml
-                                </code></pre>
-                            </li>
-                            <li>
-                                Replace references to staging/production database
-                                passwords
-                                <pre style="font-size:18pt;"><code data-trim>
-                                    database:
-                                      staging:
-                                        .
-                                        password: "{{ vault_staging_database_password }}"
-                                      production:
-                                        .
-                                        password: "{{ vault_production_database_password }}"
-                                </code></pre>
-                            </li>
-                            <li>
-                                Run playbook using <code style="color:red;">--ask-vault-pass</code> flag
-                            </li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h3>
-                            Summary
-                        </h3>
-                        <ul>
-                            <li>
-                               <code>ansible-vault</code> is a way to keep secrets safe
-                                <ul>
-                                    <li>passwords</li>
-                                    <li>API keys</li>
-                                    <li>SSL keys</li>
-                                </ul>
-                            </li>
-                            <li>Can distribute encrypted secrets with your code</li>
-                            <li>Automatically integrate into automation tasks</li>
-                        </ul>
-                    </section>
                 </section>
 
                 <!--<section>
