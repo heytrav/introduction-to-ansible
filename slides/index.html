@@ -2732,6 +2732,31 @@ myserver | SUCCESS => {
                             </li>
                         </ul>
                     </section>
+
+                    <section>
+                        <h3>
+                            vault password file
+                        </h3>
+                        <ul>
+                            <li class="fragment"
+                                data-fragment-class="0">Typing the vault
+                                password all the time gets annoying</li>
+                            <li class="fragment" data-fragment-class="1">Fortunately there's a workaround</li>
+                            <li class="fragment" data-fragment-class="2">You
+                                can put your vault password in a file and
+                                reference it with the option <ul><li><code>--vault-password-file &lt;path&gt;</code></li></ul>
+                            </li>
+                            <li class="fragment" data-fragment-class="3">
+                                Conventionally called <code>.vault_password</code>
+                                <pre><code data-trim>
+                                    $ echo "mysecretpassword" &gt; ansible/.vault_password
+                                </code></pre>
+                            </li>
+                            <li class="fragment" data-fragment-class="4">
+                                Be sure you add this to <code>.gitignore</code>
+                            </li>
+                        </ul>
+                    </section>
                     <section>
                         <h3>
                             Summary
@@ -3347,7 +3372,7 @@ localhost                  : ok=6    changed=0    unreachable=0    failed=0
 
                         <pre><code data-trim>
     $ ansible-playbook -i ansible/cloud-hosts \
-        ansible/deploy-app.yml
+        ansible/deploy-app.yml --ask-vault-pass
                         </code></pre>
                         Once it is finished, visit the new <a href="http://my-app.cat/">website</a>
                     </section>
