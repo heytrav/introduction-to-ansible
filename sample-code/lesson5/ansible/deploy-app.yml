@@ -1,7 +1,7 @@
 --- 
 
 - name: Update apt cache on all machines
-  hosts: "db:web:app"
+  hosts: "mycluster"
   become: true
   tasks:
     - name: Update apt cache
@@ -81,7 +81,7 @@
       command: |
         psql -U {{ database_user }} -h {{ groups['db'][0] }} 
         -c "CREATE TABLE IF NOT EXISTS images (id SERIAL primary key not null,
-        image char(200) not null)" {{ database }}
+        image char(200) not null unique)" {{ database }}
                                                                                                                                                                                                                                   
     - name: Add images to new table
       command: |
