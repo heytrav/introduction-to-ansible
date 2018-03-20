@@ -1714,10 +1714,10 @@ myserver | SUCCESS => {
                         </p>
                         <pre style="width:100%;"><code data-trim>
                             $ mkdir $WORKDIR/lesson2/ansible/host_vars
-                            $ vim $WORKDIR/lesson2/ansible/host_vars/myserver.yaml
+                            $ vim $WORKDIR/lesson2/ansible/host_vars/myserver.yml
                             # or
                             $ mkdir $WORKDIR/lesson2/ansible/host_vars/myserver
-                            $ vim $WORKDIR/lesson2/ansible/host_vars/myserver/vars.yaml
+                            $ vim $WORKDIR/lesson2/ansible/host_vars/myserver/vars.yml
                         </code></pre>
                         <pre style="width:100%;"><code data-trim>
                             # variables for myserver
@@ -1739,9 +1739,9 @@ myserver | SUCCESS => {
                         </p>
                         <pre style="width:100%;"><code data-trim>
                             $ mkdir $WORKDIR/lesson2/ansible/group_vars
-                            $ vim $WORKDIR/lesson2/ansible/group_vars/web.yaml
+                            $ vim $WORKDIR/lesson2/ansible/group_vars/web.yml
                             # or
-                            $ vim $WORKDIR/lesson2/ansible/group_vars/web/vars.yaml
+                            $ vim $WORKDIR/lesson2/ansible/group_vars/web/vars.yml
                             </code></pre>
                         <pre style="width:100%;"e><code data-trim>
                             # variables for "web" group
@@ -1781,7 +1781,7 @@ myserver | SUCCESS => {
                             Using Inventory Variables
                         </h3>
                         <pre><code data-trim>
-                            $ ansible-playbook ansible/playbook.yaml
+                            $ ansible-playbook ansible/playbook.yml
                         </code></pre>
                         <ul>
                             <li>Run the ansible-playbook again</li>
