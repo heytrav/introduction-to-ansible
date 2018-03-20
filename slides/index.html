@@ -1347,6 +1347,19 @@ myserver | SUCCESS => {
 
                     <section>
                         <h3>
+                            Create a new VM
+                        </h3>
+                        <pre><code data-trim>
+                            $ vagrant up --provider virtualbox
+                        </code></pre>
+                        <ul>
+                            <li>
+                                This new VM opens up ports for HTTP access
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>
                             Deploy and configure an application
                         </h3>
                         <img src="img/ansible-nginx-install.svg" />
@@ -2320,7 +2333,7 @@ myserver | SUCCESS => {
                                 <li>
                                     However sometimes you do not need them
                                     <pre><code data-trim>
-                                        command: ls {{ nginx_conf_directory }
+                                        command: ls {{ nginx_conf_directory }}
                                     </code></pre>
 
                                 </li>
@@ -3339,7 +3352,9 @@ localhost                  : ok=6    changed=0    unreachable=0    failed=0
                             </li>
                         </ul>
                         <pre class="fragment" data-fragment-index="0"><code data-trim>
-                            $ ansible -i ansible/cloud-hosts mycluster -m ping
+                            $ ansible -i ansible/cloud-hosts mycluster \
+                                --ask-vault-pass \
+                                    -m ping
                         </code></pre>
                     </section>
                     <section>
