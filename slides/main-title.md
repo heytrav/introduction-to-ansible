@@ -2,4 +2,4 @@
 
 # Catalyst <!-- .element class="catalyst-logo" -->
 
-Presented by Travis Holton
+Presented by [Travis Holton](#) <!-- .element: class="small-text"  -->

@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/catalyst.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/solarized-light.css">
+        <link rel="stylesheet" type="text/css" href="css/asciinema-player.css" />
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+<section data-markdown="main-title.md" >
+</section>
+<section data-markdown="course-outline.md" 
+         data-separator-vertical="^\n\n" >
+</section>
+    <section data-markdown="automation-background.md" 
+             data-separator-vertical="^\n\n">
+         
+    </section>
+    <section data-markdown="types-of-automation.md" 
+             data-separator-vertical="^\n\n">
+         
+    </section>
+
+    <section data-markdown="what-is-ansible.md" 
+             data-separator-vertical="^\n\n">
+         
+    </section>
+
+    <section data-markdown="ansible-first-steps.md" 
+             data-separator-vertical="^\n\n">
+         
+    </section>
+            
+          </div>
+<div class="footer">
+                <div class="scarf">
+                    <div class="scarf-orange"></div>
+                    <div class="scarf-yellow"></div>
+                    <div class="scarf-blue"></div>
+                    <div class="scarf-green"></div>
+                </div>
+                <div class="footer-inner">
+                    <div class="catalyst-logo-footer">Catalyst</div>
+                    <!-- NOTE: use only one of these. open-source-technologists is the standard -->
+                    <div class="open-source-technologists">open source technologists</div>
+                    <!-- <div class="freedom-to-innovate">freedom to innovate</div> -->
+                </div>
+            </div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+        <script src="plugin/markdown/marked.js" charset="utf-8"></script>
+        <script src="plugin/markdown/markdown.js" charset="utf-8"></script>
+        <script src="plugin/asciinema/asciinema-player.js"></script>
+		<script src="js/reveal.js" charset="utf-8"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                theme: Reveal.getQueryHash().theme,
+                transition: Reveal.getQueryHash().transition || 'none',
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+            Reveal.configure({showSlideNumber: "all", slideNumber: 'h/v'});
+		</script>
+	</body>
+</html>
