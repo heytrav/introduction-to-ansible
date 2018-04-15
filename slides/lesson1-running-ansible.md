@@ -3,11 +3,11 @@
 
 #### Running Ansible
 
-* There are two ways to run ansible: <!-- .element: class="fragment" data-fragment-index="0" -->
-  - ad hoc <!-- .element: class="fragment" data-fragment-index="1" -->
+* There are two ways to run ansible:<!-- .element: class="fragment" data-fragment-index="0" -->
+  * ad hoc <!-- .element: class="fragment" data-fragment-index="1" -->
     * Run a single task <!-- .element: class="fragment" data-fragment-index="2" -->
     * <!-- .element: class="fragment" data-fragment-index="3" --><code>ansible &lt;pattern&gt; [options]</code>
-  - Playbook <!-- .element: class="fragment" data-fragment-index="4" -->
+  * Playbook <!-- .element: class="fragment" data-fragment-index="4" -->
     * Run multiple tasks sequentially <!-- .element: class="fragment" data-fragment-index="5" -->
     * <!-- .element: class="fragment" data-fragment-index="6" --><code>ansible-playbook &lt;pattern&gt; [options]</code>
 
@@ -16,16 +16,15 @@
 
   ansible <pattern> [options]
 
-* <!-- .element: class="fragment" data-fragment-index="0" -->Perform a few _ad hoc_ operations with Ansible 
-    * Check connection to server <!-- .element: class="fragment" data-fragment-index="1" -->
-    * Install packages <!-- .element: class="fragment" data-fragment-index="2" -->
+* Perform a few <!-- .element: class="fragment" data-fragment-index="0" -->_ad hoc_ operations with Ansible 
+    * Check connection to server<!-- .element: class="fragment" data-fragment-index="1" -->
+    * Install packages<!-- .element: class="fragment" data-fragment-index="2" -->
     * Run system commands <!-- .element: class="fragment" data-fragment-index="3" -->
 
 
 #### Before we start
 
-In all the following examples, `$WORKDIR` is the path to the
-`introduction-to-ansible/sample-code` directory.
+In all the following examples, `$WORKDIR` is the path to the `introduction-to-ansible/sample-code` directory.
 
     $ echo $WORKDIR
     /home/train/introduction-to-ansible/sample-code
@@ -61,6 +60,7 @@ If all went well you now have a remote host to manage! <!-- .element: class="fra
 * Ansible works by creating an SSH connection with remote hosts <!-- .element: class="fragment" data-fragment-index="0" -->
 * Need a way to tell Ansible how to connect to our Vagrant VM via SSH <!-- .element: class="fragment" data-fragment-index="1" -->
                                 
+
 
 #### The Inventory File
 
@@ -108,6 +108,7 @@ If all went well you now have a remote host to manage! <!-- .element: class="fra
 </code></pre></div>
 
 
+
 #### Sample Inventory File                            
 
 ```
@@ -126,11 +127,12 @@ app2.mycompany.com
 loadbalancer.mycompany.com
 ```
 
+
 #### Grouping Hosts
 <div style="width:50%;float:left;"><ul>
 
         <li class="fragment" data-fragment-index="0">
-            Sections used to organise hosts into
+            `[sections]` used to organise hosts into
             <em>groups</em>
             <ul>
                 <li>functional roles</li>
@@ -165,6 +167,7 @@ loadbalancer.mycompany.com
 
         </code></pre>
     </div>
+
 
 
 #### Our first inventory file
@@ -202,9 +205,7 @@ Use the values from your host to fill in missing arguments in <code>ansible/host
 
 #### Running _ad hoc_ commands with Ansible
 
-```
-ansible <host pattern> [OPTIONS]
-```
+<code>ansible </code><code style="color:red;">&lt;host pattern&gt;</code><code> [OPTIONS]</code>
 
 * _host pattern_ can be:
    * the name of a specific host in inventory
@@ -231,3 +232,131 @@ myserver | SUCCESS => {
     "changed": false,
     "ping": "pong"
 }</code></pre>
+
+
+#### The `ansible.cfg` File
+
+<pre class="fragment" data-fragment-index="0"><code data-trim>
+# sample ansible.cfg
+
+[defaults]
+inventory = hosts
+remote_user = vagrant
+private_key_file = .vagrant/machines/default/virtualbox/private_key
+host_key_checking = False
+</code></pre>
+
+* A configuration file where you can provide some defaults for ansible<!-- .element: class="fragment" data-fragment-index="0" -->
+* .ini syntax <!-- .element: class="fragment" data-fragment-index="1" -->
+* Specify SSH connection, which inventory file to use <!-- .element: class="fragment" data-fragment-index="2" -->
+
+
+#### Locating `ansible.cfg`
+
+* 4 possible locations in order of priority
+  * <!-- .element: class="fragment" data-fragment-index="0" -->File specified by ANSIBLE_CONFIG 
+  * <!-- .element: class="fragment" data-fragment-index="1" -->Current directory (<code>ansible.cfg</code>) 
+  * <!-- .element: class="fragment" data-fragment-index="2" -->Home directory (<code>~/.ansible.cfg</code>) 
+  * <!-- .element: class="fragment" data-fragment-index="3" -->`/etc/ansible/ansible.cfg` 
+
+
+##### Exercise: Set up `ansible.cfg` and modify inventory file
+
+```
+$WORKDIR/ansible.cfg.sample
+```
+
+<pre class="fragment" data-fragment-index="0"><code data-trim>
+
+$ cd $WORKDIR/lesson1
+$ cp ../ansible.cfg.sample ansible.cfg
+$ cat $WORKDIR/lesson1/hosts
+myserver ansible_host=127.0.0.1 ansible_port=2222
+</code></pre>
+
+You now no longer need to specify an inventory file <!-- .element: class="fragment" data-fragment-index="1" -->
+<pre class="fragment" data-fragment-index="1"><code data-trim> $ ansible myserver -m ping</code></pre>
+
+
+#### Ansible Modules
+
+* Blob of python that performs a very specific action <!-- .element: class="fragment" data-fragment-index="0" -->
+* Ship with Ansible <!-- .element: class="fragment" data-fragment-index="1" -->
+* <!-- .element: class="fragment" data-fragment-index="2" -->More than 200 [Ansible modules](https://docs.ansible.com/ansible/latest/list_of_all_modules.html) 
+* When you run Ansible:<!-- .element: class="fragment" data-fragment-index="3" -->
+  * <!-- .element: class="fragment" data-fragment-index="4" -->`scp` to temporary directory on target host
+  * Execute python on target host <!-- .element: class="fragment" data-fragment-index="5" -->
+  * Returns JSON <!-- .element: class="fragment" data-fragment-index="6" -->
+  * Code removed from target host <!-- .element: class="fragment" data-fragment-index="7" -->
+  * Local Ansible evaluates returned JSON <!-- .element: class="fragment" data-fragment-index="8" -->
+  * Output <!-- .element: class="fragment" data-fragment-index="9" -->_ok/changed/failed_ for task based on returned values
+
+
+
+#### The _command_ module
+
+<code style="font-size:15pt;">ansible &lt;host pattern&gt; -m command -a &lt;args to command&gt;</code>
+
+* Execute arbitrary command on remote system <!-- .element: class="fragment" data-fragment-index="0" -->
+* The default module <!-- .element: class="fragment" data-fragment-index="1" -->
+* These are equivalent:<!-- .element: class="fragment" data-fragment-index="2" -->
+  * <!-- .element: class="fragment" data-fragment-index="3" -->`ansible myserver -m command -a uptime`
+  * <!-- .element: class="fragment" data-fragment-index="4" -->`ansible myserver -a uptime`
+* <!-- .element: class="fragment" data-fragment-index="5" -->[Documentation](https://docs.ansible.com/ansible/latest/command_module.html)
+
+
+##### Exercise: Get tail of system messages on your vagrant host
+
+* Use the _command_ modules to tail the system log file
+* This will be `/var/log/messages` on centos; `/var/log/syslog` on Debian/Ubuntu
+
+<pre class="fragment" data-fragment-index="0"><code data-trim>
+    $ ansible myserver  -b -a "tail /var/log/messages"
+</code></pre>
+
+
+
+##### Exercise: install a package
+
+* Use the [yum](https://docs.ansible.com/ansible/latest/yum_module.html) module to install _mtr_ (network monitoring tool)
+
+<pre class="fragment" data-fragment-index="0"><code data-trim>
+    $ ansible myserver -b -m yum -a "name=mtr state=present"
+</code></pre>
+<asciinema-player class="fragment" data-fragment-index="1"  autoplay="0"  loop="loop" font-size="medium" speed="1"
+     theme="solarized-light" src="lib/ansible-install-mtr.json" cols="200" rows="17"></asciinema-player>
+
+
+#### Module documentation
+
+Places you can find module documentation <!-- .element: class="fragment" data-fragment-index="0" -->
+* <!-- .element: class="fragment" data-fragment-index="1" -->[The Ansible community docs](https://docs.ansible.com/ansible/latest/list_of_all_modules.html)
+* <!-- .element: class="fragment" data-fragment-index="2" -->Inline documentation
+
+<pre class="fragment" data-fragment-index="2"><code data-trim>
+    $ ansible-doc yum
+
+    &gt; YUM    (~/venv/local/lib/python2.7/site-packages/ansible/modules/packaging/os/yum.py)
+
+            Installs, upgrade, downgrades, removes, and lists packages and groups with the `yum' package manager.
+
+    OPTIONS (= is mandatory):
+
+    - allow_downgrade
+            Specify if the named package and version is allowed to downgrade a maybe already installed higher version of that package. Note that setting
+            allow_downgrade=True can make this module behave in a non-idempotent way. The task could end up with a set of packages that does not match the complete
+            list of specified packages to install (because dependencies between the downgraded package and others can cause changes to the packages which were in
+            the earlier transaction).
+            (Choices: yes, no)[Default: no]
+            version_added: 2.4
+</code></pre>
+
+
+#### Summary
+
+* This section has given you a small taste of using Ansible in <em>ad hoc</em> mode
+* Interacted with a remote server
+  * Check if SSH works
+  * Install OS packages
+  * Start services
+* Explore documetation with <code>ansible-doc</code>
