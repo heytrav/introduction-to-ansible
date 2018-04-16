@@ -360,3 +360,11 @@ Places you can find module documentation <!-- .element: class="fragment" data-fr
   * Install OS packages
   * Start services
 * Explore documetation with <code>ansible-doc</code>
+
+
+#### Before we move on
+
+```
+vagrant halt
+vagrant destroy
+```
