@@ -76,7 +76,101 @@ vagrant up --provider virtualbox
     Some keys in a play may contain dictionaries or
     lists
 </li>
-
-
 </ul>
 </div>
+
+
+#### Ansible Playbook Structure
+
+                            
+* A play must contain:
+   * `hosts`
+     * A string representing a particular host or _group_ of hosts
+       * `hosts: localhost`
+       * `hosts: app.mywebsite.com`
+       * `hosts: appserver`
+     * These are what you will configure
+
+
+
+#### Ansible Playbook Structure
+
+* A play may optionally contain:
+   * tasks
+     * A list of dictionaries
+     * What you want to do
+   * name
+     * Description of the play
+   * vars
+     * Variables scoped to the play
+
+
+#### Privilege Escalation
+
+<pre style="font-size:18pt;"><code data-trim data-noescape>
+    - name: Set up static website with nginx
+      hosts: myserver
+      <mark >become: true</mark>
+      tasks:
+</code></pre>
+
+* The _become_ attribute tells Ansible to run tasks as a certain user
+  * By default this is _sudo_
+  * Specify user with `become_user`
+* Can be in _play_ or _task_ scope
+* Accepts  _yes_ or _true_ (_no_ or _false_ are implicit)
+
+
+#### Structure of a Task
+
+* A task is a dictionary object containing
+  * name 
+    * Describes what the task does
+    * Optional but best practice to use
+  * module
+    * Dictionary object
+    * Key represents Python module which will perform tasks
+    * May have arguments
+
+
+#### Structure of a Task
+<div style="width:50%;float:left;">
+    <img src="img/playbook-task-anatomy.svg"/>
+</div>
+<div style="width:50%;float:left;">
+    <ul>
+        <li>
+            Two styles of module object in tasks
+            <ul>
+                <li>string form</li>
+                <li>dictionary form</li>
+            </ul>
+        </li>
+        <li>
+            Dictionary form is more suitable for complex arguments
+        </li>
+        <li>
+            Matter of preference/style
+        </li>
+    </ul>
+</div>
+
+
+#### Run our first playbook
+
+```
+cd $WORKDIR/lesson2
+ansible-playbook ansible/playbook.yml
+```
+
+<asciinema-player  autoplay="0"  loop="loop" font-size="medium" speed="1"
+     theme="solarized-light" src="lib/basic-static-site.json" cols="200" rows="15"></asciinema-player>
+
+Visit the <!-- .element: class="fragment" data-fragment-index="0" -->[static site](http://localhost:8080) once playbook has finished.
+
+
+#### Summary
+
+* Use Ansible Playbook to run complex tasks
+* Playbook consists of array of YAML dictionaries called <em>plays</em>
+* Each play contains array of tasks that are executed on remote host
