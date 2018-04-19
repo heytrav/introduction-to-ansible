@@ -86,3 +86,94 @@ proxy=web.mycompany.com
 </code></pre>
 
 
+#### Using `group_vars`
+
+* Similar to `host_vars` except for groups
+  * Files with same name as particular group <!-- .element: class="fragment" data-fragment-index="1" -->
+  * Any files in a directory with the same name as a group <!-- .element: class="fragment" data-fragment-index="2" -->
+    <pre  class="fragment" data-fragment-index="3"><code data-trim data-noescape>
+    [web]
+    web1.myhost.com
+    [app]
+    app1.myhost.com
+    </code></pre>
+    <pre  class="fragment" data-fragment-index="4"><code data-trim data-noescape>
+    ansible
+    └── group_vars
+    <mark  class="fragment" data-fragment-index="5">    ├── web.yml
+        └── app
+            └── vars.yml</mark>
+    </code></pre>
+
+
+##### Exercise: Create group_vars for our app
+
+* Create a `group_vars` directory and variable file 
+
+<pre style="width:100%;"  class="fragment" data-fragment-index="0"><code data-trim>
+    $ mkdir $WORKDIR/lesson2/ansible/group_vars
+    $ gedit $WORKDIR/lesson2/ansible/group_vars/web.yml
+    </code></pre>
+<pre style="width:100%;"  class="fragment" data-fragment-index="1"><code data-trim>
+    $ mkdir $WORKDIR/lesson2/ansible/group_vars/web
+    $ gedit $WORKDIR/lesson2/ansible/group_vars/web/vars.yml
+    </code></pre>
+<pre style="width:100%;"  class="fragment" data-fragment-index="2"><code data-trim>
+    # variables for "web" group
+    ---
+    bizz: buzz
+</code></pre>
+
+
+#### Using inventory variables
+
+* Inventory variables available to Ansible throughout playbook run
+
+```html
+$ less $WORKDIR/lesson2/ansible/templates/index.html.j2
+.
+.
+{% if foo is defined %}
+&lt;p&gt;
+The value for foo is &lt;em&gt;{{ foo }}&lt;/em&gt;
+&lt;/p&gt;
+{% endif %}
+{% if bizz is defined %}
+&lt;p&gt;
+The value for bizz is &lt;em&gt;{{ bizz }}&lt;/em&gt;
+&lt;/p&gt;
+{% endif %}
+.
+.
+```
+
+
+#### Using Inventory Variables
+
+```
+ansible-playbook ansible/playbook.yml
+```
+
+* Run the ansible playbook again
+* Note behaviour of _Copy up static website html_ task
+* Reload [website](http://localhost:8000) when finished
+
+
+#### hostvars
+
+* Dictionary with variables from each host (including inventory variables) 
+* Indexed on hostname from inventory 
+  * `hostvars['myserver']['foo'] ==  hostvars.myserver.foo`
+* Can be accessed across plays in the same playbook run
+
+
+#### hostvars
+* Have a look at `playbook-localhost.yml`
+* Run `playbook.yml` and `playbook-localhost.yml`
+<pre ><code data-trim>
+$ ansible-playbook ansible/playbook.yml \
+      ansible/playbook-localhost.yml
+</code></pre>
+* Change <code style="color:red;">foo</code> to <code style="color:red;">hostvars.myserver.foo</code> in <code>playbook-localhost.yml</code> and run playbooks
+
+
