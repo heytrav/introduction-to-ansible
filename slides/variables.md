@@ -48,17 +48,38 @@ proxy=web.mycompany.com
 
 * Ansible will automatically load files under <!-- .element: class="fragment" data-fragment-index="0" -->`host_vars` directory
   * Files with same name as particular host <!-- .element: class="fragment" data-fragment-index="1" -->
-  * Files in a directory with the same name as a host <!-- .element: class="fragment" data-fragment-index="2" -->
-* Create a <!-- .element: class="fragment" data-fragment-index="3" -->`host_vars` subdirectory and variable file 
+  * Any files in a directory with the same name as a host <!-- .element: class="fragment" data-fragment-index="2" -->
+    <pre  class="fragment" data-fragment-index="3"><code data-trim data-noescape>
+    [web]
+    web1.myhost.com
+    web2.myhost.com
+    </code></pre>
+    <pre  class="fragment" data-fragment-index="4"><code data-trim data-noescape>
+    ansible
+    └── host_vars
+    <mark  class="fragment" data-fragment-index="5">    ├── web1.myhost.com.yml
+        └── web2.myhost.com
+            └── vars.yml</mark>
+    </code></pre>
 
-<pre style="width:100%;"  class="fragment" data-fragment-index="4"><code data-trim>
+<!-- .element: class="fragment" data-fragment-index="6" -->_.yml_ or _.yaml_  suffix is optional. Files can also be JSON
+
+
+
+##### Exercise: create host inventory
+
+* Create inventory variables for _myserver_ host
+* Try either way: <!-- .element: class="fragment" data-fragment-index="0" -->
+
+<pre style="width:100%;"  class="fragment" data-fragment-index="1"><code data-trim>
     $ mkdir $WORKDIR/lesson2/ansible/host_vars
-    $ vim $WORKDIR/lesson2/ansible/host_vars/myserver.yml
-    # or
-    $ mkdir $WORKDIR/lesson2/ansible/host_vars/myserver
-    $ vim $WORKDIR/lesson2/ansible/host_vars/myserver/vars.yml
+    $ gedit $WORKDIR/lesson2/ansible/host_vars/myserver.yml
 </code></pre>
-<pre style="width:100%;"  class="fragment" data-fragment-index="5"><code data-trim>
+<pre style="width:100%;"  class="fragment" data-fragment-index="2"><code data-trim>
+    $ mkdir $WORKDIR/lesson2/ansible/host_vars/myserver
+    $ gedit $WORKDIR/lesson2/ansible/host_vars/myserver/vars.yml
+</code></pre>
+<pre style="width:100%;"  class="fragment" data-fragment-index="3"><code data-trim>
     # variables for myserver
     ---
     foo: bar
