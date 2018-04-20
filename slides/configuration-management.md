@@ -1,4 +1,4 @@
-### Mult-tasking with Ansible
+### Multi-tasking with Ansible
 
 
 #### Ansible Playbook
