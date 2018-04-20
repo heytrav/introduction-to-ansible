@@ -79,3 +79,22 @@ Options:
    echo "mysecretpassword" > ansible/.vault_password
    ```
 * Be sure you add this file to <!-- .element: class="fragment" data-fragment-index="3" -->`.gitignore`!!!
+
+
+
+#### An even lazier way
+* It is possible to configure location of vault password file in `ansible.cfg`
+   ```
+   [defaults]
+   vault_password_file = ansible/.vault_password
+   ```
+* Unnecessary to type `--vault-password-file blah/blah/blah` on command line
+
+
+#### Summary
+* `ansible-vault` is a way to secrets safe
+   * passwords
+   * API keys
+   * SSL keys
+* Easy to distribute encrypted secrets with code without compromising them
+* Automatically integrates into automation tasks
