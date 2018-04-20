@@ -97,5 +97,3 @@
 * Goss (go)
 * testinfra (python)
 * Ansible
-
-
