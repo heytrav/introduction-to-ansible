@@ -1,20 +1,6 @@
 ### Infrastructure As Code
 
 
-#### Infrastructure As Code
-```
-$ cd $WORKDIR/lesson5
-$ tree
-.
-├── ansible
-.
-.
-├── templates
-│   └── index.html
-└── wsgi.py
-```
-
-
 #### Immutable Infrastructure
 * Approach to managing services where systems are replaced rather than changed in any way
 * Entire stack rebuilt from scratch
