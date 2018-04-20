@@ -24,20 +24,18 @@
 
 
 #### Variables in Inventory File
-<pre class="fragment" data-fragment-index="0"><code class="ini" data-trim data-noescape>
-# assign variable to single host
+* Assign variable to a single host <!-- .element: class="fragment" data-fragment-index="0" -->
+    <pre style="font-size:12pt;" ><code class="ini" data-trim data-noescape>
 [web]
 web1.mycompany.com <mark>ansible_host=152.240.43.12 opt2=arg2</mark>
 web2.mycompany.com
 .
 </code></pre>
-<pre class="fragment" data-fragment-index="1"><code class="ini" data-trim data-noescape>
-# assign variable to group of hosts
-
+* Assign variables to groups of hosts <!-- .element: class="fragment" data-fragment-index="1" -->
+    <pre style="font-size:12pt;" ><code class="ini" data-trim data-noescape>
 [web]
 web1.mycompany.com ansible_host=152.240.43.12
 web2.mycompany.com
-
 <mark>[web:vars]
 proxy=web.mycompany.com
 </mark>
