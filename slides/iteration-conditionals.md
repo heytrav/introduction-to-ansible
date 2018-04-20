@@ -117,3 +117,68 @@ $ tree
 
 
 #### More configuration for myapp
+ * <!-- .element: class="fragment" data-fragment-index="0" -->`ansible/playbook-dict.yml` sets up database config for our fake application
+ * Adds each element of <!-- .element: class="fragment" data-fragment-index="1" -->*database* variable to config
+ * Run the playbook and have a look at <!-- .element: class="fragment" data-fragment-index="2" -->`/etc/myapp/app_config`
+
+
+
+##### Exercise: Remove repetition from playbook-dict.yml
+
+* Refactor the playbook using `with_dict` to remove repetitive tasks
+
+<pre class="fragment" data-fragment-index="0"><code data-trim>
+ - name: Add database config to /etc/myapp/config
+   lineinfile:
+     path: /etc/myapp/app_config
+     line: "database_{{ item.key }}={{ item.value }}"
+   with_dict: "{{ database[env_name] }}"
+</code></pre>
+
+
+
+### Conditionals
+
+
+
+#### The `when` clause
+
+* The main way to conditionally do something in Ansible is by using the <!-- .element: class="fragment" data-fragment-index="0" -->`when` clause
+* <!-- .element: class="fragment" data-fragment-index="1" -->`when` has identical semantics to a Python _if_ block
+   * <!-- .element: class="fragment" data-fragment-index="2" -->`when: some variable is defined`
+   * <!-- .element: class="fragment" data-fragment-index="3" -->`when: env_name == 'staging'`
+
+<pre class="fragment" data-fragment-index="4"><code data-trim>
+- name: Some task
+  command: do something
+  when: &lt;condition is true&gt;
+</code></pre>
+
+
+
+##### Exercise: Make our tasks conditional
+
+* Tasks in `ansible/playbook-dict.yml` assume a staging environment
+* Add a conditional to  the `lineinfile` tasks
+* Only execute if `env_name` is *production*
+* Re-run the playbook
+
+<pre  class="fragment" data-fragment-index="0"><code data-trim>
+  - name: Add database config to /etc/myapp/config
+    lineinfile:
+    .
+    .
+    when: env_name == 'production'
+</code></pre>
+
+
+##### Exercise: Override default *env_name* to run tasks
+
+* *env_name* is set to _staging_ by default
+* Override this to be _production_ and re-run playbook
+* Hint: What type of variable has precedence in this situation?
+
+<pre  class="fragment" data-fragment-index="0"><code data-trim>
+$ ansible-playbook ansible/playbook-dict.yml -K \
+     -e env_name=production
+</code></pre>
