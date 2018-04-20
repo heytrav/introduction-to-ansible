@@ -2820,26 +2820,15 @@ myserver | SUCCESS => {
                                 Filter syntax is 
                                 <ul>
                                     <li class="fragment"
-                                        data-fragment-index="1"><code
-                                            style="color:blue;">variable</code><code
-                                            style="color:red;"> | </code><code style="color:blue;">filtername</code></li>
-                                    <li  class="fragment" data-fragment-index="2">
-                                        <code>variable</code> contains data of
-                                        some kind
-                                    </li>
-                                    <li  class="fragment" data-fragment-index="3">
-                                        The "<code>|</code>" is the <em>pipe</em> symbol
-                                    </li>
+                                        data-fragment-index="1"><code style="color:blue;">variable</code><code style="color:red;"> | </code><code style="color:blue;">filtername</code></li>
+                                    <li  class="fragment" data-fragment-index="2"> <code>variable</code> contains data of some kind </li>
+                                    <li  class="fragment" data-fragment-index="3"> The "<code>|</code>" is the <em>pipe</em> symbol </li>
                                 </ul>
                             </li>
                             <li class="fragment" data-fragment-index="4">
                                 Filters will <em>usually</em> be used within Jinja2 expression syntax
                                 <ul>
-                                    <li class="fragment" data-fragment-index="5">
-                                        <code
-                                            style="color:green;">{{</code><code
-                                            style="color:blue;">  data </code><code> | </code><code style="color:blue;">filter</code><code style="color:green;"> }}</code> 
-                                    </li>
+                                    <li class="fragment" data-fragment-index="5"> <code style="color:green;">{{</code><code style="color:blue;">  data </code><code> | </code><code style="color:blue;">filter</code><code style="color:green;"> }}</code> </li>
                                 </ul>
                             </li>
                         </ul>
@@ -3039,14 +3028,9 @@ myserver | SUCCESS => {
                                 Can be used to test validity of IP addresses
                                 <ul>
                                     <li class="fragment"
-                                        data-fragment-index="1"><code>'192.168.1.1'
-                                            | ipaddr</code><code class="fragment" data-fragment-index="2" style="color:green"> => '192.168.1.1'</code></li>
+                                        data-fragment-index="1"><code>'192.168.1.1' | ipaddr</code><code class="fragment" data-fragment-index="2" style="color:green"> => '192.168.1.1'</code></li>
                                     <li class="fragment"
-                                        data-fragment-index="3"><code>'192.168.25.1.25'
-                                            | ipaddr</code><code
-                                        class="fragment"
-                                        data-fragment-index="4"
-                                        style="color:red"> => false</code></li>
+                                        data-fragment-index="3"><code>'192.168.25.1.25' | ipaddr</code><code class="fragment" data-fragment-index="4" style="color:red"> => false</code></li>
                                 </ul>
                             </li>
                             <li class="fragment" data-fragment-index="5">
@@ -3060,8 +3044,7 @@ myserver | SUCCESS => {
                                 Can also extract IP addresses from CIDR notation
 
                                 <ul style="font-size:20pt;">
-                                    <li><code>'10.14.33.0/24' |
-                                            ipaddr('address')</code><code class="fragment" data-fragment-index="7" style="color:green;"> => '10.14.33.0</code></li>
+                                    <li><code>'10.14.33.0/24' | ipaddr('address')</code><code class="fragment" data-fragment-index="7" style="color:green;"> => '10.14.33.0</code></li>
                                 </ul>
                             </li>
 
