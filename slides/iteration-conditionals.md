@@ -132,6 +132,7 @@ $ tree
    lineinfile:
      path: /etc/myapp/app_config
      line: "database_{{ item.key }}={{ item.value }}"
+     regexp: '^database_{{ item.key}}.*'
    with_dict: "{{ database[env_name] }}"
 </code></pre>
 
