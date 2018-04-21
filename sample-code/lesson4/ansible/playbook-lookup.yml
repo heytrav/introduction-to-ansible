@@ -1,0 +1,25 @@
+- name: Experiment with lookup plugins
+  hosts: localhost
+  vars:
+    letters: "{{ lookup('items', ['a', 'b', 'c', 'd']) }}"
+    simple_dict: "{{ lookup('dict', {a: 'one', b: 'two' }) }}"
+    file_content: "{{ lookup('file', '/etc/myapp/config') }}"
+    code_version: "{{ lookup('lines', 'git rev-parse --short HEAD') }}"
+    atomic_mass: "{{ lookup('csvfile', '3 file=../data.csv delimiter=, col=3') }}"
+
+  tasks: 
+
+    - debug:
+        var: letters
+
+    - debug:
+        var: simple_dict
+
+    - debug:
+        var: file_content
+
+    - debug:
+        var: code_version
+
+    - debug:
+        var: atomic_mass

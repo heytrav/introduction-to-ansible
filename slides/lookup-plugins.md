@@ -22,11 +22,11 @@
 #### Lookup Plugin Examples
 * Return a list <!-- .element: class="fragment" data-fragment-index="0" -->
    ```
-   items: "{{ lookup('items', ['a', 'b', 'c', 'd']) }}"
+   letters: "{{ lookup('items', ['a', 'b', 'c', 'd']) }}"
    ```
 * Return a dictionary <!-- .element: class="fragment" data-fragment-index="1" -->
    ```
-   items: "{{ lookup('dict', {'a': 'one', 'b': 'two' }) }}"
+   simple_dict: "{{ lookup('dict', {a: 'one', b: 'two' }) }}"
    ```
 * Read a file from the file system <!-- .element: class="fragment" data-fragment-index="2" -->
    ```
@@ -38,9 +38,76 @@
    ```
 
 
+#### Run playbook example
+* The playbook `playbook-lookup.yml` contains examples from previous slide
+* Run this playbook to see the results
+
+
+#### Available Lookups
+
+* List available lookups on your machine
+   ```
+   ansible-doc -t lookup -l
+   ```
+* Have a look at the [official documentation page](https://docs.ansible.com/ansible/latest/plugins/lookup.html)
+
+
+##### Exercise: Use lookup(s) to extract a file
+* It is often necessary to upload your SSH public key to a host
+* Use lookups to extract `~/.ssh/id_rsa.pub` into a file
+* To do this you might need to use a couple lookups <!-- .element: class="fragment" data-fragment-index="0" -->
+<pre class="fragment" data-fragment-index="0"><code data-trim>
+  vars:
+     .
+    ssh_public_key_file: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
+    ssh_public_key: "{{ lookup('file', ssh_public_key_file) }}"
+
+  tasks:
+    .
+    - debug:
+        var: ssh_public_key
+</code></pre>
+
+
+
+##### Exercise: Find your IP address
+* Use a lookup to get your current IP address
+* The <!-- .element: class="fragment" data-fragment-index="0" -->_dig_ lookup
+
+<pre class="fragment" data-fragment-index="0"><code data-trim>
+  vars:
+     .
+    ssh_remote_cidr: "{{ lookup('dig', 'myip.opendns.com', '@resolver1.opendns.com') + '/32' | default('0.0.0.0/0', true) }}"
+
+  tasks:
+     .
+    - debug:
+        var: ssh_remote_cidr
+</code></pre>
+
+
 #### Lookups and loops
 * We have actually already seen lookups in action <!-- .element: class="fragment" data-fragment-index="0" -->
-* Combined with  <!-- .element: class="fragment" data-fragment-index="1" -->`with_` they form the basis of loops in Ansible
+* Expressed as  <!-- .element: class="fragment" data-fragment-index="1" --><code>with\_</code><code style="color:red;">&lt;plugin name&gt;</code> they form the basis of loops in Ansible
    * <!-- .element: class="fragment" data-fragment-index="2" --><code>with\_</code><code style="color:red;">items</code> - loop over list
    * <!-- .element: class="fragment" data-fragment-index="3" --><code>with\_</code><code style="color:red;">dict</code> - loop through dictionary
    * <!-- .element: class="fragment" data-fragment-index="4" --><code>with\_</code><code style="color:red;">file</code> - loop over files (_item_ contains file contents)
+
+
+##### Exercise: Use looping lookups
+* Use a lookup to list all files in a folder 
+* Can be done with the <!-- .element: class="fragment" data-fragment-index="0" -->`fileglob` lookup
+
+<pre class="fragment" data-fragment-index="0"><code data-trim>
+  tasks:
+    - debug:
+        var: item | string
+      with_fileglob: 
+        - '/var/log/*.log'
+</code></pre>
+
+
+#### Summary
+* _lookup_ plugins are a way for Ansible to access different types of data
+* They can access data in the play as well as external sources
+* Many exist as looping directives when combined with `with_`
