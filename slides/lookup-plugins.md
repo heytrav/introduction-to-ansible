@@ -38,6 +38,17 @@
    ```
 
 
+#### Dealing with data formats
+* Sometimes you need find data in different formats or data stores <!-- .element: class="fragment" data-fragment-index="0" -->
+* For example, the <!-- .element: class="fragment" data-fragment-index="1" -->_csvfile_ lookup can grab data from a TSV or CSV file
+* <!-- .element: class="fragment" data-fragment-index="2" -->`data.csv` contains the periodic table with elements listed by atomic number
+* We can use the <!-- .element: class="fragment" data-fragment-index="3" -->_csvfile_ lookup to read items out
+
+<pre class="fragment" data-fragment-index="3"><code data-trim>
+    atomic_mass: "{{ lookup('csvfile', '3 file=../data.csv delimiter=, col=3') }}"
+</code></pre>
+
+
 #### Run playbook example
 * The playbook `playbook-lookup.yml` contains examples from previous slide
 * Run this playbook to see the results
