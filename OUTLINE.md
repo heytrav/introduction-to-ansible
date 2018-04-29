@@ -16,22 +16,7 @@ networking hardware.
 
 ## Course Outline
 
-* The Ansible Way
-* How Ansible works
-* Where Ansible fits in the Automation Ecosystem
-* Ad Hoc Commands
-* Inventories
-* Playbooks
-* Task Idempotency
-* Roles
-* Cloud Automation Tasks
-* Server Configuration Tasks
-* Playbook Syntax
-    * YAML
-    * Jinja2
-    * Loops
-    * Conditionals
-
+See [course outline](slide/course-outline.md)
 
 ## Target audience
 
