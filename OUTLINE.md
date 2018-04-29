@@ -16,7 +16,7 @@ networking hardware.
 
 ## Course Outline
 
-See [course outline](slide/course-outline.md)
+See [course outline](slides/course-outline.md)
 
 ## Target audience
 
