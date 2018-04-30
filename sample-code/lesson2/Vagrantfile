@@ -1,5 +1,12 @@
 Vagrant.configure("2") do |config|
+  config.vm.define "vagrant1" do |vagrant1|
+    config.vm.box = "ubuntu/xenial64"
+    vagrant1.vm.network "forwarded_port", guest: 80, host: 8080
+    vagrant1.vm.network "forwarded_port", guest: 443, host: 8443
+  end
+  config.vm.define "vagrant2" do |vagrant2|
     config.vm.box = "centos/7"
-    config.vm.network "forwarded_port", guest: 80, host: 8080
-    config.vm.network "forwarded_port", guest: 443, host: 8443
+    vagrant2.vm.network "forwarded_port", guest: 80, host: 8081
+    vagrant2.vm.network "forwarded_port", guest: 443, host: 8444
+  end
 end
