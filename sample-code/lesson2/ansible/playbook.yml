@@ -1,16 +1,19 @@
 ---
+- name: Install python
+  hosts: myserver
+  become: true
+  gather_facts: false
+  tasks:
+      - name: Install python
+        raw: apt-get update && apt-get install -y python
+
 - name: Set up static website with nginx
   hosts: myserver
   become: true
   tasks:
 
-    - name: Install epel-release
-      yum:
-        name: epel-release
-        state: present
-
     - name: Install nginx
-      yum:
+      apt:
         name: nginx
         state: present
 
@@ -18,20 +21,25 @@
     - name: Copy in nginx config file
       copy:
         src: files/nginx.conf
-        dest: /etc/nginx/conf.d/nginx.conf
+        dest: /etc/nginx/sites-available/mysite.conf
         owner: root
         group: root
         mode: '0644'
 
+    - name: Create symlink to config
+      file:
+          src: /etc/nginx/sites-available/mysite.conf
+          dest: /etc/nginx/sites-enabled/01-mysite
+          state: link
+
+    - name: Restart nginx
+      systemd:
+        name: nginx
+        state: started
 
     - name: Copy up static website html
       template:
         src: templates/index.html.j2
         dest: /usr/share/nginx/html/index.html
         mode: 0644
-
-    - name: Restart nginx
-      systemd:
-        name: nginx
-        state: started
 
