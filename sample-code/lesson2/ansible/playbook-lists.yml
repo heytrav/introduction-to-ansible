@@ -1,5 +1,5 @@
 - name: Add hosts to /etc/myapp/config
-  hosts: localhost
+  hosts: myserver
   become: yes
   vars:
     allowed_host1: fakehost1.mycompany.com

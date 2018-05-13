@@ -1,6 +1,6 @@
 --- 
 - name: Add app credentials config for myapp
-  hosts: localhost
+  hosts: myserver
   become: yes
   vars:
     database:

@@ -10,6 +10,8 @@
 - name: Set up static website with nginx
   hosts: myserver
   become: true
+  vars:
+    base_path: "/"
   tasks:
 
     - name: Install nginx
@@ -17,10 +19,9 @@
         name: nginx
         state: present
 
-
-    - name: Copy in nginx config file
-      copy:
-        src: files/nginx.conf
+    - name: Template in nginx file
+      template:
+        src: templates/mysite.conf.j2
         dest: /etc/nginx/sites-available/mysite.conf
         owner: root
         group: root
@@ -35,7 +36,7 @@
     - name: Restart nginx
       systemd:
         name: nginx
-        state: started
+        state: restarted
 
     - name: Copy up static website html
       template:
