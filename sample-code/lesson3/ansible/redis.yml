@@ -1,0 +1,30 @@
+---
+- name: Install redis on a host
+  hosts: myserver
+  become: true
+  tasks:
+
+    - name: Install redis
+      apt:
+        name: redis-server
+        state: present
+        update_cache: no
+
+    - name: Enable redis on boot
+      systemd:
+        name: redis-server
+        enabled: true
+
+    - name: Modify redis config to work as a cache
+      blockinfile:
+        path: /etc/redis/redis.conf
+        marker: "#{mark} Ansible managed block"
+        block: |
+          maxmemory 128mb
+          maxmemory-policy allkeys-lru
+
+
+    - name: Start redis
+      systemd:
+        name: redis-server
+        state: restarted

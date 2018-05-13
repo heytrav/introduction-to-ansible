@@ -1,0 +1,30 @@
+---
+- name: Set up nginx on web server
+  hosts: myserver
+  become: true
+  tasks:
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Add nginx config
+      template:
+        src: templates/nginx.conf.j2
+        dest: /etc/nginx/sites-available/app.conf
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart nginx
+
+    - name: Symlink nginx conf to activate 
+      file:
+        src: /etc/nginx/sites-available/app.conf
+        dest: /etc/nginx/sites-enabled/app.conf
+        state: link
+
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted

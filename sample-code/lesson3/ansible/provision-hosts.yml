@@ -1,0 +1,22 @@
+---
+
+
+- name: Basic host setup
+  hosts: myserver
+  become: true
+  gather_facts: false
+  tasks:
+
+    - name: Update apt cache
+      raw: apt update -y
+
+    - name: Install python
+      raw: >
+        which python || apt-get install -y python && echo 'installed'
+      register: python
+      changed_when: python.stdout == 'installed'
+
+    - name: Add NZ locale to all instances
+      locale_gen:
+        name: en_NZ.UTF-8
+        state: present
