@@ -16,7 +16,6 @@
         owner: root
         group: root
         mode: 0644
-      notify: restart nginx
 
     - name: Symlink nginx conf to activate 
       file:
