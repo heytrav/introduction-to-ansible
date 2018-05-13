@@ -1,9 +1,20 @@
 server {
  listen 80;
- server_name  my-counter.app;
+ server_name  {{ domain_name }};
 
  location / {
   include proxy_params;
   proxy_pass http://localhost:5000;
  }
 }
+#server {
+ #listen 443 ssl;
+ #server_name  {{ domain_name }};
+ #ssl_certificate /etc/nginx/ssl/site.crt;
+ #ssl_certificate_key /etc/nginx/ssl/site.key;
+
+ #location / {
+  #include proxy_params;
+  #proxy_pass http://localhost:5000;
+ #}
+#}
