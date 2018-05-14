@@ -6,18 +6,18 @@
     - name: Set up nginx task 1
       debug:
         msg: This task sets up nginx config
-      when: nginx_config_changed | default(false)
+      changed_when: nginx_config_changed | default(false)
 
 
     - name: Set up nginx task 2
       debug:
         msg: This task sets up nginx crt
-      when: nginx_crt_changed | default(false)
+      changed_when: nginx_crt_changed | default(false)
 
     - name: Set up nginx task 3
       debug:
         msg: This task sets up nginx key
-      when: nginx_key_changed | default(false)
+      changed_when: nginx_key_changed | default(false)
 
 
     - name: Restart nginx
@@ -33,13 +33,13 @@
     - name: Set up gunicorn task 1
       debug:
         msg: This task sets up gunicorn config
-      when: gunicorn_changed | default(false)
+      changed_when: gunicorn_changed | default(false)
 
 
     - name: Update app
       debug:
         msg: This task updates the python app
-      when: python_app_updated | default(false)
+      changed_when: python_app_updated | default(false)
 
 
     - name: Restart app
@@ -55,15 +55,14 @@
     - name: Set up redis task 1
       debug:
         msg: This task sets up redis config
+      changed_when: redis_config_updated | default(false)
 
 
     - name: Set up redis task 2
       debug:
         msg: This task sets up redis crt
+      changed_when: redis_config_updated | default(false)
 
-    - name: Set up redis task 3
-      debug:
-        msg: This task sets up redis key
 
     - name: Restart redis
       systemd:
