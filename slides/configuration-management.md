@@ -169,6 +169,16 @@ ansible-playbook ansible/playbook.yml
 Visit the <!-- .element: class="fragment" data-fragment-index="0" -->[static site](http://localhost:8080) once playbook has finished.
 
 
+
+#### Ansible Abstraction Layer
+* Some automation tools abstract common functions from different operating systems
+   + `apt` on debian/ubuntu and `yum` on centos => `package`
+* Ansible has a _thin_ abstraction layer
+   + On Debian/Ubuntu use _apt_ module
+   + On Centos use _yum_ module 
+
+
+
 #### Summary
 
 * Use Ansible Playbook to run complex tasks
