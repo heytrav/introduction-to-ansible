@@ -1,0 +1,72 @@
+- name: Handler exercise for nginx
+  hosts: web
+  become: true
+  tasks:
+
+    - name: Set up nginx task 1
+      debug:
+        msg: This task sets up nginx config
+      when: nginx_config_changed | default(false)
+
+
+    - name: Set up nginx task 2
+      debug:
+        msg: This task sets up nginx crt
+      when: nginx_crt_changed | default(false)
+
+    - name: Set up nginx task 3
+      debug:
+        msg: This task sets up nginx key
+      when: nginx_key_changed | default(false)
+
+
+    - name: Restart nginx
+      systemd:
+        name: nginx
+        state: restarted
+
+- name: Handler exercise for application
+  hosts: app
+  become: true
+  tasks:
+
+    - name: Set up gunicorn task 1
+      debug:
+        msg: This task sets up gunicorn config
+      when: gunicorn_changed | default(false)
+
+
+    - name: Update app
+      debug:
+        msg: This task updates the python app
+      when: python_app_updated | default(false)
+
+
+    - name: Restart app
+      systemd:
+        name: gunicorn
+        state: restarted
+
+- name: Handler exercise for redislication
+  hosts: redis
+  become: true
+  tasks:
+
+    - name: Set up redis task 1
+      debug:
+        msg: This task sets up redis config
+
+
+    - name: Set up redis task 2
+      debug:
+        msg: This task sets up redis crt
+
+    - name: Set up redis task 3
+      debug:
+        msg: This task sets up redis key
+
+    - name: Restart redis
+      systemd:
+        name: redis
+        state: restarted
+
