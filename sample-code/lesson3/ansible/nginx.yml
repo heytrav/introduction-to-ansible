@@ -1,6 +1,6 @@
 ---
 - name: Set up nginx on web server
-  hosts: myserver
+  hosts: web
   become: true
   tasks:
 
@@ -22,31 +22,6 @@
         src: /etc/nginx/sites-available/app.conf
         dest: /etc/nginx/sites-enabled/app.conf
         state: link
-
-    - name: Create directory for ssl certs
-      file:
-        path: /etc/nginx/ssl
-        state: directory
-        owner: root
-        group: root
-        mode: '0755'
-
-    - name: Add ssl cert for site
-      copy:
-        dest: /etc/nginx/ssl/site.crt
-        src: files/site.crt
-        owner: root
-        group: root
-        mode: '0644'
-
-    - name: Add ssl key for site
-      copy:
-        dest: /etc/nginx/ssl/site.key
-        content: "{{ nginx_key }}"
-        owner: root
-        group: root
-        mode: '0600'
-          
 
     - name: restart nginx
       service:

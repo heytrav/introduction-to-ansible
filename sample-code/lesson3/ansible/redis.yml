@@ -1,6 +1,6 @@
 ---
 - name: Install redis on a host
-  hosts: myserver
+  hosts: redis
   become: true
   tasks:
 

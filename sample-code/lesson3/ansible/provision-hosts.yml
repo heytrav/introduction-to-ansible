@@ -2,7 +2,7 @@
 
 
 - name: Basic host setup
-  hosts: myserver
+  hosts: cluster
   become: true
   gather_facts: false
   tasks:
@@ -20,3 +20,17 @@
       locale_gen:
         name: en_NZ.UTF-8
         state: present
+
+- name: Set local host website
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Add website address for local site
+      blockinfile:
+        path: /etc/hosts
+        marker: '#{mark} Ansible block for {{ hostvars[groups.web[0]].domain_name }}'
+        block: |
+          127.0.0.1  {{ hostvars[groups.web[0]].domain_name }}
+          
+
+

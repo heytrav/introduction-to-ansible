@@ -1,0 +1,8 @@
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+
+class Config(object):
+    DEBUG= False
+    SECRET_KEY = "{{ app_secret_key }}"
+    REDIS_HOST = "{{ hostvars[groups.redis[0]].ansible_all_ipv4_addresses[1] }}"

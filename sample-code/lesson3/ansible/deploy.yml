@@ -1,0 +1,139 @@
+- name: Set up cluster
+  hosts: cluster
+  become: true
+  tasks:
+    - name: Update cache
+      apt:
+        update_cache: yes
+
+      
+- name: Set up nginx on web server
+  hosts: web
+  become: true
+  tasks:
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Add nginx config
+      template:
+        src: templates/nginx.conf.j2
+        dest: /etc/nginx/sites-available/app.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Symlink nginx conf to activate 
+      file:
+        src: /etc/nginx/sites-available/app.conf
+        dest: /etc/nginx/sites-enabled/app.conf
+        state: link
+
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+    
+
+
+- name: Install redis on a host
+  hosts: redis
+  become: true
+  tasks:
+
+    - name: Install redis
+      apt:
+        name: redis-server
+        state: present
+        update_cache: no
+
+    - name: Enable redis on boot
+      systemd:
+        name: redis-server
+        enabled: true
+
+
+    - name: Set bind address to allow requests from other machines
+      replace:
+        path: /etc/redis/redis.conf
+        regexp: '^bind .*$'
+        replace: 'bind {{ ansible_all_ipv4_addresses[1] }}'
+
+    - name: Modify redis config to work as a cache
+      blockinfile:
+        path: /etc/redis/redis.conf
+        marker: "#{mark} Ansible managed block"
+        block: |
+          maxmemory 128mb
+          maxmemory-policy allkeys-lru
+
+
+    - name: Start redis
+      systemd:
+        name: redis-server
+        state: restarted
+
+
+
+
+- name: Set up application
+  hosts: app
+  become: true
+  tasks:
+
+    - name: Install packages needed for application
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - git
+        - python-dev
+        - python-virtualenv
+
+
+    - name: Checkout application from git
+      git:
+        repo: https://github.com/heytrav/counter-app.git
+        dest: "{{ app_directory }}"
+        version: "{{ app_version | default('master') }}"
+
+    - name: Install python libraries
+      pip:
+        requirements: "{{ app_directory }}/requirements.txt"
+        virtualenv: "{{ app_directory }}/venv"
+        virtualenv_python: python3
+          
+    - name: Template in configuration
+      template:
+        src: templates/config.py.j2
+        dest: "{{ app_directory }}/config.py"
+        owner: vagrant
+        group: vagrant
+
+
+    - name: Add systemd config
+      template:
+        src: templates/gunicorn.service.j2
+        dest: /etc/systemd/system/gunicorn.service
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Enable gunicorn service
+      systemd:
+        name: gunicorn.service
+        enabled: true
+
+    - name: Reload gunicorn
+      systemd:
+        name: gunicorn
+        state: reloaded
+
+    - name: Start the gunicorn service
+      systemd:
+        name: gunicorn
+        state: started
+
+

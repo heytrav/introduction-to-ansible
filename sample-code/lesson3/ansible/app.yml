@@ -1,7 +1,7 @@
 ---
 
 - name: Set up application
-  hosts: myserver
+  hosts: app
   become: true
   tasks:
 
@@ -27,6 +27,13 @@
         virtualenv: "{{ app_directory }}/venv"
         virtualenv_python: python3
           
+    - name: Template in configuration
+      template:
+        src: templates/config.py.j2
+        dest: "{{ app_directory }}/config.py"
+        owner: vagrant
+        group: vagrant
+
 
     - name: Add systemd config
       template:
