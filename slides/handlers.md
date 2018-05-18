@@ -1,7 +1,13 @@
 ### Handlers
 
+
+
 #### Handlers
 
+```
+cd $WORKDIR/sample-code/handlers
+vagrant up
+```
 
 
 ##### Exercise: Setup application for SSL

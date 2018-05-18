@@ -3,7 +3,7 @@
 
 #### Filters
 ```
-cd $WORKDIR/lesson4
+cd $WORKDIR/filters
 tree
 
 ├── ansible
