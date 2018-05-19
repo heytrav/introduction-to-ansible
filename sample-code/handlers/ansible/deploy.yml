@@ -97,7 +97,7 @@
       git:
         repo: https://github.com/heytrav/counter-app.git
         dest: "{{ app_directory }}"
-        version: "{{ app_version | default('master') }}"
+        version: "{{ app_version | default('v1') }}"
 
     - name: Install python libraries
       pip:
@@ -131,9 +131,9 @@
         name: gunicorn
         state: reloaded
 
-    - name: Start the gunicorn service
+    - name: Re start the gunicorn service
       systemd:
         name: gunicorn
-        state: started
+        state: restarted
 
 

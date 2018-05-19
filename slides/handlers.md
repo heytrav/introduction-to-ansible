@@ -168,6 +168,100 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
  
 
 
+#### The Nginx Play
+<pre style="font-size:13pt;"><code data-trim data-noescape>
+  tasks:
+    - name: Install nginx
+      .
+      .
+    - name: Add nginx config
+      .
+      <mark>notify: restart nginx</mark>
+
+    - name: Symlink nginx conf to activate 
+      .
+      <mark>notify: restart nginx</mark>
+
+  handlers
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+</code></pre>
+
+
+
+#### The Redis Play
+<pre style="font-size:13pt;"><code data-trim data-noescape>
+  tasks:
+    - name: Install redis
+      .
+      .
+    - name: Enable redis on boot
+      .
+    - name: Set bind address to allow requests from other machines
+      .
+      <mark>notify: start redis</mark>
+    - name: Modify redis config to work as a cache
+      .
+      <mark>notify: start redis</mark>
+
+  handlers:
+    - name: start redis
+      systemd:
+        name: redis-server
+        state: restarted
+</code></pre>
+
+
+
+#### Application Setup Play
+<pre style="font-size:11pt;"><code data-trim data-noescape>
+  tasks:
+      .
+    - name: Checkout application from git
+      .
+      <mark>notify: restart gunicorn</mark>
+    - name: Install python libraries
+      .
+      <mark>notify: restart gunicorn</mark>
+          
+    - name: Template in configuration
+      .
+      <mark>notify: reload gunicorn</mark>
+
+    - name: Add systemd config
+      .
+      <mark>notify: restart gunicorn</mark>
+  handlers:
+    - name: reload gunicorn
+      systemd:
+        name: gunicorn
+        state: reloaded
+
+    - name: restart gunicorn
+      systemd:
+        name: gunicorn
+        state: restarted
+</code></pre>
+
+
+
+#### Run Our Play with Handlers Defined
+
+
+
+#### Update out application
+* The Python application is checked out to _v1_ by default
+* Let's update it to _v2_ by passing an extra var to the playbook
+   + `-e app_version=v2`
+* This should trigger the _restart gunicorn_ handler
+* Other handlers should not run
+   + `restart nginx`
+   + `restart redis`
+   + `reload gunicorn`
+
+
 
 ##### Exercise: Setup application for SSL
 * Create a directory for our certificate and key
