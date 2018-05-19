@@ -59,7 +59,6 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
 * Idempotent behaviour does not apply to certain types of tasks, for example:
   + cache updates <!-- .element: class="fragment" data-fragment-index="0" -->
   + restart services <!-- .element: class="fragment" data-fragment-index="1" -->
-  + custom tasks <!-- .element: class="fragment" data-fragment-index="1" -->
 * These tasks always display <!-- .element: class="fragment" data-fragment-index="2" --><code style="color:orange;">changed</code>
 
 
@@ -157,7 +156,8 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
 
 
 #### Triggering Handlers
-* Handlers are only triggered once per play
+* _notify_ trigger for a handler can be called multiple times in a play
+* Regardless, handler will only be fired off once per play
 * Try the preceding exercise again with multiple extra vars
 * Handler should only run once
 

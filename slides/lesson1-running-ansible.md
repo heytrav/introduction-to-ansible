@@ -289,8 +289,18 @@ You now no longer need to specify an inventory file <!-- .element: class="fragme
   * Returns JSON <!-- .element: class="fragment" data-fragment-index="6" -->
   * Code removed from target host <!-- .element: class="fragment" data-fragment-index="7" -->
   * Local Ansible evaluates returned JSON <!-- .element: class="fragment" data-fragment-index="8" -->
-  * Output <!-- .element: class="fragment" data-fragment-index="9" -->_ok/changed/failed_ for task based on returned values
+  * Output <!-- .element: class="fragment" data-fragment-index="9" -->for task based on returned values
 
+
+
+#### Ansible Output
+* The output for each task tells you the net effect of task execution
+   + `ok` <!-- .element: style="color:green;"  -->: no change was made
+   + `changed` <!-- .element: style="color:orange;"  -->: A change was made to
+     target
+   + `failed` <!-- .element: style="color:red;"  -->: Ansible was unable to
+     change target
+* Exact interpretation will depend on task and module implementation
 
 
 #### The _command_ module

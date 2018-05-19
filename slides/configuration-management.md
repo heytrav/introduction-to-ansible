@@ -1,20 +1,21 @@
-### Multi-tasking with Ansible
+### Sequences of Tasks with Ansible
 
 
 #### Ansible Playbook
 
-* Run sequences of tasks
 * Primary means of:
   * Configuration management
   * Deploying applications
   * Provisioning 
   * Orchestration
+* A sequence of tasks
+
 
 
 #### Ansible Playbooks
 
 ```
-cd $WORKDIR/lesson2
+cd $WORKDIR/working-with-playbooks
 .
 ├── ansible
 │   ├── files
@@ -32,26 +33,6 @@ cd $WORKDIR/lesson2
 | files        | directory | Artefacts to be placed on remote host |
 | templates    | directory | Templates that will be rendered and uploaded to remote host |
 
-
-
-#### Create a new VM
-
-```
-vagrant up --provider virtualbox
-```
-
-* This creates a new VM with additional ports for a static website
-  * 80 (HTTP)
-  * 443 (HTTPS)
-
-
-#### Deploy and configure an application
-
-![install](img/ansible-nginx-install.svg "Ansible Install nginx")
-* Install nginx package
-* Copy our nginx config (`files/nginx.conf`)
-* Render template file (<code>templates/index.html.j2</code>) and place it on host
-* Re/Start nginx
 
 
 #### Ansible Playbook Structure
@@ -105,22 +86,6 @@ vagrant up --provider virtualbox
      * Variables scoped to the play
 
 
-#### Privilege Escalation
-
-<pre style="font-size:18pt;"><code data-trim data-noescape>
-    - name: Set up static website with nginx
-      hosts: myserver
-      <mark >become: true</mark>
-      tasks:
-</code></pre>
-
-* The _become_ attribute tells Ansible to run tasks as a certain user
-  * By default this is _sudo_
-  * Specify user with `become_user`
-* Can be in _play_ or _task_ scope
-* Accepts  _yes_ or _true_ (_no_ or _false_ are implicit)
-
-
 #### Structure of a Task
 
 * A task is a dictionary object containing
@@ -156,10 +121,49 @@ vagrant up --provider virtualbox
 </div>
 
 
+#### Create a new VM
+
+```
+vagrant up --provider virtualbox
+```
+
+* This creates a new VM with additional ports for a static website
+  * 80 (HTTP)
+  * 443 (HTTPS)
+
+
+#### Deploy and configure an application
+
+![install](img/ansible-nginx-install.svg "Ansible Install nginx")
+* `playbook.yml` performs following actions
+   + Installs nginx package
+   + Copies our nginx config (`files/nginx.conf`)
+   + Renders template file (<code>templates/index.html.j2</code>) and place it on host
+   + Re/Starts nginx
+
+
+
+#### Privilege Escalation
+
+<pre style="font-size:18pt;"><code data-trim data-noescape>
+    - name: Set up static website with nginx
+      hosts: myserver
+      <mark >become: true</mark>
+      tasks:
+</code></pre>
+
+* Some tasks we need to perform require sudo privileges on target machine
+* The _become_ attribute tells Ansible to run tasks as a certain user
+  * By default this is _sudo_
+  * Specify user with `become_user`
+* Can be in _play_ or _task_ scope
+* Accepts  _yes_ or _true_ (_no_ or _false_ are implicit)
+
+
 #### Run our first playbook
 
 ```
-cd $WORKDIR/lesson2
+cd $WORKDIR/working-with-playbooks
 ansible-playbook ansible/playbook.yml
 ```
 
@@ -171,27 +175,36 @@ Visit the <!-- .element: class="fragment" data-fragment-index="0" -->[static sit
 
 
 #### Ansible Abstraction Layer
-* Some automation tools abstract common functions from different operating systems
-   + `apt` on debian/ubuntu and `yum` on centos => `package`
-* Ansible has a _thin_ abstraction layer
-   + On Debian/Ubuntu use _apt_ module
-   + On Centos use _yum_ module 
-
-
-#### Idempotent 
-* Denoting an element of a set which is unchanged in value when multiplied or otherwise operated on by itself.
-* If we perform the same task multiple times should have the same effect as
-  running it once
-* Eg. If we repeatedly write to a config file, it should change only once
+* We have used both <!-- .element: class="fragment" data-fragment-index="0" -->`yum` and `apt` to install packages in previous sections,
+  respectively
+* Some automation tools abstract common functions from different operating systems <!-- .element: class="fragment" data-fragment-index="1" -->
+   + Eg. <!-- .element: class="fragment" data-fragment-index="2" -->_package_ to abstract package managers from various OS
+* Ansible has a <!-- .element: class="fragment" data-fragment-index="3" -->_thin_ abstraction layer 
+   + On Debian/Ubuntu use <!-- .element: class="fragment" data-fragment-index="4" -->_apt_ module
+   + On Centos use <!-- .element: class="fragment" data-fragment-index="5" -->_yum_ module 
 
 
 
-#### Task Results and Idempotency
+####  Idempotent Behaviour
+* In some instances it is necessary to run a playbook repeatedly
+   + Debugging
+   + Temporary issues (eg. loss of network)
+* Can be problematic if operations not prepared to manage repetition
+   + Unmanaged duplication
+   + Errors caused by violating unique constraints
+* Run the previous playbook command again to see what happens
+
+
+
+#### Idempotent Behaviour
 * Most Ansible modules aim to be _idempotent_
+* Can be run repeatedly and will only change _once_
 * Output of each task indicates when target action resulted in a change
-   + `ok` <!-- .element: style="color:green;"  -->
-   + `changed` <!-- .element: style="color:orange;"  -->
-   + `failed` <!-- .element: style="color:red;"  -->
+   + `ok` <!-- .element: style="color:green;"  -->: Already in desired state;
+     Ansible did not change anything
+   + `changed` <!-- .element: style="color:orange;"  -->: Ansible changed to
+     desired state
+*  _Declarative_
 
 
 
