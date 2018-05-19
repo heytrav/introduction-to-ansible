@@ -98,9 +98,9 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
 
 
 #### Using Handlers
-* `playbook.yml` simulates running basic tasks on our servers
+* `basic-handler.yml` simulates running basic tasks on our servers
    ```
-   ansible-playbook --ask-vault-pass ansible/playbook.yml
+   ansible-playbook --ask-vault-pass ansible/basic-handler.yml
    ```
 * Debug tasks do not result in any changes
 * Each play has a task to restart specific services
