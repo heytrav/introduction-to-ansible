@@ -5,18 +5,10 @@
 #### Orchestration
 * An application may need to interact with multiple services or other app
   components <!-- .element: class="fragment" data-fragment-index="0" -->
-* Need to manage how and when we start services when deploying or updating <!-- .element: class="fragment" data-fragment-index="1" -->
+* Ansible provides tools to manage services when deploying or updating <!-- .element: class="fragment" data-fragment-index="1" -->
    + After code is deployed <!-- .element: class="fragment" data-fragment-index="2" -->
    + When a configuration is created or updated <!-- .element: class="fragment" data-fragment-index="3" -->
    + When another service is activated/deactivated <!-- .element: class="fragment" data-fragment-index="4" -->
-* Managing complex interactions is <!-- .element: class="fragment" data-fragment-index="5" -->_Orchestration_
-
-
-
-#### Controlling Services with Ansible
-* Ansible is able to control services via 
-   + service/upstart
-   + systemd
 
 
 
@@ -33,10 +25,10 @@ This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: 
 * Initially need to install Python so that Ansible can interact <!-- .element: class="fragment" data-fragment-index="0" -->
    + <!-- .element: class="fragment" data-fragment-index="1" -->`provision-hosts.yml`
 * Next we set up each host for its assigned role <!-- .element: class="fragment" data-fragment-index="2" -->
-   + <!-- .element: class="fragment" data-fragment-index="3" -->`deploy.yml`
-   + web server running nginx <!-- .element: class="fragment" data-fragment-index="4" -->
-   + app server running a basic Python Flask application <!-- .element: class="fragment" data-fragment-index="5" -->
-   + a redis server <!-- .element: class="fragment" data-fragment-index="6" -->
+   + deploy.yml<!-- .element: class="fragment" data-fragment-index="3" -->
+      + web server running nginx <!-- .element: class="fragment" data-fragment-index="4" -->
+      + app server running a basic Python Flask application <!-- .element: class="fragment" data-fragment-index="5" -->
+      + a redis server <!-- .element: class="fragment" data-fragment-index="6" -->
 
 
 
@@ -57,37 +49,34 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
    ansible-playbook --ask-vault-pass ansible/deploy.yml
    ```
    <!-- .element: style="font-size:13pt;"  -->
-
+* Note that many tasks display no change <!-- .element: class="fragment" data-fragment-index="0" -->(i.e. <code style="color:green;">ok</code>)
 <asciinema-player class="fragment" data-fragment-index="1"  autoplay="0"  loop="loop" font-size="medium" speed="1"
-     theme="solarized-light" src="lib/idempotent-tasks.json" start-at="15" cols="100" rows="10"></asciinema-player>
+     theme="solarized-light" src="lib/idempotent-tasks.json" start-at="15" cols="100" rows="15"></asciinema-player>
 
 
 
 #### Repeating Playbook Runs
-* Note that many tasks display no change (i.e. <code style="color:green;">ok</code>)
-* Certain tasks always display <code style="color:orange;">changed</code>
-   + Update cache
-   + restart nginx
-   + restart redis
-   + reload gunicorn
-* These tasks are never idempotent
+* Idempotent behaviour does not apply to certain types of tasks, for example:
+  + cache updates <!-- .element: class="fragment" data-fragment-index="0" -->
+  + restart services <!-- .element: class="fragment" data-fragment-index="1" -->
+  + custom tasks <!-- .element: class="fragment" data-fragment-index="1" -->
+* These tasks always display <!-- .element: class="fragment" data-fragment-index="2" --><code style="color:orange;">changed</code>
 
 
 
 ####  Performing One-off tasks
-* Often necessary trigger action on service when a config is created or
-  changed
+* Often necessary trigger certain actions on service when a config is created or changed
    + start
    + restart
    + reload
-* What about restarting a service when not necessary? 
-* Can cause unneeded downtime
+* Preferable to (re)start services only when necessary
+   + config changed
+   + application updated
 
 
 ### Handlers
 * <!-- .element: class="fragment" data-fragment-index="0" -->A _handler_ is a task that Ansible will execute only once in a play 
 * Handlers are triggered using the <!-- .element: class="fragment" data-fragment-index="1" -->_notify_ keyword
-* Will only execute if task result is <!-- .element: class="fragment" data-fragment-index="2" --><code style="color:orange;">changed</code>
     <pre style="font-size:13pt;"><code data-trim data-noescape>
    tasks:
      - name: Change some config
@@ -95,7 +84,7 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
          dest: /etc/some/config
          .
        <mark>notify: restart service</mark>
-   <div class="fragment" data-fragment-index="3">
+   <div class="fragment" data-fragment-index="2">
    handlers:
      - name: <mark>restart service</mark>
        systemd:
@@ -103,7 +92,49 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
           state: restartd
    </div>
    </code></pre>
+* Will only execute if task result is <!-- .element: class="fragment" data-fragment-index="3" --><code style="color:orange;">changed</code>
 * By default, only executed at the end of playbook run <!-- .element: class="fragment" data-fragment-index="4" -->
+
+
+
+#### Using Handlers
+* `playbook.yml` simulates running basic tasks on our servers
+   ```
+   ansible-playbook --ask-vault-pass ansible/playbook.yml
+   ```
+* Debug tasks do not result in any changes
+* Each play has a task to restart specific services
+* Let's modify this to run these as _handlers_
+
+
+
+#### Create First Handler
+* Create a section called _handler_ and move the _restart nginx_ task into it
+   ```
+     handlers:
+       - name: restart nginx
+         systemd:
+            name: nginx
+            state: restarted
+   ```
+
+
+#### Notifying Handlers
+
+* Set tasks to notify handler when changed
+<pre style="font-size=13pt;"><code data-trim data-noescape>
+    - name: Set up nginx task 1
+      <mark>notify: restart nginx</mark>
+      .
+      .
+    - name: Set up nginx task 2
+      <mark>notify: restart nginx</mark>
+      .
+      .
+    - name: Set up nginx task 3
+      <mark>notify: restart nginx</mark>
+      .
+</code></pre>
 
 
 

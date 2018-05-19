@@ -20,7 +20,7 @@
       changed_when: nginx_key_changed | default(false)
 
 
-    - name: Restart nginx
+    - name: restart nginx
       systemd:
         name: nginx
         state: restarted
