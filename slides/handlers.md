@@ -122,7 +122,7 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
 #### Notifying Handlers
 
 * Set tasks to notify handler when changed
-<pre style="font-size=13pt;"><code data-trim data-noescape>
+   <pre style="font-size=13pt;"><code data-trim data-noescape>
     - name: Set up nginx task 1
       <mark>notify: restart nginx</mark>
       .
@@ -134,7 +134,32 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
     - name: Set up nginx task 3
       <mark>notify: restart nginx</mark>
       .
-</code></pre>
+   </code></pre>
+* Re run the playbook
+* This time the _restart nginx_ task does not run
+
+
+
+#### Triggering a Handler
+* Tasks in <!-- .element: class="fragment" data-fragment-index="0" -->`basic-handler.yml` have a special attribute to make Ansible think
+  a change has occurred
+  <pre><code data-trim data-noescape>
+  - name: Set up nginx task 1
+    .
+    <mark>changed_when: nginx_config_changed | default(false)</mark>
+  </code></pre>
+* We can pass extra variables to interpret task as changed <!-- .element: class="fragment" data-fragment-index="1" -->
+   ```
+   ansible-playbook --ask-vault-pass \
+     ansible/basic-handler.yml  \
+        -e nginx_config_changed=true
+   ```
+
+
+#### Triggering Handlers
+* Handlers are only triggered once per play
+* Try the preceding exercise again with multiple extra vars
+* Handler should only run once
 
 
 
