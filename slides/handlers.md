@@ -1,13 +1,110 @@
-### Handlers
+### Orchestration
 
 
 
-#### Handlers
+#### Orchestration
+* An application may need to interact with multiple services or other app
+  components <!-- .element: class="fragment" data-fragment-index="0" -->
+* Need to manage how and when we start services when deploying or updating <!-- .element: class="fragment" data-fragment-index="1" -->
+   + After code is deployed <!-- .element: class="fragment" data-fragment-index="2" -->
+   + When a configuration is created or updated <!-- .element: class="fragment" data-fragment-index="3" -->
+   + When another service is activated/deactivated <!-- .element: class="fragment" data-fragment-index="4" -->
+* Managing complex interactions is <!-- .element: class="fragment" data-fragment-index="5" -->_Orchestration_
+
+
+
+#### Controlling Services with Ansible
+* Ansible is able to control services via 
+   + service/upstart
+   + systemd
+
+
+
+#### Create a Cluster
 
 ```
 cd $WORKDIR/sample-code/handlers
 vagrant up
 ```
+This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: class="fragment" data-fragment-index="0" -->
+
+
+#### Setup Machines
+* Initially need to install Python so that Ansible can interact <!-- .element: class="fragment" data-fragment-index="0" -->
+   + <!-- .element: class="fragment" data-fragment-index="1" -->`provision-hosts.yml`
+* Next we set up each host for its assigned role <!-- .element: class="fragment" data-fragment-index="2" -->
+   + <!-- .element: class="fragment" data-fragment-index="3" -->`deploy.yml`
+   + web server running nginx <!-- .element: class="fragment" data-fragment-index="4" -->
+   + app server running a basic Python Flask application <!-- .element: class="fragment" data-fragment-index="5" -->
+   + a redis server <!-- .element: class="fragment" data-fragment-index="6" -->
+
+
+
+#### Run Setup Playbook
+```
+ansible-playbook -K --ask-vault-pass \
+   ansible/provision-hosts.yml ansible/deploy.yml
+```
+
+You can now view your <!-- .element: class="fragment" data-fragment-index="0" -->[website](http://my-counter.testsite:8080) 
+
+
+
+#### Repeating Playbook Runs
+
+* Run _just_ the `deploy.yml` playbook a few times
+   ```
+   ansible-playbook --ask-vault-pass ansible/deploy.yml
+   ```
+   <!-- .element: style="font-size:13pt;"  -->
+
+<asciinema-player class="fragment" data-fragment-index="1"  autoplay="0"  loop="loop" font-size="medium" speed="1"
+     theme="solarized-light" src="lib/idempotent-tasks.json" start-at="15" cols="100" rows="10"></asciinema-player>
+
+
+
+#### Repeating Playbook Runs
+* Note that many tasks display no change (i.e. <code style="color:green;">ok</code>)
+* Certain tasks always display <code style="color:orange;">changed</code>
+   + Update cache
+   + restart nginx
+   + restart redis
+   + reload gunicorn
+* These tasks are never idempotent
+
+
+
+####  Performing One-off tasks
+* Often necessary trigger action on service when a config is created or
+  changed
+   + start
+   + restart
+   + reload
+* What about restarting a service when not necessary? 
+* Can cause unneeded downtime
+
+
+### Handlers
+* <!-- .element: class="fragment" data-fragment-index="0" -->A _handler_ is a task that Ansible will execute only once in a play 
+* Handlers are triggered using the <!-- .element: class="fragment" data-fragment-index="1" -->_notify_ keyword
+* Will only execute if task result is <!-- .element: class="fragment" data-fragment-index="2" --><code style="color:orange;">changed</code>
+    <pre style="font-size:13pt;"><code data-trim data-noescape>
+   tasks:
+     - name: Change some config
+       template:
+         dest: /etc/some/config
+         .
+       <mark>notify: restart service</mark>
+   <div class="fragment" data-fragment-index="3">
+   handlers:
+     - name: <mark>restart service</mark>
+       systemd:
+          name: service
+          state: restartd
+   </div>
+   </code></pre>
+* By default, only executed at the end of playbook run <!-- .element: class="fragment" data-fragment-index="4" -->
+
 
 
 ##### Exercise: Setup application for SSL

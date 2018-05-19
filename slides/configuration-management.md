@@ -178,6 +178,22 @@ Visit the <!-- .element: class="fragment" data-fragment-index="0" -->[static sit
    + On Centos use _yum_ module 
 
 
+#### Idempotent 
+* Denoting an element of a set which is unchanged in value when multiplied or otherwise operated on by itself.
+* If we perform the same task multiple times should have the same effect as
+  running it once
+* Eg. If we repeatedly write to a config file, it should change only once
+
+
+
+#### Task Results and Idempotency
+* Most Ansible modules aim to be _idempotent_
+* Output of each task indicates when target action resulted in a change
+   + `ok` <!-- .element: style="color:green;"  -->
+   + `changed` <!-- .element: style="color:orange;"  -->
+   + `failed` <!-- .element: style="color:red;"  -->
+
+
 
 #### Summary
 
