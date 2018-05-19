@@ -163,6 +163,12 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
 
 
 
+#### Back to our Application
+* Let's modify the `deploy.yml` playbook to use handlers
+ 
+
+
+
 ##### Exercise: Setup application for SSL
 * Create a directory for our certificate and key
 
