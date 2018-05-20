@@ -74,7 +74,7 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
 
 
 ### Handlers
-* <!-- .element: class="fragment" data-fragment-index="0" -->A _handler_ is a task that Ansible will execute only once in a play 
+* <!-- .element: class="fragment" data-fragment-index="0" -->A _handler_ is a task that Ansible will execute only once at the end of a play 
 * Handlers are triggered using the <!-- .element: class="fragment" data-fragment-index="1" -->_notify_ keyword
     <pre style="font-size:13pt;"><code data-trim data-noescape>
    tasks:
@@ -92,7 +92,7 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
    </div>
    </code></pre>
 * Will only execute if task result is <!-- .element: class="fragment" data-fragment-index="3" --><code style="color:orange;">changed</code>
-* By default, only executed at the end of playbook run <!-- .element: class="fragment" data-fragment-index="4" -->
+* Execute only once <!-- .element: class="fragment" data-fragment-index="4" -->
 
 
 
@@ -245,26 +245,27 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
         state: restarted
 </code></pre>
 
-
-
-#### Run Our Play with Handlers Defined
+* <!-- .element: class="fragment" data-fragment-index="0" -->Now run the `deploy.yml` play with handlers defined 
 
 
 
-#### Update out application
-* The Python application is checked out to _v1_ by default
-* Let's update it to _v2_ by passing an extra var to the playbook
-   + `-e app_version=v2`
-* This should trigger the _restart gunicorn_ handler
-* Other handlers should not run
+#### Update our application
+* The Python application is checked out to <!-- .element: class="fragment" data-fragment-index="0" -->_v1_ by default
+* Let's update it to <!-- .element: class="fragment" data-fragment-index="1" -->_v2_ by passing an extra var to the playbook
+   ```
+   ansible-playbook --ask-vault-pass \
+       ansible/deploy.yml -e app_version=v2
+   ```
+* This should trigger the <!-- .element: class="fragment" data-fragment-index="2" -->_restart gunicorn_ handler
+* Other handlers should not run <!-- .element: class="fragment" data-fragment-index="3" -->
    + `restart nginx`
    + `restart redis`
    + `reload gunicorn`
 
 
-
-##### Exercise: Setup application for SSL
-* Create a directory for our certificate and key
+#### Modifying Nginx Service
+* Let's make some changes to the nginx service
+* Create a directory where we can add an SSL cert
 
 ```
     - name: Create directory for ssl certs
@@ -278,7 +279,7 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
 
 
 
-##### Exercise: Set up application for SSL
+##### Set up application for SSL
 * Copy and template in self-signed certificate and key
 ```
     - name: Add ssl cert for site
@@ -301,20 +302,19 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
 
 
 
-##### Exercise: Set up application for SSL
+##### Modify Nginx Config
 * Change nginx config to use SSL certificate
+   ```
+   server {
+    listen 443 ssl;
+    server_name  {{ domain_name }};
+    ssl_certificate /etc/nginx/ssl/site.crt;
+    ssl_certificate_key /etc/nginx/ssl/site.key;
 
+    location / {
+    include proxy_params;
+     proxy_pass http://localhost:5000;
+    }
+   }
 ```
-server {
- listen 443 ssl;
- server_name  {{ domain_name }};
- ssl_certificate /etc/nginx/ssl/site.crt;
- ssl_certificate_key /etc/nginx/ssl/site.key;
-
- location / {
- include proxy_params;
-  proxy_pass http://localhost:5000;
- }
-}
-```
-
+* Run the deploy playbook again
