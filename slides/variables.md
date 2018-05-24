@@ -25,7 +25,7 @@
 
 #### Variables in Inventory File
 * Assign variable to a single host <!-- .element: class="fragment" data-fragment-index="0" -->
-    <pre style="font-size:12pt;" ><code class="ini" data-trim data-noescape>
+    <pre style="font-size:10pt;" ><code class="ini" data-trim data-noescape>
 [web]
 web1.mycompany.com <mark>ansible_host=152.240.43.12 opt2=arg2</mark>
 web2.mycompany.com
@@ -70,12 +70,13 @@ proxy=web.mycompany.com
 * Try either way: <!-- .element: class="fragment" data-fragment-index="0" -->
 
 <pre style="width:100%;"  class="fragment" data-fragment-index="1"><code data-trim>
-    $ mkdir $WORKDIR/lesson2/ansible/host_vars
-    $ gedit $WORKDIR/lesson2/ansible/host_vars/myserver.yml
+     cd $WORKDIR/working-with-playbooks
+     mkdir -p ansible/host_vars
+     gedit ansible/host_vars/myserver.yml
 </code></pre>
 <pre style="width:100%;"  class="fragment" data-fragment-index="2"><code data-trim>
-    $ mkdir $WORKDIR/lesson2/ansible/host_vars/myserver
-    $ gedit $WORKDIR/lesson2/ansible/host_vars/myserver/vars.yml
+     mkdir -p ansible/host_vars/myserver
+     gedit ansible/host_vars/myserver/vars.yml
 </code></pre>
 <pre style="width:100%;"  class="fragment" data-fragment-index="3"><code data-trim>
     # variables for myserver
@@ -109,12 +110,13 @@ proxy=web.mycompany.com
 * Create a `group_vars` directory and variable file 
 
 <pre style="width:100%;"  class="fragment" data-fragment-index="0"><code data-trim>
-    $ mkdir $WORKDIR/lesson2/ansible/group_vars
-    $ gedit $WORKDIR/lesson2/ansible/group_vars/web.yml
+    cd $WORKDIR/working-with-playbooks/
+    mkdir -p ansible/group_vars
+    gedit ansible/group_vars/web.yml
     </code></pre>
 <pre style="width:100%;"  class="fragment" data-fragment-index="1"><code data-trim>
-    $ mkdir $WORKDIR/lesson2/ansible/group_vars/web
-    $ gedit $WORKDIR/lesson2/ansible/group_vars/web/vars.yml
+    mkdir -p ansible/group_vars/web
+    gedit ansible/group_vars/web/vars.yml
     </code></pre>
 <pre style="width:100%;"  class="fragment" data-fragment-index="2"><code data-trim>
     # variables for "web" group
@@ -128,7 +130,7 @@ proxy=web.mycompany.com
 * Inventory variables available to Ansible throughout playbook run
 
 ```html
-$ less $WORKDIR/lesson2/ansible/templates/index.html.j2
+$ less $WORKDIR/working-with-playbooks/ansible/templates/index.html.j2
 .
 .
 {% if foo is defined %}
@@ -161,16 +163,16 @@ ansible-playbook ansible/playbook.yml
 
 * Dictionary with variables from each host (including inventory variables) 
 * Indexed on hostname from inventory 
-  * `hostvars['myserver']['foo'] ==  hostvars.myserver.foo`
+  * `hostvars['myserver']['foo'] ==  hostvars.myserver.foo` <!-- .element: style="font-size:15pt;"  -->
 * Can be accessed across plays in the same playbook run
 
 
-#### hostvars
-* Have a look at `playbook-localhost.yml`
-* Run `playbook.yml` and `playbook-localhost.yml`
+#### Using `hostvars`
+* Have a look at `use-hostvars.yml`
+* Run `static-site.yml` and `use-hostvars.yml`
 <pre ><code data-trim>
-$ ansible-playbook ansible/playbook.yml \
-      ansible/playbook-localhost.yml
+$ ansible-playbook ansible/static-site.yml \
+      ansible/use-hostvars.yml
 </code></pre>
 * Change <code style="color:red;">foo</code> to <code style="color:red;">hostvars.myserver.foo</code> in <code>playbook-localhost.yml</code> and run playbooks
 
