@@ -183,12 +183,12 @@ $ ansible-playbook ansible/static-site.yml \
 * How would you find that in hostvars?
 * A group variable will be defined for every host in a group
 
-<pre><code data-trim>
+```
 - name: Output of bizz
   debug:
     var: hostvars.myserver.bizz
-</code></pre>
-                        
+```                        
+<!-- .element: class="fragment" data-fragment-index="0" -->
 
 
 #### Play-scoped Variables
@@ -203,7 +203,7 @@ $ ansible-playbook ansible/static-site.yml \
 
 #### Play-scoped Variables
 
-* Open `playbook.yml` in editor
+* Open `static-site.yml` in editor
 * Edit as shown: 
 * Rerun ansible-playbook 
 
@@ -284,7 +284,7 @@ tasks:
         .
 </code></pre>
 
-* Use <!-- .element: class="fragment" data-fragment-index="1" -->`set_fact` and `register` in `playbook.yml` to assign task variables
+* Use <!-- .element: class="fragment" data-fragment-index="1" -->`set_fact` and `register` in `static-site.yml` to assign task variables
 * Rerun ansible playbook <!-- .element: class="fragment" data-fragment-index="2" -->
 
 
@@ -315,6 +315,7 @@ tasks:
 {% endif %}
 -->   remove line
 ```
+<!-- .element: style="font-size:10pt;"  -->
                         
 
 
@@ -369,7 +370,7 @@ tasks:
 </code></pre>
 * <!-- .element: class="fragment" data-fragment-index="2" -->Then add this on the command line 
    ```
-   ansible-playbook ansible/playbook.yml \
+   ansible-playbook ansible/static-site.yml \
          -e @ansible/override-vars.yml
    ```
 
