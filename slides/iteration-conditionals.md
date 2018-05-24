@@ -4,7 +4,7 @@
 #### Iteration and Conditionals
 
 ```
-$ cd $WORKDIR/lesson3
+$ cd $WORKDIR/working-with-playbooks
 $ tree
 .
 ├── ansible

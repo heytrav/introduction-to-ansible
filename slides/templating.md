@@ -38,7 +38,7 @@
 
 ##### Exercise: Templating in our playbook
 
-* Edit `vars` section in `playbook.yml to add:
+* Edit `vars` section in `static-site.yml` to add:
   * <code style="font-size:15pt;">static_file_directory</code>
   * <code style="font-size:15pt;">nginx_conf_directory</code>
 
@@ -78,7 +78,7 @@ Re-run the ansible playbook <!-- .element: class="fragment" data-fragment-index=
 
 #### Templates and Quoting
 
-* Be aware that you will often need to put quotes around templated elemtns
+* Be aware that you will often need to put quotes around templated elements
    ```
    dest: "{{ nginx_conf_directory }}/nginx.conf"
    ```
