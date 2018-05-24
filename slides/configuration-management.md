@@ -1,4 +1,4 @@
-### Sequences of Tasks with Ansible
+### Playbooks
 
 
 #### Ansible Playbook
@@ -127,7 +127,8 @@ cd $WORKDIR/working-with-playbooks
 vagrant up --provider virtualbox
 ```
 
-* This creates a new VM with additional ports for a static website
+* This creates an Ubuntu VM 
+* Additional ports for a static website
   * 80 (HTTP)
   * 443 (HTTPS)
 
@@ -135,7 +136,7 @@ vagrant up --provider virtualbox
 #### Deploy and configure an application
 
 ![install](img/ansible-nginx-install.svg "Ansible Install nginx")
-* `playbook.yml` performs following actions
+* `static-site.yml` performs following actions
    + Installs nginx package
    + Copies our nginx config (`files/nginx.conf`)
    + Renders template file (<code>templates/index.html.j2</code>) and place it on host
@@ -143,40 +144,37 @@ vagrant up --provider virtualbox
 
 
 
-#### Privilege Escalation
-
-<pre style="font-size:18pt;"><code data-trim data-noescape>
-    - name: Set up static website with nginx
-      hosts: myserver
-      <mark >become: true</mark>
-      tasks:
-</code></pre>
-
-* Some tasks we need to perform require sudo privileges on target machine
-* The _become_ attribute tells Ansible to run tasks as a certain user
-  * By default this is _sudo_
-  * Specify user with `become_user`
-* Can be in _play_ or _task_ scope
-* Accepts  _yes_ or _true_ (_no_ or _false_ are implicit)
-
-
 #### Run our first playbook
 
 ```
-cd $WORKDIR/working-with-playbooks
-ansible-playbook ansible/playbook.yml
+ansible-playbook ansible/static-site.yml
 ```
 
-<asciinema-player  autoplay="0"  loop="loop" font-size="medium" speed="1"
+<asciinema-player start-at="10" autoplay="0"  loop="loop" font-size="medium" speed="1"
      theme="solarized-light" src="lib/basic-static-site.json" cols="200" rows="15"></asciinema-player>
 
 Visit the <!-- .element: class="fragment" data-fragment-index="0" -->[static site](http://localhost:8080) once playbook has finished.
 
 
 
+#### Privilege Escalation
+* Some tasks we need to perform require sudo privileges on target machine
+  <!-- .element: class="fragment" data-fragment-index="0" -->
+* The <!-- .element: class="fragment" data-fragment-index="1" -->_become_ attribute tells Ansible to run tasks as a certain user
+   + By default this is _sudo_
+   + Specify user with `become_user`
+   <pre style="font-size:18pt;"><code data-trim data-noescape>
+    - name: Set up static website with nginx
+      hosts: myserver
+      <mark >become: true</mark>
+      tasks:
+   </code></pre>
+* Can be in <!-- .element: class="fragment" data-fragment-index="2" -->_play_ or _task_ scope
+* Accepts <!-- .element: class="fragment" data-fragment-index="3" --> _yes_ or _true_ (_no_ or _false_ are implicit)
+
+
 #### Ansible Abstraction Layer
-* We have used both <!-- .element: class="fragment" data-fragment-index="0" -->`yum` and `apt` to install packages in previous sections,
-  respectively
+* We have used both <!-- .element: class="fragment" data-fragment-index="0" -->`yum` and `apt` to install packages in previous exercises, respectively
 * Some automation tools abstract common functions from different operating systems <!-- .element: class="fragment" data-fragment-index="1" -->
    + Eg. <!-- .element: class="fragment" data-fragment-index="2" -->_package_ to abstract package managers from various OS
 * Ansible has a <!-- .element: class="fragment" data-fragment-index="3" -->_thin_ abstraction layer 
@@ -186,25 +184,36 @@ Visit the <!-- .element: class="fragment" data-fragment-index="0" -->[static sit
 
 
 ####  Idempotent Behaviour
-* In some instances it is necessary to run a playbook repeatedly
+* It is sometimes necessary to run configuration/deploy tools more than once
    + Debugging
    + Temporary issues (eg. loss of network)
 * Can be problematic if operations not prepared to manage repetition
    + Unmanaged duplication
    + Errors caused by violating unique constraints
-* Run the previous playbook command again to see what happens
 
 
 
 #### Idempotent Behaviour
-* Most Ansible modules aim to be _idempotent_
-* Can be run repeatedly and will only change _once_
-* Output of each task indicates when target action resulted in a change
+* Most Ansible modules aim to be <!-- .element: class="fragment" data-fragment-index="0" -->_idempotent_
+* Can be run repeatedly and will only change <!-- .element: class="fragment" data-fragment-index="1" -->_once_
+* Output of each task indicates when target action resulted in a change <!-- .element: class="fragment" data-fragment-index="1" -->
    + `ok` <!-- .element: style="color:green;"  -->: Already in desired state;
      Ansible did not change anything
    + `changed` <!-- .element: style="color:orange;"  -->: Ansible changed to
      desired state
-*  _Declarative_
+*  Makes behaviour <!-- .element: class="fragment" data-fragment-index="2" -->_declarative_
+
+
+
+##### Exercise: Idempotent Behaviour
+* Log into your VM and remove some files
+   ```
+   vagrant ssh
+   sudo rm -f /usr/share/nginx/html/index.html /etc/nginx/sites-available/mysite.conf
+   ```
+   <!-- .element: style="font-size:10pt;"  -->
+* Run the `static-site-fail.yml` playbook 
+* Remove _fail_ task and run again
 
 
 

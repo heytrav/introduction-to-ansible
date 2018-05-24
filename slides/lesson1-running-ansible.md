@@ -37,7 +37,7 @@ In all the following examples, `$WORKDIR` is the path to the `introduction-to-an
 * <!-- .element: class="fragment" data-fragment-index="0" -->For demo purposes in this course we will be using [Vagrant](https://www.vagrantup.com/intro/index.html) to simulate remote hosts.
 * <!-- .element: class="fragment" data-fragment-index="1" -->Instance(s) use a centos 7 image
 <pre class="fragment" data-fragment-index="2"><code data-trim>
-    $ cd $WORKDIR/lesson1
+    $ cd $WORKDIR/adhoc
     $ vagrant up --provider virtualbox
     .
     
@@ -147,7 +147,7 @@ loadbalancer.mycompany.com
 
     </ul></div>
     <div class="fragment" data-fragment-index="0" style="width:50%;float:left">
-        <pre><code data-trim>
+        <pre style="font-size:13pt;"><code data-trim>
             # sample inventory
             [web]
             web1.mycompany.com
@@ -173,7 +173,7 @@ loadbalancer.mycompany.com
 #### Our first inventory file
 
 ```
-cat $WORKDIR/lesson1/ansible/hosts
+cat $WORKDIR/adhoc/ansible/hosts
 ```
 
 * <!-- .element: class="fragment" data-fragment-index="0" -->Our inventory file specifies single remote host: _myserver_
@@ -236,7 +236,7 @@ myserver | SUCCESS => {
 
 #### The `ansible.cfg` File
 
-<pre class="fragment" data-fragment-index="0"><code data-trim>
+<pre class="fragment" data-fragment-index="0" style="font-size:13pt;"><code data-trim>
 # sample ansible.cfg
 
 [defaults]
@@ -268,9 +268,9 @@ $WORKDIR/ansible.cfg.sample
 
 <pre class="fragment" data-fragment-index="0"><code data-trim>
 
-$ cd $WORKDIR/lesson1
+$ cd $WORKDIR/adhoc
 $ cp ../ansible.cfg.sample ansible.cfg
-$ cat $WORKDIR/lesson1/hosts
+$ cat $WORKDIR/adhoc/hosts
 myserver ansible_host=127.0.0.1 ansible_port=2222
 </code></pre>
 

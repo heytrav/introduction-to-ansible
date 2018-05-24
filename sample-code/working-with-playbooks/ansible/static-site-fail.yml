@@ -1,0 +1,50 @@
+---
+- name: Install python
+  hosts: myserver
+  become: true
+  gather_facts: false
+  tasks:
+      - name: Install python
+        raw: apt-get update && apt-get install -y python
+
+- name: Set up static website with nginx
+  hosts: myserver
+  become: true
+  vars:
+    base_path: "/"
+  tasks:
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Template in nginx file
+      template:
+        src: templates/mysite.conf.j2
+        dest: /etc/nginx/sites-available/mysite.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - fail:
+        msg: Something bad happened
+      when: true
+
+    - name: Create symlink to config
+      file:
+          src: /etc/nginx/sites-available/mysite.conf
+          dest: /etc/nginx/sites-enabled/01-mysite
+          state: link
+
+    - name: Restart nginx
+      systemd:
+        name: nginx
+        state: restarted
+
+    - name: Copy up static website html
+      template:
+        src: templates/index.html.j2
+        dest: /usr/share/nginx/html/index.html
+        mode: 0644
+
