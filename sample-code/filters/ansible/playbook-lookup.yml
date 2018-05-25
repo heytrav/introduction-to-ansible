@@ -7,8 +7,6 @@
       c: "banana"
     letters: "{{ lookup('items', ['a', 'b', 'c', 'd']) }}"
     simple_dict: "{{ lookup('dict', sample_dict) }}"
-    ssh_public_key_path: "/home/{{ lookup('env', 'USER') }}/.ssh/id_rsa.pub"
-    file_content: "{{ lookup('file', ssh_public_key_path) }}"
     code_version: "{{ lookup('lines', 'git rev-parse --short HEAD') }}"
     atomic_mass: "{{ lookup('csvfile', '3 file=../data.csv delimiter=, col=3') }}"
 
@@ -21,9 +19,6 @@
         msg: "{{ item.key }} is {{ item.value }}"
       loop: "{{ simple_dict }}"
       
-
-    - debug:
-        var: file_content
 
     - debug:
         var: code_version

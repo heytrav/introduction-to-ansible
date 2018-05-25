@@ -67,7 +67,7 @@
 * It is often necessary to upload your SSH public key to a host
 * Use lookups to extract `~/.ssh/id_rsa.pub` into a file
 * To do this you might need to use a couple lookups <!-- .element: class="fragment" data-fragment-index="0" -->
-<pre class="fragment" data-fragment-index="0"><code data-trim>
+<pre style="font-size:12pt;" class="fragment" data-fragment-index="0"><code data-trim>
   vars:
      .
     ssh_public_key_file: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
@@ -85,7 +85,7 @@
 * Use a lookup to get your current IP address
 * The <!-- .element: class="fragment" data-fragment-index="0" -->_dig_ lookup
 
-<pre class="fragment" data-fragment-index="0"><code data-trim>
+<pre style="font-size:11pt;" class="fragment" data-fragment-index="0"><code data-trim>
   vars:
      .
     ssh_remote_cidr: "{{ lookup('dig', 'myip.opendns.com', '@resolver1.opendns.com') + '/32' | default('0.0.0.0/0', true) }}"
@@ -109,11 +109,11 @@
 * Use a lookup to list all files in a folder 
 * Can be done with the <!-- .element: class="fragment" data-fragment-index="0" -->`fileglob` lookup
 
-<pre class="fragment" data-fragment-index="0"><code data-trim>
+<pre class="fragment" data-fragment-index="0"><code data-trim data-noescape>
   tasks:
     - debug:
         var: item | string
-      with_fileglob: 
+      <mark>with_fileglob:</mark> 
         - '/var/log/*.log'
 </code></pre>
 
