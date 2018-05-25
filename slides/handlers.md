@@ -11,7 +11,6 @@
    + When another service is activated/deactivated <!-- .element: class="fragment" data-fragment-index="4" -->
 
 
-
 #### Create a Cluster
 
 ```
@@ -19,6 +18,12 @@ cd $WORKDIR/sample-code/handlers
 vagrant up
 ```
 This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: class="fragment" data-fragment-index="0" -->
+
+
+
+#### Our Application Cluster <!-- .slide: class="image-slide" -->
+![counter app](img/handler-cluster.svg "Counter app") 
+
 
 
 #### Setup Machines
@@ -38,7 +43,8 @@ ansible-playbook -K --ask-vault-pass \
    ansible/provision-hosts.yml ansible/deploy.yml
 ```
 
-You can now view your <!-- .element: class="fragment" data-fragment-index="0" -->[website](http://my-counter.testsite:8080) 
+* You can now view your <!-- .element: class="fragment" data-fragment-index="0" -->[website](http://my-counter.testsite:8080) 
+* Also might wanto set up vault password file as in previous exercises <!-- .element: class="fragment" data-fragment-index="1" -->
 
 
 
@@ -51,7 +57,8 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
    <!-- .element: style="font-size:13pt;"  -->
 * Note that many tasks display no change <!-- .element: class="fragment" data-fragment-index="0" -->(i.e. <code style="color:green;">ok</code>)
 <asciinema-player class="fragment" data-fragment-index="1"  autoplay="0"  loop="loop" font-size="medium" speed="1"
-     theme="solarized-light" src="lib/idempotent-tasks.json" start-at="15" cols="100" rows="15"></asciinema-player>
+     theme="solarized-light" src="lib/idempotent-tasks.json" start-at="15" cols="100" rows="10"></asciinema-player>
+* A few are always <!-- .element: class="fragment" data-fragment-index="2" --><code style="color:orange;">changed</code>; notably _restart_ tasks
 
 
 
@@ -149,8 +156,7 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
   </code></pre>
 * We can pass extra variables to interpret task as changed <!-- .element: class="fragment" data-fragment-index="1" -->
    ```
-   ansible-playbook --ask-vault-pass \
-     ansible/basic-handler.yml  \
+   ansible-playbook --ask-vault-pass ansible/basic-handler.yml\
         -e nginx_config_changed=true
    ```
 
@@ -275,6 +281,7 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
         owner: root
         group: root
         mode: '0755'
+      notify: restart nginx
 ```
 
 
@@ -289,6 +296,7 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
         owner: root
         group: root
         mode: '0644'
+      notify: restart nginx
 
     - name: Add ssl key for site
       copy:
@@ -297,6 +305,7 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
         owner: root
         group: root
         mode: '0600'
+      notify: restart nginx
 ```
 <!-- .element: style="font-size:10pt;"  -->
 
@@ -313,8 +322,15 @@ You can now view your <!-- .element: class="fragment" data-fragment-index="0" --
 
     location / {
     include proxy_params;
-     proxy_pass http://localhost:5000;
+     proxy_pass http://{{ hostvars[groups.app[0]].ansible_all_ipv4_addresses[1] }}:5000;
     }
    }
 ```
 * Run the deploy playbook again
+* View [website](https://my-counter.testsite:8443) on port 8443
+
+
+
+#### Summary
+* Handlers are an important way to _orchestrate_ parts of application
+* Ensure that services are only restarted when they need to be

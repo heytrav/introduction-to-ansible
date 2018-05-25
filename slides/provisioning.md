@@ -5,7 +5,7 @@
 #### Provisioning Machines
 
 ```
-$ cd $WORKDIR/lesson5
+$ cd $WORKDIR/cloud-provisioning
 $ tree
 .
 ├── ansible
