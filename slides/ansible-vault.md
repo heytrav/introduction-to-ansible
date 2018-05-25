@@ -35,7 +35,7 @@ Options:
 ##### Exercise: Protecting our database passwords
 * Create a new file called `secrets.yml`
    ```
-   $ gedit $WORKDIR/lesson3/ansible/secrets.yml
+   $ gedit $WORKDIR/working-with-playbooks/ansible/secrets.yml
      ---
      vault_staging_database_password: <some password>
      vault_production_database_password: <some password>

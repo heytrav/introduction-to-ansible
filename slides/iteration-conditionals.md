@@ -20,10 +20,10 @@ $ tree
 
 #### Iterating `with_items`
 
-* Step through an array
-* Each element in iteration is assigned to _item_ variable
+* Step through an array <!-- .element: class="fragment" data-fragment-index="0" -->
+* Each element in iteration is assigned to <!-- .element: class="fragment" data-fragment-index="1" -->_item_ variable
 
-```
+<pre class="fragment" data-fragment-index="0"><code data-trim data-noescape>
  vars:
   list_of_files: 
     - file1.txt
@@ -33,10 +33,11 @@ $ tree
   tasks:
    - name: Process a list of items        
      copy:                               
-       src: "/path/to/local/{{ item }}"   
-       dest: "/path/to/remote/{{ item }}" 
-     with_items: "{{ list_of_files }}"    
-```
+       src: "/path/to/local/{{ <mark class="fragment" data-fragment-index="1">item</mark> }}"   
+       dest: "/path/to/remote/{{ <mark class="fragment" data-fragment-index="1">item</mark> }}" 
+     <mark class="fragment" data-fragment-index="1">with_items: "{{ list_of_files }}"</mark>    
+</code></pre>
+
 
 
 #### Configuring our fake application _myapp_
@@ -96,31 +97,34 @@ $ tree
        - "{{ listen_ports }}"
 
    ```
+   <!-- .element: style="font-size:10pt;"  -->
 
 
 
 #### Iterating through dictionaries `with_dict`
 
-* Takes a dictionary argument
-* Each item has
-  * Key
-  * Value
+* Takes a dictionary argument <!-- .element: class="fragment" data-fragment-index="0" -->
+* Each item has <!-- .element: class="fragment" data-fragment-index="1" -->
+  * Key <!-- .element: class="fragment" data-fragment-index="2" -->
+  * Value <!-- .element: class="fragment" data-fragment-index="3" -->
 
-```
+<pre><code data-trim data-noescape>
 - name: Task that iterates over a dictionary
   somemodule:
-    arg: "{{ item.key }}"
-    arg2: "{{ item.value }}"
-  with_dict: "{{ dictionary }}"
+    arg: <mark class="fragment" data-fragment-index="2">"{{ item.key }}"</mark>
+    arg2: <mark class="fragment" data-fragment-index="3">"{{ item.value }}"</mark>
+  <mark class="fragment" data-fragment-index="0">with_dict: "{{ dictionary }}"</mark>
+</code></pre>
 
-```
 
 
 #### More configuration for myapp
  * <!-- .element: class="fragment" data-fragment-index="0" -->`ansible/playbook-dict.yml` sets up database config for our fake application
  * Adds each element of <!-- .element: class="fragment" data-fragment-index="1" -->*database* variable to config
  * Run the playbook and have a look at <!-- .element: class="fragment" data-fragment-index="2" -->`/etc/myapp/app_config`
-
+   ```
+   ansible-playbook ansible/playbook-dict.yml
+   ```
 
 
 ##### Exercise: Remove repetition from playbook-dict.yml
@@ -146,25 +150,30 @@ $ tree
 
 * The main way to conditionally do something in Ansible is by using the <!-- .element: class="fragment" data-fragment-index="0" -->`when` clause
 * <!-- .element: class="fragment" data-fragment-index="1" -->`when` has identical semantics to a Python _if_ block
-   * <!-- .element: class="fragment" data-fragment-index="2" -->`when: some variable is defined`
+   * <!-- .element: class="fragment" data-fragment-index="2" -->`when: some_variable is defined`
    * <!-- .element: class="fragment" data-fragment-index="3" -->`when: env_name == 'staging'`
 
-<pre class="fragment" data-fragment-index="4"><code data-trim>
+<pre class="fragment" data-fragment-index="4"><code data-trim data-noescape>
 - name: Some task
   command: do something
-  when: &lt;condition is true&gt;
+  <mark>when</mark>: &lt;condition is true&gt;
 </code></pre>
 
 
 
 ##### Exercise: Make our tasks conditional
 
-* Tasks in `ansible/playbook-dict.yml` assume a staging environment
-* Add a conditional to  the `lineinfile` tasks
-* Only execute if `env_name` is *production*
-* Re-run the playbook
+* Tasks in <!-- .element: class="fragment" data-fragment-index="0" -->`ansible/playbook-dict.yml` assume a _staging_ environment
+<pre><code data-trim data-noescape>
+  vars:
+    .
+    <mark>env_name: staging</mark>
+</code></pre>
+* Add a conditional to  the <!-- .element: class="fragment" data-fragment-index="1" -->`lineinfile` tasks
+   + Only execute if <!-- .element: class="fragment" data-fragment-index="2" -->`env_name` is *production*
+* Re-run the playbook <!-- .element: class="fragment" data-fragment-index="3" -->
 
-<pre  class="fragment" data-fragment-index="0"><code data-trim>
+<pre  class="fragment" data-fragment-index="4"><code data-trim>
   - name: Add database config to /etc/myapp/config
     lineinfile:
     .
@@ -179,7 +188,6 @@ $ tree
 * Override this to be _production_ and re-run playbook
 * Hint: What type of variable has precedence in this situation?
 
-<pre  class="fragment" data-fragment-index="0"><code data-trim>
-$ ansible-playbook ansible/playbook-dict.yml -K \
-     -e env_name=production
+<pre  class="fragment" data-fragment-index="0" style="font-size:12pt;"><code data-trim data-noescape>
+ansible-playbook ansible/playbook-dict.yml <mark>-e env_name=production</mark>
 </code></pre>

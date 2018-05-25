@@ -8,8 +8,8 @@
 * [Ansible Terminology](ansible-basics.md)
 
 
-* [Ad hoc Commands](lesson1-running-ansible.md)
-* [Configuration Management](configuration-management.md)
+* [Ad hoc Commands](adhoc-ansible.md)
+* [Configuration Management](working-with-playbooks.md)
 * [Variables](variables.md)
 * [Ansible Templates](templating.md)
 * [Iteration and Conditionals](iteration-conditionals.md)
