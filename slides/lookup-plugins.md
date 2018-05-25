@@ -44,7 +44,7 @@
 * <!-- .element: class="fragment" data-fragment-index="2" -->`data.csv` contains the periodic table with elements listed by atomic number
 * We can use the <!-- .element: class="fragment" data-fragment-index="3" -->_csvfile_ lookup to read items out
 
-<pre class="fragment" data-fragment-index="3"><code data-trim>
+<pre style="font-size:13pt;" class="fragment" data-fragment-index="3"><code data-trim>
     atomic_mass: "{{ lookup('csvfile', '3 file=../data.csv delimiter=, col=3') }}"
 </code></pre>
 
