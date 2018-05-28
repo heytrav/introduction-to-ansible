@@ -197,6 +197,6 @@
         dest: /etc/hosts
         insertafter: EOF
         block: |
-          {{ ansible_host }} my-app.cat
-        marker: "# {mark} ANSIBLE MANAGED BLOCK for my-app.cat"
+          {{ ansible_host }} {{ cat_domain }}
+        marker: "# {mark} ANSIBLE MANAGED BLOCK for {{ cat_domain }}"
 

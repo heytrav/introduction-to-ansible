@@ -1,5 +1,6 @@
 ---
 
+cat_domain: my-app.cats
 machine_security_groups:
   - {group: "web{{ suffix }}", port: 80, remote_ip_prefix: "0.0.0.0/0"}
   - {group: "web{{ suffix }}", port: 443, remote_ip_prefix: "0.0.0.0/0"}

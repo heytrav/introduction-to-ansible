@@ -4,7 +4,7 @@
 #### Installing Ansible
 
 * Target Ansible version &ge; 2.4.2.0
-* [Offical Documentation](http://docs.ansible.com/ansible/latest/intro_installation.html)
+* [Official Documentation](http://docs.ansible.com/ansible/latest/intro_installation.html)
 * Explore a couple approaches using:
   * OS package manager
   * Python package manager (pip)
