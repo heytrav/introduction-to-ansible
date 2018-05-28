@@ -39,6 +39,7 @@ In this lesson we'll set up a an application in Catalyst Cloud
 * Run the playbook
    ```
     $ ansible-playbook -i ansible/cloud-hosts \
+        --ask-vault-pass \
         ansible/provision-hosts.yml \
         -K -e suffix=-$(hostname)
    ```
@@ -79,6 +80,7 @@ ansible-playbook -i ansible/cloud-hosts \
 * When you are done playing with cats, please clean up your cluster
 ```
 ansible-playbook \
+    --ask-vault-pass \
    -i ansible/cloud-hosts ansible/remove-hosts.yml \
    -K -e suffix=-$(hostname)
 ```

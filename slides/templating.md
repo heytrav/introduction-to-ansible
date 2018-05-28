@@ -46,7 +46,7 @@
 vars:
   .
   static_file_directory: /usr/share/nginx/html
-  nginx_conf_directory: /etc/nginx/conf.d 
+  nginx_available_conf: /etc/nginx/sites-available
 tasks:
 ```
 
@@ -59,10 +59,10 @@ tasks:
   * index.html
 
 <pre class="fragment" data-fragment-index="0"><code data-trim>
- - name: Copy in nginx config file
+ - name: Template in nginx config file
    copy:
      .
-     dest: "{{ nginx_conf_directory }}/nginx.conf"
+     dest: "{{ nginx_available_conf }}/nginx.conf"
      .
 
  - name: Copy up static website html
