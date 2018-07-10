@@ -1,4 +1,5 @@
-
+---
+cloud_name: ansible-training
 ssh_user: train
 ssh_public_key_file: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
 ssh_public_key: "{{ lookup('file', ssh_public_key_file) }}"

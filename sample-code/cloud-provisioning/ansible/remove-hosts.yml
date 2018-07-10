@@ -24,6 +24,7 @@
   tasks:
     - name: Connect to Catalyst Cloud
       os_auth:
+        cloud: "{{ cloud_name }}"
 
     - name: Remove floating ips from known_hosts
       known_hosts:
@@ -33,6 +34,7 @@
 
     - name: Remove swarm servers
       os_server:
+        cloud: "{{ cloud_name }}"
         name: "{{ item }}"
         state: absent
         delete_fip: true
@@ -40,27 +42,32 @@
 
     - name: Remove ports
       os_port:
+        cloud: "{{ cloud_name }}"
         name: "{{ item }}"
         state: absent
       with_items: "{{ host_set }}"
 
     - name: Remove swarm keypair
       os_keypair: 
+        cloud: "{{ cloud_name }}"
         state: absent
         name: "{{ keypair_name }}"
 
     - name: Remove swarm router
       os_router:
+        cloud: "{{ cloud_name }}"
         state: absent
         name: "{{ router_name }}"
 
     - name: Remove swarm network
       os_network:
+        cloud: "{{ cloud_name }}"
         state: absent
         name: "{{ network_name }}"
 
     - name: Remove security group
       os_security_group:
+        cloud: "{{ cloud_name }}"
         name: "{{ item }}"
         state: absent
       with_items: "{{ security_group_names }}"
