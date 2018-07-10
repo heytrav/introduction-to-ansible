@@ -1,5 +1,4 @@
 ---
-cloud_name: ansible-training
 ssh_user: train
 ssh_public_key_file: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
 ssh_public_key: "{{ lookup('file', ssh_public_key_file) }}"
@@ -25,7 +24,6 @@ region_nameservers:
 default_nameservers: "{{ region_nameservers[region | default(default_region)] }}"
 
 main_security_groups:
-  - {group: "managed{{ suffix }}", port: 22, remote_ip_prefix: "202.78.240.7/32"}
   - {group: "managed{{ suffix }}", port: 22, remote_ip_prefix: "{{ ssh_remote_cidr }}"}
 database_user: train_user
 database: cat_pics

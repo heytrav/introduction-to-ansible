@@ -1,0 +1,22 @@
+- name: Create cloud hosts file
+  hosts: localhost
+  tasks:
+    - debug:
+        var: prefix | mandatory
+
+    - name: Create host file for cluster
+      template:
+        src: templates/hosts.j2
+        dest: "{{ lookup('env', 'PWD') }}/cloud-hosts"
+        owner: "{{ lookup('env', 'USER') }}"
+        group: "{{ lookup('env', 'USER') }}" 
+        mode: '0644'
+
+
+- name: Populate cloud configuration
+  hosts: localhost
+  vars:
+    ssh_user: "{{ lookup('env', 'USER') }}"
+  roles:
+    - role: openstack-cloud
+
