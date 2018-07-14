@@ -1,5 +1,6 @@
 ---
-ssh_user: train
+suffix: "-{{ prefix }}"
+ssh_user: "{{ lookup('env', 'USER') }}"
 ssh_public_key_file: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
 ssh_public_key: "{{ lookup('file', ssh_public_key_file) }}"
 keypair_name: "training-key{{ suffix }}"

@@ -1,6 +1,6 @@
 server {
  listen 80;
- server_name  my-app.cat;
+ server_name  {{ cat_domain }};
 
  location / {
   include proxy_params;

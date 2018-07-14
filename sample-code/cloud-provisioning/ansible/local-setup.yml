@@ -4,10 +4,17 @@
     - debug:
         var: prefix | mandatory
 
+    - name: Create ansible directory
+      file:
+        path: "{{ lookup('env', 'HOME') }}/.ansible/inventory"
+        state: directory
+        owner: "{{ lookup('env', 'USER') }}"
+        group: "{{ lookup('env', 'USER') }}"
+
     - name: Create host file for cluster
       template:
         src: templates/hosts.j2
-        dest: "{{ lookup('env', 'PWD') }}/cloud-hosts"
+        dest: "{{ lookup('env', 'HOME') }}/.ansible/inventory/cloud-hosts"
         owner: "{{ lookup('env', 'USER') }}"
         group: "{{ lookup('env', 'USER') }}" 
         mode: '0644'

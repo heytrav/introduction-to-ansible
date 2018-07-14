@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 PIDFile=/run/gunicorn/pid
-User=train
-Group=train
+User={{ ssh_user }}
+Group={{ ssh_user }}
 RuntimeDirectory=gunicorn
 WorkingDirectory={{ app_directory }}
 ExecStart={{ app_directory }}/venv/bin/gunicorn --pid /run/gunicorn/pid   \

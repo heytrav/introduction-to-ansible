@@ -81,13 +81,14 @@
       command: |
         psql -U {{ database_user }} -h {{ groups['db'][0] }} 
         -c "CREATE TABLE IF NOT EXISTS images (id SERIAL primary key not null,
-        image char(200) not null unique)" {{ database }}
+        image char(200) not null)" {{ database }}
                                                                                                                                                                                                                                   
     - name: Add images to new table
       command: |
         psql -U {{ database_user }} -h {{ groups['db'][0] }} 
         -c "INSERT INTO images (image) VALUES ('{{ item }}')" {{ database }}
       with_items: "{{ images }}"
+      ignore_errors: true
 
 
 - name: Set up app server
@@ -120,23 +121,23 @@
       file:
         path: "{{ app_directory }}"
         state: directory
-        owner: train
-        group: train
+        owner: "{{ ssh_user }}"
+        group: "{{ ssh_user }}"
 
     - name: Make sure templates directory exists
       file:
         path: "{{ app_directory }}/templates"
         state: directory
-        owner: train
-        group: train
+        owner: "{{ ssh_user }}"
+        group: "{{ ssh_user }}"
 
 
     - name: Copy app files into app directory
       copy:
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
-        owner: train
-        group: train
+        owner: "{{ ssh_user }}"
+        group: "{{ ssh_user }}"
         mode: 0644
       with_items:
         - { src: "../wsgi.py", dest: "{{ app_directory }}/wsgi.py" }
@@ -150,8 +151,8 @@
       template:
         src: templates/config.py.j2
         dest: "{{ app_directory }}/config.py"
-        owner: train
-        group: train
+        owner: "{{ ssh_user }}"
+        group: "{{ ssh_user }}"
         mode: 0644
       notify: restart gunicorn
 
@@ -173,13 +174,16 @@
         owner: root
         group: root
         mode: 0644
-      notify: restart gunicorn
+      notify: 
+        - restart gunicorn
 
   handlers:
+
     - name: restart gunicorn
       systemd:
         name: gunicorn
         state: restarted
+        daemon_reload: yes
 
 
 - name: Set up nginx on web server
