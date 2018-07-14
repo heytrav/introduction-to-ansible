@@ -1,0 +1,139 @@
+---
+
+- name: Configure training machines for the Catalyst Cloud course
+  hosts: locahost
+  tags: setup
+  vars:
+    ssh_user: "{{ lookup('env', 'USER') }}"
+  vars_files: 
+    - ansible-training-secrets.yml
+  tasks:
+    - name: Clone the training git repo to users machines
+      git:
+        repo: https://github.com/heytrav/introduction-to-ansible.git
+        dest: "{{ ansible_env.HOME }}/introduction-to-ansible"
+
+    - name: Clone the catalyst ansible training repo
+      git:
+        version: master
+        repo: https://github.com/catalyst/catalystcloud-ansible.git
+        dest: "{{ ansible_env.HOME }}/catalystcloud-ansible"
+
+    - name: Replace train users bashrc with a custom version
+      template:
+        src: templates/train.bashrc.j2
+        dest: "/home/{{ ssh_user }}/.bashrc"
+        mode: 0644
+
+    - name: Create .ssh/config file
+      file:
+        path: "/home/{{ ssh_user }}/.ssh/config"
+        state: touch
+        owner: "{{ ssh_user }}"
+        group:  "{{ ssh_user }}"
+        mode: 0644
+
+    - name: Create SSH key for user train
+      user: 
+        name: "{{ ssh_user }}"
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: "/home/{{ ssh_user }}/.ssh/id_rsa"
+
+    - name: Run catalyst cloud ansible install script to generate local venv
+      become: true
+      command: ./install-ansible.sh
+      args:
+        chdir: "{{ ansible_env.HOME }}/catalystcloud-ansible"
+        creates: "{{ ansible_env.HOME }}/catalystcloud-ansible/ansible-venv"
+
+    - name: Make sure ansible-venv belongs to train
+      become: true
+      file:
+        state: directory
+        path: "{{ ansible_env.HOME }}/catalystcloud-ansible/ansible-venv"
+        owner: "{{ ssh_user }}"
+        group: "{{ ssh_user }}"
+
+    - import_tasks: tasks/setup-ansible-cfg.yml
+
+    - name: Add the hosts file to the cloud example
+      template:
+        src: templates/ansible-intro-hosts.j2
+        dest: "{{ ansible_env.HOME }}/.ansible/inventory/cloud-hosts"
+        owner: "{{ ssh_user }}"
+        group: "{{ ssh_user }}"
+        mode: '0644'
+
+
+- name: Set up catalyst cloud credentials
+  hosts: localhost
+  vars:
+    ssh_user: "{{ lookup('env', 'USER') }}"
+  vars_files: 
+    - ansible-training-secrets.yml
+  roles:
+    - role: cloud-config
+      cloud_name: ansible-training
+      os_username: ansible-training@catalyst.net.nz
+      os_project_name: os-training.catalyst.net.nz
+      os_project_id: 0cb6b9b744594a619b0b7340f424858b
+
+
+- name: Set up reveal presentation
+  hosts: localhost
+  tags: setup
+  roles:
+    - role: trainingpc-nodejs
+  post_tasks:
+
+    - name: Set up reveal presentation
+      command: npm install
+      args:
+        chdir: "{{ ansible_env.HOME }}/introduction-to-ansible/slides"
+        creates: node_modules
+
+- name: Set up machines for running vagrant
+  hosts: localhost
+  become: yes
+  tags:
+    - vagrant
+  tasks:
+    - name: Get os release name
+      command: lsb_release -cs
+      register: ubuntu_release
+
+    - name: Apt dist upgrade
+      apt:
+        upgrade: dist
+        autoremove: yes
+
+    - name: Install official key for virtualbox
+      apt_key:
+        data: "{{ lookup('file', item) }}"
+        state: present
+      with_items: 
+        - files/oracle_vbox_2016.asc
+        - files/oracle_vbox.asc
+  
+    - name: Add repo for virtualbox
+      apt_repository:
+        repo: "deb https://download.virtualbox.org/virtualbox/debian {{ ubuntu_release.stdout }} contrib"
+        state: present
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install a few packages that we need for the course
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - virtualbox-5.2
+        - tree
+
+    - name: Install vagrant
+      apt:
+        deb: https://releases.hashicorp.com/vagrant/2.0.2/vagrant_2.0.2_x86_64.deb
+
