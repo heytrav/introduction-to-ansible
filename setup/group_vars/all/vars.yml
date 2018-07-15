@@ -1,0 +1,7 @@
+---
+
+cloud_name: ansible-training
+profile_name: catalyst-training
+os_username: ansible-training@catalyst.net.nz
+os_project_name: os-training.catalyst.net.nz
+os_project_id: 0cb6b9b744594a619b0b7340f424858b

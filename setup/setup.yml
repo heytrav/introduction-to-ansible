@@ -5,8 +5,6 @@
   tags: setup
   vars:
     ssh_user: "{{ lookup('env', 'USER') }}"
-  vars_files: 
-    - ansible-training-secrets.yml
   tasks:
     - name: Clone the training git repo to users machines
       git:
@@ -70,14 +68,8 @@
   hosts: localhost
   vars:
     ssh_user: "{{ lookup('env', 'USER') }}"
-  vars_files: 
-    - ansible-training-secrets.yml
   roles:
     - role: cloud-config
-      cloud_name: ansible-training
-      os_username: ansible-training@catalyst.net.nz
-      os_project_name: os-training.catalyst.net.nz
-      os_project_id: 0cb6b9b744594a619b0b7340f424858b
 
 
 - name: Set up reveal presentation
@@ -96,44 +88,7 @@
 - name: Set up machines for running vagrant
   hosts: localhost
   become: yes
+  roles:
+    - role: training-vagrant
   tags:
     - vagrant
-  tasks:
-    - name: Get os release name
-      command: lsb_release -cs
-      register: ubuntu_release
-
-    - name: Apt dist upgrade
-      apt:
-        upgrade: dist
-        autoremove: yes
-
-    - name: Install official key for virtualbox
-      apt_key:
-        data: "{{ lookup('file', item) }}"
-        state: present
-      with_items: 
-        - files/oracle_vbox_2016.asc
-        - files/oracle_vbox.asc
-  
-    - name: Add repo for virtualbox
-      apt_repository:
-        repo: "deb https://download.virtualbox.org/virtualbox/debian {{ ubuntu_release.stdout }} contrib"
-        state: present
-
-    - name: Update apt cache
-      apt:
-        update_cache: yes
-
-    - name: Install a few packages that we need for the course
-      apt:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - virtualbox-5.2
-        - tree
-
-    - name: Install vagrant
-      apt:
-        deb: https://releases.hashicorp.com/vagrant/2.0.2/vagrant_2.0.2_x86_64.deb
-

@@ -2,3 +2,4 @@
 *.retry
 sample-code/lesson4/ansible/cloud-hosts
 .vault_password
+vault_password
