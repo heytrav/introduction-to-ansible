@@ -1,5 +1,5 @@
 ---
-
+ssh_user: "{{ lookup('env', 'USER') }}"
 cloud_name: ansible-training
 profile_name: catalyst-training
 os_username: ansible-training@catalyst.net.nz

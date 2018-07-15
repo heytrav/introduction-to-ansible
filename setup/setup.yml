@@ -1,21 +1,10 @@
 ---
 
 - name: Configure training machines for the Catalyst Cloud course
-  hosts: locahost
-  tags: setup
-  vars:
-    ssh_user: "{{ lookup('env', 'USER') }}"
+  hosts: localhost
+  tags: 
+    - initial
   tasks:
-    - name: Clone the training git repo to users machines
-      git:
-        repo: https://github.com/heytrav/introduction-to-ansible.git
-        dest: "{{ ansible_env.HOME }}/introduction-to-ansible"
-
-    - name: Clone the catalyst ansible training repo
-      git:
-        version: master
-        repo: https://github.com/catalyst/catalystcloud-ansible.git
-        dest: "{{ ansible_env.HOME }}/catalystcloud-ansible"
 
     - name: Replace train users bashrc with a custom version
       template:
@@ -38,36 +27,9 @@
         ssh_key_bits: 2048
         ssh_key_file: "/home/{{ ssh_user }}/.ssh/id_rsa"
 
-    - name: Run catalyst cloud ansible install script to generate local venv
-      become: true
-      command: ./install-ansible.sh
-      args:
-        chdir: "{{ ansible_env.HOME }}/catalystcloud-ansible"
-        creates: "{{ ansible_env.HOME }}/catalystcloud-ansible/ansible-venv"
-
-    - name: Make sure ansible-venv belongs to train
-      become: true
-      file:
-        state: directory
-        path: "{{ ansible_env.HOME }}/catalystcloud-ansible/ansible-venv"
-        owner: "{{ ssh_user }}"
-        group: "{{ ssh_user }}"
-
-    - import_tasks: tasks/setup-ansible-cfg.yml
-
-    - name: Add the hosts file to the cloud example
-      template:
-        src: templates/ansible-intro-hosts.j2
-        dest: "{{ ansible_env.HOME }}/.ansible/inventory/cloud-hosts"
-        owner: "{{ ssh_user }}"
-        group: "{{ ssh_user }}"
-        mode: '0644'
-
 
 - name: Set up catalyst cloud credentials
   hosts: localhost
-  vars:
-    ssh_user: "{{ lookup('env', 'USER') }}"
   roles:
     - role: cloud-config
 
@@ -87,7 +49,7 @@
 
 - name: Set up machines for running vagrant
   hosts: localhost
-  become: yes
+  become: true
   roles:
     - role: training-vagrant
   tags:

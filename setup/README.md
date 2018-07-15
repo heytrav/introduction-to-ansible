@@ -14,6 +14,7 @@
    inventory = /home/USER/.ansible/inventory
    vault_password_file = /home/USER/.ansible/vault_password
    ```
+   Make sure to replace *`USER`* with your user on the machine.
 1. Add the vault password for this project into the `~/.ansible/vault_password` file. You will probably get this from the course instructor.
 1. Set up a python virtualenv with Ansible. Currently the easiest way to do
    this is to clone the [Catalyst Cloud Ansible](https://github.com/catalyst/catalystcloud-ansible.git) repository. Once this has downloaded, go into the directory and run:
@@ -52,5 +53,3 @@
    collisions on the same tenant during training where there might be multiple
    people building instances on the same tenant. A username or hostname are
    usually adequate provided they are unique.
-
-
