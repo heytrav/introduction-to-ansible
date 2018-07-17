@@ -51,6 +51,6 @@
   hosts: localhost
   become: true
   roles:
-    - role: training-vagrant
+    - role: trainingpc-vagrant
   tags:
     - vagrant

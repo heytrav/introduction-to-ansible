@@ -90,7 +90,7 @@ If all went well you now have a remote host to manage! <!-- .element: class="fra
 
     </ul></div>
 
-<div class="fragment" data-fragment-index="1" style="float:left;width:50%;"><pre><code data-trim>
+<div class="fragment" data-fragment-index="1" style="float:left;width:50%;"><pre><code class="ini" data-trim>
     #sample inventory
 
     web1.mycompany.com
@@ -111,7 +111,7 @@ If all went well you now have a remote host to manage! <!-- .element: class="fra
 
 #### Sample Inventory File                            
 
-```
+```ini
 [web]
 web1.mycompany.com ansible_host=152.240.43.12 opt2=arg2
 web2.mycompany.com
@@ -147,7 +147,7 @@ loadbalancer.mycompany.com
 
     </ul></div>
     <div class="fragment" data-fragment-index="0" style="width:50%;float:left">
-        <pre style="font-size:13pt;"><code data-trim>
+        <pre style="font-size:13pt;"><code class="ini" data-trim>
             # sample inventory
             [web]
             web1.mycompany.com

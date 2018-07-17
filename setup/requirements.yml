@@ -11,5 +11,5 @@
 
 - src: https://github.com/heytrav/ansible-vagrant.git
   scm: git
-  name: training-vagrant
+  name: trainingpc-vagrant
   version: master

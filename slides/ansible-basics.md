@@ -17,5 +17,3 @@
                         <dt>Module    </dt> <dd>Blob of Python code which is executed to perform task</dd>
                         <dt>Inventory </dt> <dd>File containing hosts and groups of hosts to run tasks</dd>
                     </dl>
-
-
