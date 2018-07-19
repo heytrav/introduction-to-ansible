@@ -59,7 +59,7 @@
       replace:
         path: /etc/redis/redis.conf
         regexp: '^bind .*$'
-        replace: 'bind {{ ansible_all_ipv4_addresses[1] }}'
+        replace: "bind {{ ansible_all_ipv4_addresses | select('match', '^17') | first }}"
 
     - name: Modify redis config to work as a cache
       blockinfile:

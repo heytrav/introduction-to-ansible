@@ -4,6 +4,6 @@ server {
 
  location / {
   include proxy_params;
-  proxy_pass http://{{ hostvars[groups.app[0]].ansible_all_ipv4_addresses[1] }}:5000;
+  proxy_pass http://{{ hostvars[groups.app[0]].ansible_all_ipv4_addresses | select('match', '^17') | first }}:5000;
  }
 }
