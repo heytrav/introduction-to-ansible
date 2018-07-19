@@ -16,9 +16,13 @@
    ```
    Make sure to replace *`USER`* with your user on the machine.
 1. Add the vault password for this project into the `~/.ansible/vault_password` file. You will probably get this from the course instructor.
-1. Install Ansible and dependencies for interacting with Catalyst Cloud. There
-   are many ways to do this, but the easiest is to follow the directions below
-   (see [Setting up Ansible](#setting-up-ansible))
+1. Check whether or not Ansible is installed. The machine you are using may already have Ansible
+   installed. You can check this by running 
+   ```
+   ansible --version
+   ```
+   If you get an error message saying that Ansible is not installed, follow
+   the [instructions](#setting-up-ansible) below.
 1. Go into the `setup` directory of this repository
    ```
    cd ~/introduction-to-ansible/setup
