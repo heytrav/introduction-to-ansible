@@ -1,5 +1,4 @@
 ### Provisioning Machines
-#### Bonus section
 
 
 #### Provisioning Machines
@@ -29,6 +28,20 @@ In this lesson we'll set up a an application in Catalyst Cloud
 </dl>
 
 
+#### Setup
+* Need to set up a few things so we can interact with Catalyst Cloud easily
+   + *clouds.yaml* file for authenticating with the cloud
+   + inventory file with hosts
+* Verify that you have files in:
+   + `~/.ansible/inventory/cloud-hosts`
+   + `~/.config/openstack/clouds.yaml`
+* If not, run the setup playbook
+   ```
+   ansible-playbook -e prefix=USERNAME ansible/local-setup.yml
+   ```
+   _Note_: replace USERNAME with something unique
+
+
 #### Provisioning machines
 * Have a look at `ansible/provision-hosts.yml`
 * This playbook does the following:
@@ -38,21 +51,17 @@ In this lesson we'll set up a an application in Catalyst Cloud
    * Creates servers
 * Run the playbook
    ```
-    $ ansible-playbook -i ansible/cloud-hosts \
-        --ask-vault-pass \
-        ansible/provision-hosts.yml \
-        -K -e suffix=-$(hostname)
+    $ ansible-playbook -K -e prefix=USERNAME ansible/provision-hosts.yml 
    ```
+   <!-- .element: style="font-size:13pt;"  -->
 
 
 ##### Exercise: check that hosts are running and reachable
 * Use a tool that you have learned about to verify that hosts can be reached
   by SSH
-<pre class="fragment" data-fragment-index="0"><code data-trim>
-$ ansible -i ansible/cloud-hosts mycluster \
-    --ask-vault-pass \
-        -m ping
-</code></pre>
+  ```
+  $ ansible mycluster -m ping
+  ```
 
 
 #### Deploying applications
@@ -69,19 +78,17 @@ $ ansible -i ansible/cloud-hosts mycluster \
 
 
 #### Deploy an Application
-```
-ansible-playbook -i ansible/cloud-hosts \
-        ansible/deploy-app.yml --ask-vault-pass
-```
+* Run the deploy playbook
+  ```
+  ansible-playbook ansible/deploy-app.yml
+  ```
 * Once deploy is finished visit the new website [website](http://my-app.cat/)
 
 
 #### Cleaning up
 * When you are done playing with cats, please clean up your cluster
-```
-ansible-playbook \
-    --ask-vault-pass \
-   -i ansible/cloud-hosts ansible/remove-hosts.yml \
-   -K -e suffix=-$(hostname)
-```
+  ```
+  ansible-playbook  ansible/remove-hosts.yml -K -e prefix=USERNAME
+  ```
+  <!-- .element: style="font-size:13pt;"  -->
 

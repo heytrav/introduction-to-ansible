@@ -1,19 +1,17 @@
 ---
 - name: Preflight to set up machine specific variables
-  hosts: "mycluster"
+  hosts: mycluster
   gather_facts: false
   tasks:
 
-    - fail:
-      when: suffix is not defined or suffix == ""
+    - debug:
+        var: prefix | mandatory
 
 
 - name: Provision a set of hosts in the Catalyst Cloud
   hosts: localhost
   gather_facts: false
   vars:
-    # optional suffix to namespace resources
-    suffix: ""
     host_set: "{{ groups['mycluster'] | unique | list }}"
     # change if required or override at runtime using --extra-vars
 

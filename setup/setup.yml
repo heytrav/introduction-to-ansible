@@ -28,11 +28,6 @@
         ssh_key_file: "/home/{{ ssh_user }}/.ssh/id_rsa"
 
 
-- name: Set up catalyst cloud credentials
-  hosts: localhost
-  roles:
-    - role: cloud-config
-
 
 - name: Set up reveal presentation
   hosts: localhost
@@ -49,7 +44,6 @@
 
 - name: Set up machines for running vagrant
   hosts: localhost
-  become: true
   roles:
     - role: trainingpc-vagrant
   tags:
