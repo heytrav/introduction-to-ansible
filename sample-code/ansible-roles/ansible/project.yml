@@ -1,0 +1,71 @@
+---
+- name: Set up python application
+  hosts: localhost
+  vars:
+    database_user: train
+    vault_database_password: notagoodidea
+    database_host: localhost
+  tasks:
+
+    - name: Update apt cache
+      with_items:
+        - python3-dev
+        - python3-psycopg2
+        - python-psycopg2
+        - postgresql
+      debug:
+        msg: Pretend we're running apt-get install  "{{ item }}"
+
+    - name: Check out code for project
+      debug:
+        msg: Pretend to run git checkout code
+
+    - name: Create python virtual environment
+      debug:
+        msg: Create python virtual environment
+
+    - name: Add app config
+      changed_when: true
+      debug:
+        msg: Create config file from template
+      notify: restart app
+
+    - name: Copy file to location
+      changed_when: true
+      debug:
+        msg: Copied local file to remote host
+      notify: restart app
+
+
+    - name: Create DB user
+      debug:
+        msg: Create DB user
+
+    - name: Make postgres listen on external ports
+      debug:
+        msg: Make db listen on certain ports
+      notify: restart postgres
+      changed_when: true
+
+    - name: Create the database
+      debug:
+        msg: Create the database
+
+    - name: Create table for pics
+      debug:
+        msg: Creating the db table
+
+    - name: Add images to new table
+      debug:
+        msg: Add images to the db
+
+
+  handlers:
+
+    - name: restart app
+      debug:
+        msg: Restarting app
+
+    - name: restart postgres
+      debug:
+        msg: Restarted postgres
