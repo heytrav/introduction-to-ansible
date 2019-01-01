@@ -22,7 +22,7 @@ This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: 
 
 
 #### Our Application Cluster <!-- .slide: class="image-slide" -->
-![counter app](img/handler-cluster.svg "Counter app") 
+![counter app](img/handler-cluster.svg "Counter app")
 
 
 
@@ -43,7 +43,7 @@ ansible-playbook -K --ask-vault-pass \
    ansible/provision-hosts.yml ansible/deploy.yml
 ```
 
-* You can now view your <!-- .element: class="fragment" data-fragment-index="0" -->[website](http://my-counter.testsite:8080) 
+* You can now view your <!-- .element: class="fragment" data-fragment-index="0" -->[website](http://my-counter.testsite:8080)
 * Also might wanto set up vault password file as in previous exercises <!-- .element: class="fragment" data-fragment-index="1" -->
 
 
@@ -71,7 +71,7 @@ ansible-playbook -K --ask-vault-pass \
 
 
 ####  Performing One-off tasks
-* Often necessary trigger certain actions on service when a config is created or changed
+* Often necessary to trigger certain actions on service when a config is created or changed
    + start
    + restart
    + reload
@@ -81,7 +81,7 @@ ansible-playbook -K --ask-vault-pass \
 
 
 ### Handlers
-* <!-- .element: class="fragment" data-fragment-index="0" -->A _handler_ is a task that Ansible will execute only once at the end of a play 
+* <!-- .element: class="fragment" data-fragment-index="0" -->A _handler_ is a task that Ansible will execute only once at the end of a play
 * Handlers are triggered using the <!-- .element: class="fragment" data-fragment-index="1" -->_notify_ keyword
     <pre style="font-size:13pt;"><code data-trim data-noescape>
    tasks:
@@ -171,7 +171,7 @@ ansible-playbook -K --ask-vault-pass \
 
 #### Back to our Application
 * Let's modify the `deploy.yml` playbook to use handlers
- 
+
 
 
 #### The Nginx Play
@@ -184,7 +184,7 @@ ansible-playbook -K --ask-vault-pass \
       .
       <mark>notify: restart nginx</mark>
 
-    - name: Symlink nginx conf to activate 
+    - name: Symlink nginx conf to activate
       .
       <mark>notify: restart nginx</mark>
 
@@ -231,7 +231,7 @@ ansible-playbook -K --ask-vault-pass \
     - name: Install python libraries
       .
       <mark>notify: restart gunicorn</mark>
-          
+
     - name: Template in configuration
       .
       <mark>notify: reload gunicorn</mark>
@@ -251,7 +251,7 @@ ansible-playbook -K --ask-vault-pass \
         state: restarted
 </code></pre>
 
-* <!-- .element: class="fragment" data-fragment-index="0" -->Now run the `deploy.yml` play with handlers defined 
+* <!-- .element: class="fragment" data-fragment-index="0" -->Now run the `deploy.yml` play with handlers defined
 
 
 
