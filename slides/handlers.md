@@ -315,17 +315,26 @@ ansible-playbook -K --ask-vault-pass \
 * Change nginx config to use SSL certificate
    ```
    server {
+     listen 80;
+     server_name {{ domain_name }};
+     
+     # Redirect all HTTP requests to HTTPS with a 301 Moved Permanently response.
+     return  301         https://{{ domain_name }}:8443;
+     
+   }
+   server {
     listen 443 ssl;
     server_name  {{ domain_name }};
     ssl_certificate /etc/nginx/ssl/site.crt;
     ssl_certificate_key /etc/nginx/ssl/site.key;
 
     location / {
-    include proxy_params;
-     proxy_pass http://{{ hostvars[groups.app[0]].ansible_all_ipv4_addresses[1] }}:5000;
+      include proxy_params;
+      proxy_pass http://{{ hostvars[groups.app[0]].ansible_all_ipv4_addresses | select('match', '^17') | first }}:5000;
     }
    }
 ```
+ <!-- .element: style="font-size:12pt;"  -->
 * Run the deploy playbook again
 * View [website](https://my-counter.testsite:8443) on port 8443
 
