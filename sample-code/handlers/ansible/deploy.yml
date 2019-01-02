@@ -85,12 +85,11 @@
 
     - name: Install packages needed for application
       apt:
-        name: "{{ item }}"
+        name:
+          - git
+          - python-dev
+          - python-virtualenv
         state: present
-      with_items:
-        - git
-        - python-dev
-        - python-virtualenv
 
 
     - name: Checkout application from git
