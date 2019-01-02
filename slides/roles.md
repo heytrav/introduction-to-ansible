@@ -107,9 +107,9 @@ ansible-roles
 
 
 #### Structure of a role
-```
-  /roles
-    └── role-name
+  <pre><code data-trim data-noescape>
+  /roles              <span class="fragment" data-fragment-index="0"><-- base directory depends on config</span>
+    └── role-name     <span class="fragment" data-fragment-index="1"><-- Arbitrary; what you will import in "roles:"</span>
         ├── defaults
         │   └── main.yml
         ├── files
@@ -124,7 +124,7 @@ ansible-roles
         │   └── sometemplate.j2
         └── vars
             └── main.yml
-```
+  </code></pre>
 <!-- .element: style="font-size:13pt;"  -->
   * Each of these files/folders is optional
 
