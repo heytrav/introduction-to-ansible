@@ -10,7 +10,8 @@
   * Python package manager (pip)
 
 
-#### Requirements
+#### Base Requirements
+#### Python
 
 * Ansible &lt; 2.5 require Python 2.7
    * support for Python 3 considered *tech preview*
@@ -19,40 +20,47 @@
 
 #### Installing OS package
 
+ <asciinema-player autoplay="0"  loop="loop" font-size="medium" speed="1" theme="solarized-light" src="lib/apt-cache-policy-ansible.json" cols="200" rows="10"></asciinema-player>
 * Ansible available with OS typically a bit out of date
-
-<asciinema-player autoplay="0"  loop="loop" font-size="medium" speed="1"
-                                                                                       theme="solarized-light" src="lib/apt-cache-policy-ansible.json" cols="200" rows="10"></asciinema-player>
+* Generally necessary to add source repo [(apt, yum, etc.)](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
 
-#### Installing requisite OS libraries
+#### Installing as Python virtualenv
+* Other method is to set up a Python *virtual environment*
+* Advantage of this technique: multiple separate ansible environments
+  * Different needs for different projects
+* Generally possible with both Python2 and Python3
+  * We'll assume Python3
 
-```
-$ sudo apt-get update
-$ sudo apt-get upgrade
-$ sudo apt-get install python-pip python-virtualenv
-```
 
-
-#### Python Virtual Environment
+#### Ansible in a Python Virtual Environment
+* Install python requirements
+   ```
+   sudo apt-get install python3-pip python3-virtualenv
+   ```
+  <!-- .element: style="font-size:11pt;"  -->
 * Set up local Python environment
-  * virtualenv
-  ```
-  virtualenv -p /usr/bin/python3 ~/venv
-  ```
-* Can have multiple Python versions
-* Install Ansible and dependencies
+   ```
+   virtualenv -p /usr/bin/python3 ~/venv
+   ```
 
 
 #### Install Ansible
-* <!-- .element: class="fragment" data-fragment-index="0" -->Create a python virtual environment
-* <!-- .element: class="fragment" data-fragment-index="1" -->Activate virtualenv as base of Python interpreter
-* <!-- .element: class="fragment" data-fragment-index="2" -->Update Python package manager (pip)
-* <!-- .element: class="fragment" data-fragment-index="3" -->Use Python package manager to install Ansible
+* <!-- .element: class="fragment" data-fragment-index="0" -->Activate virtualenv as base of Python interpreter
+   ```
+   source ~/venv/bin/activate
+   ```
+* <!-- .element: class="fragment" data-fragment-index="1" -->Update Python package manager (pip)
+   ```
+   pip install -U pip
+   ```
+* <!-- .element: class="fragment" data-fragment-index="2" -->Use Python package manager to install Ansible
     ```
-    $ source ~/venv/bin/activate
-    (venv) $ pip install -U pip
-    (venv) $ pip install ansible
+    pip install ansible
+    ```
+* <!-- .element: class="fragment" data-fragment-index="3" -->Optionally install additional dependencies
+    ```
+    pip install shade openstacksdk
     ```
 
 
