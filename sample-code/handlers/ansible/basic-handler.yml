@@ -7,17 +7,20 @@
       debug:
         msg: This task sets up nginx config
       changed_when: nginx_config_changed | default(false)
+      notify: restart nginx
 
 
     - name: Set up nginx task 2
       debug:
         msg: This task sets up nginx crt
       changed_when: nginx_crt_changed | default(false)
+      notify: restart nginx
 
     - name: Set up nginx task 3
       debug:
         msg: This task sets up nginx key
       changed_when: nginx_key_changed | default(false)
+      notify: restart nginx
 
 
     - name: restart nginx
