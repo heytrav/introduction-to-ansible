@@ -1,5 +1,5 @@
 ### Orchestrating Applications
-#### Roles
+#### Handlers
 
 
 #### Orchestration
@@ -14,7 +14,7 @@
 #### Create a Cluster
 
 ```
-cd $WORKDIR/sample-code/handlers
+cd $WORKDIR/handlers
 vagrant up
 ```
 This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: class="fragment" data-fragment-index="0" -->
@@ -38,11 +38,12 @@ This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: 
 
 
 #### Run Setup Playbook
-```
-ansible-playbook -K --ask-vault-pass \
-   ansible/provision-hosts.yml ansible/deploy.yml
-```
-
+* Add vault password to `.vault_password`
+* Run playbooks
+   ```
+   ansible-playbook -K \
+      ansible/provision-hosts.yml ansible/deploy.yml
+   ```
 * You can now view your <!-- .element: class="fragment" data-fragment-index="0" -->[website](http://my-counter.testsite:8080)
 * Also might wanto set up vault password file as in previous exercises <!-- .element: class="fragment" data-fragment-index="1" -->
 
