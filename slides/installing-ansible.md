@@ -36,7 +36,7 @@
 #### Ansible in a Python Virtual Environment
 * Install python requirements
    ```
-   sudo apt-get install python3-pip python3-virtualenv
+   sudo apt-get install python3-pip virtualenv
    ```
   <!-- .element: style="font-size:11pt;"  -->
 * Set up local Python environment
