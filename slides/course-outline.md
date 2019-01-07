@@ -17,6 +17,7 @@
 * [Filters](filters.md)
 
 
+* [Roles](roles.md)
 * [Infrastructure as Code](infrastructure.md)
 * [Provisioning](provisioning.md)
 * [Wrap Up](wrap-up.md)
