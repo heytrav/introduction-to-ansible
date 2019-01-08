@@ -1,4 +1,5 @@
 ---
+prefix: "{{ lookup('lines', 'hostname') }}"
 cloud_name: ansible-training
 os_username: ansible-training@catalyst.net.nz   
 os_project_name: os-training.catalyst.net.nz    

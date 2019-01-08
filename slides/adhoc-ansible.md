@@ -36,7 +36,7 @@ In all the following examples, `$WORKDIR` is the path to the `introduction-to-an
 
 * <!-- .element: class="fragment" data-fragment-index="0" -->For demo purposes in this course we will be using [Vagrant](https://www.vagrantup.com/intro/index.html) to simulate remote hosts.
 * <!-- .element: class="fragment" data-fragment-index="1" -->Instance(s) use a centos 7 image
-<pre class="fragment" data-fragment-index="2"><code data-trim>
+<pre class="fragment" data-fragment-index="2" style="font-size:13pt;"><code data-trim>
     $ cd $WORKDIR/adhoc
     $ vagrant up --provider virtualbox
     .

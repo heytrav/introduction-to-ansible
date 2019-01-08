@@ -37,9 +37,8 @@ In this lesson we'll set up a an application in Catalyst Cloud
    + `~/.config/openstack/clouds.yaml`
 * If not, run the setup playbook
    ```
-   ansible-playbook -e prefix=USERNAME ansible/local-setup.yml
+   ansible-playbook  ansible/local-setup.yml
    ```
-   _Note_: replace USERNAME with something unique
 
 
 #### Provisioning machines
@@ -51,9 +50,12 @@ In this lesson we'll set up a an application in Catalyst Cloud
    * Creates servers
 * Run the playbook
    ```
-    $ ansible-playbook -K -e prefix=USERNAME ansible/provision-hosts.yml 
+    $ ansible-playbook -K ansible/provision-hosts.yml 
    ```
    <!-- .element: style="font-size:13pt;"  -->
+
+Note: might need to have participants install ansible==2.5.5 and shade==1.28.0
+due to problems with openstack modules
 
 
 ##### Exercise: check that hosts are running and reachable
@@ -88,7 +90,7 @@ In this lesson we'll set up a an application in Catalyst Cloud
 #### Cleaning up
 * When you are done playing with cats, please clean up your cluster
   ```
-  ansible-playbook  ansible/remove-hosts.yml -K -e prefix=USERNAME
+  ansible-playbook -K  ansible/remove-hosts.yml
   ```
   <!-- .element: style="font-size:13pt;"  -->
 
