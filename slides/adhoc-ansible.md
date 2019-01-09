@@ -173,7 +173,7 @@ loadbalancer.mycompany.com
 #### Our first inventory file
 
 ```
-cat $WORKDIR/adhoc/ansible/hosts
+cat $WORKDIR/adhoc/hosts
 ```
 
 * <!-- .element: class="fragment" data-fragment-index="0" -->Our inventory file specifies single remote host: _myserver_

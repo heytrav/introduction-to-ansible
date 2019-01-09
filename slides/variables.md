@@ -53,7 +53,7 @@ proxy=web.mycompany.com
     web2.myhost.com
     </code></pre>
     <pre  class="fragment" data-fragment-index="4"><code data-trim data-noescape>
-    ansible
+    $WORKDIR/working-with-playbooks
     └── host_vars
     <mark  class="fragment" data-fragment-index="5">    ├── web1.myhost.com.yml
         └── web2.myhost.com
@@ -71,12 +71,12 @@ proxy=web.mycompany.com
 
 <pre style="width:100%;"  class="fragment" data-fragment-index="1"><code data-trim>
      cd $WORKDIR/working-with-playbooks
-     mkdir -p ansible/host_vars
-     gedit ansible/host_vars/myserver.yml
+     mkdir -p host_vars
+     gedit host_vars/myserver.yml
 </code></pre>
 <pre style="width:100%;"  class="fragment" data-fragment-index="2"><code data-trim>
-     mkdir -p ansible/host_vars/myserver
-     gedit ansible/host_vars/myserver/vars.yml
+     mkdir -p host_vars/myserver
+     gedit host_vars/myserver/vars.yml
 </code></pre>
 <pre style="width:100%;"  class="fragment" data-fragment-index="3"><code data-trim>
     # variables for myserver
@@ -97,7 +97,7 @@ proxy=web.mycompany.com
     app1.myhost.com
     </code></pre>
     <pre  class="fragment" data-fragment-index="4"><code data-trim data-noescape>
-    ansible
+    $WORKDIR/working-with-playbooks
     └── group_vars
     <mark  class="fragment" data-fragment-index="5">    ├── web.yml
         └── app
@@ -111,12 +111,12 @@ proxy=web.mycompany.com
 
 <pre style="width:100%;"  class="fragment" data-fragment-index="0"><code data-trim>
     cd $WORKDIR/working-with-playbooks/
-    mkdir -p ansible/group_vars
-    gedit ansible/group_vars/web.yml
+    mkdir -p group_vars
+    gedit group_vars/web.yml
     </code></pre>
 <pre style="width:100%;"  class="fragment" data-fragment-index="1"><code data-trim>
-    mkdir -p ansible/group_vars/web
-    gedit ansible/group_vars/web/vars.yml
+    mkdir -p group_vars/web
+    gedit group_vars/web/vars.yml
     </code></pre>
 <pre style="width:100%;"  class="fragment" data-fragment-index="2"><code data-trim>
     # variables for "web" group
@@ -130,7 +130,7 @@ proxy=web.mycompany.com
 * Inventory variables available to Ansible throughout playbook run
 
 ```html
-$ less $WORKDIR/working-with-playbooks/ansible/templates/index.html.j2
+$ less $WORKDIR/working-with-playbooks/templates/index.html.j2
 .
 .
 {% if foo is defined %}
@@ -151,7 +151,7 @@ The value for bizz is &lt;em&gt;{{ bizz }}&lt;/em&gt;
 #### Using Inventory Variables
 
 ```
-ansible-playbook ansible/playbook.yml
+ansible-playbook static-site.yml
 ```
 
 * Run the ansible playbook again
@@ -170,10 +170,9 @@ ansible-playbook ansible/playbook.yml
 #### Using `hostvars`
 * Have a look at `use-hostvars.yml`
 * Run `static-site.yml` and `use-hostvars.yml`
-<pre ><code data-trim>
-$ ansible-playbook ansible/static-site.yml \
-      ansible/use-hostvars.yml
-</code></pre>
+   ```
+   ansible-playbook static-site.yml use-hostvars.yml
+   ```
 * Change <code style="color:red;">foo</code> to <code style="color:red;">hostvars.myserver.foo</code> in <code>playbook-localhost.yml</code> and run playbooks
 
 
@@ -198,8 +197,6 @@ $ ansible-playbook ansible/static-site.yml \
   * vars_prompt - interactively prompt user when running playbook
 * Can be referenced directly while in play
                             
-                        
-
 
 #### Play-scoped Variables
 
@@ -370,10 +367,8 @@ tasks:
 </code></pre>
 * <!-- .element: class="fragment" data-fragment-index="2" -->Then add this on the command line 
    ```
-   ansible-playbook ansible/static-site.yml \
-         -e @ansible/override-vars.yml
+   ansible-playbook static-site.yml -e @override-vars.yml
    ```
-
 
 
 #### Summary

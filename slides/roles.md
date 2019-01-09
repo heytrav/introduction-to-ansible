@@ -6,7 +6,7 @@
 
 ```
 $ cd $WORKDIR/ansible-roles
-ansible
+.
 ├── hosts
 └── project.yml
 ```
@@ -20,7 +20,7 @@ ansible
 
 
 #### Identify reusable components
-* Have a look at `ansible/project.yml`
+* Have a look at `project.yml`
 * Tasks simulate steps involved in setting up an application
    * Installing language libraries
    * Deploying configuration
@@ -44,16 +44,15 @@ ansible
 * Create subdirectory in the ansible folder called *roles*
 * In that folder create a subdirectory called *setup-app*
    <pre><code data-noescape data-trim>
-ansible-roles
-└── ansible
-    ├── hosts
-    ├── project.yml
-    <mark>└── roles
-        └── setup-app/</mark>
+.
+├── hosts
+├── project.yml
+<mark>└── roles
+    └── setup-app</mark>
 </code></pre>
 * To make things easier
    ```
-   cd $WORKDIR/ansible-roles/ansible/roles/setup-app
+   cd $WORKDIR/ansible-roles/roles/setup-app
    ```
 
 

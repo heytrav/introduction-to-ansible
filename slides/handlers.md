@@ -41,8 +41,7 @@ This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: 
 * Add vault password to `.vault_password`
 * Run playbooks
    ```
-   ansible-playbook -K \
-      ansible/provision-hosts.yml ansible/deploy.yml
+   ansible-playbook -K provision-hosts.yml deploy.yml
    ```
 * You can now view your <!-- .element: class="fragment" data-fragment-index="0" -->[website](http://my-counter.testsite:8080)
 * Also might wanto set up vault password file as in previous exercises <!-- .element: class="fragment" data-fragment-index="1" -->
@@ -53,7 +52,7 @@ This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: 
 
 * Run _just_ the `deploy.yml` playbook a few times
    ```
-   ansible-playbook --ask-vault-pass ansible/deploy.yml
+   ansible-playbook deploy.yml
    ```
    <!-- .element: style="font-size:13pt;"  -->
 * Note that many tasks display no change <!-- .element: class="fragment" data-fragment-index="0" -->(i.e. <code style="color:green;">ok</code>)
@@ -107,7 +106,7 @@ This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: 
 #### Using Handlers
 * `basic-handler.yml` simulates running basic tasks on our servers
    ```
-   ansible-playbook --ask-vault-pass ansible/basic-handler.yml
+   ansible-playbook basic-handler.yml
    ```
 * Debug tasks do not result in any changes
 * Each play has a task to restart specific services
@@ -157,9 +156,9 @@ This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: 
   </code></pre>
 * We can pass extra variables to interpret task as changed <!-- .element: class="fragment" data-fragment-index="1" -->
    ```
-   ansible-playbook --ask-vault-pass ansible/basic-handler.yml\
-        -e nginx_config_changed=true
+   ansible-playbook basic-handler.yml -e nginx_config_changed=true
    ```
+   <!-- .element: style="font-size:13pt;"  -->
 
 
 #### Triggering Handlers
@@ -260,8 +259,7 @@ This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: 
 * The Python application is checked out to <!-- .element: class="fragment" data-fragment-index="0" -->_v1_ by default
 * Let's update it to <!-- .element: class="fragment" data-fragment-index="1" -->_v2_ by passing an extra var to the playbook
    ```
-   ansible-playbook --ask-vault-pass \
-       ansible/deploy.yml -e app_version=v2
+   ansible-playbook deploy.yml -e app_version=v2
    ```
 * This should trigger the <!-- .element: class="fragment" data-fragment-index="2" -->_restart gunicorn_ handler
 * Other handlers should not run <!-- .element: class="fragment" data-fragment-index="3" -->

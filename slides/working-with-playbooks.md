@@ -16,15 +16,16 @@
 
 ```
 cd $WORKDIR/working-with-playbooks
+```
+```
 .
-├── ansible
-│   ├── files
-│   │   └── nginx.conf
-│   ├── hosts
-│   ├── playbook.yml
-│   └── templates
-│       └── index.html.j2
-└── ansible.cfg
+├── ansible.cfg
+├── hosts
+├── static-site.yml
+├── templates
+│   ├── index.html.j2
+│   └── mysite.conf.j2
+└── Vagrantfile
 ```
 
 | Name  | Type  | Description |
@@ -138,7 +139,7 @@ vagrant up --provider virtualbox
 ![install](img/ansible-nginx-install.svg "Ansible Install nginx")
 * `static-site.yml` performs following actions
    + Installs nginx package
-   + Copies our nginx config (`files/nginx.conf`)
+   + Templates our nginx config (`templates/mysite.conf.j2`)
    + Renders template file (<code>templates/index.html.j2</code>) and place it on host
    + Re/Starts nginx
 
@@ -147,7 +148,7 @@ vagrant up --provider virtualbox
 #### Run our first playbook
 
 ```
-ansible-playbook ansible/static-site.yml
+ansible-playbook static-site.yml
 ```
 
 <asciinema-player start-at="10" autoplay="0"  loop="loop" font-size="medium" speed="1"

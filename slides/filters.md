@@ -4,14 +4,14 @@
 #### Filters
 ```
 cd $WORKDIR/filters
-tree
-
-├── ansible
-│   ├── hosts
-│   ├── playbook-formatting.yml
-│   ├── playbook-list.yml
-│   └── undefined.yml
-└── ansible.cfg
+.
+├── ansible.cfg
+├── data.csv
+├── hosts
+├── playbook-formatting.yml
+├── playbook-list.yml
+├── playbook-lookup.yml
+└── undefined.yml
 ```
 
 
@@ -57,7 +57,7 @@ tree
     </code></pre>
 * Run the playbook <!-- .element: class="fragment" data-fragment-index="2" -->
    ```
-   ansible-playbook ansible/playbook-formatting.yml
+   ansible-playbook playbook-formatting.yml
    ```
 * Extra credit: use <!-- .element: class="fragment" data-fragment-index="3" -->`to_nice_yaml` and adjust indentation
 

@@ -8,7 +8,7 @@
 * Ansible provides a tool for managing secrets <!-- .element: class="fragment" data-fragment-index="2" -->
 * <!-- .element: class="fragment" data-fragment-index="3" -->`ansible-vault` helps you encrypt/decrypt files containing secrets for your app
 
-<pre class="fragment" data-fragment-index="4"><code data-trim>
+<pre class="fragment" data-fragment-index="4" style="font-size:13pt;"><code data-trim>
 $ ansible-vault --help
 
 Usage: ansible-vault [create|decrypt|edit|encrypt|encrypt_string|rekey|view] [options] [vaultfile.yml]
@@ -35,8 +35,8 @@ Options:
 ##### Exercise: Protecting our database passwords
 * Create a new file called `secrets.yml`
    ```
-   mkdir -p ansible/group_vars/web
-   vim ansible/group_vars/web/secrets.yml
+   mkdir -p group_vars/web
+   vim group_vars/web/secrets.yml
    ```
    ```
    ---
@@ -44,9 +44,9 @@ Options:
    vault_production_database_password: <some password>
    ```
    <!-- .element: style="font-size:12pt;"  -->
-* Encrypt `ansible/group_vars/web/secrets.yml`
+* Encrypt `group_vars/web/secrets.yml`
    ```
-   ansible-vault encrypt ansible/group_vars/web/secrets.yml
+   ansible-vault encrypt group_vars/web/secrets.yml
    New Vault password: 
    Confirm New Vault password: 
    Encryption successful
@@ -72,7 +72,7 @@ Options:
 #### Running Ansible with vault
 * Run playbook using <code style="color:red;">--ask-vault-pass</code> flag
    <pre style="font-size:13pt;"><code data-trim data-noescape>
-    ansible-playbook ansible/playbook-dict.yml <mark>--ask-vault-pass</mark>
+    ansible-playbook playbook-dict.yml <mark>--ask-vault-pass</mark>
     Vault Password: ******
    </code></pre>
 
@@ -83,11 +83,11 @@ Options:
 * You can put your vault password in a file <!-- .element: class="fragment" data-fragment-index="1" -->
 * By convention this file is called <!-- .element: class="fragment" data-fragment-index="2" -->`.vault_password`
    ```
-   echo "mysecretpassword" > ansible/.vault_password
+   echo "mysecretpassword" > .vault_password
    ```
 * Then run playbook with argument with <!-- .element: class="fragment" data-fragment-index="3" -->`--vault-password-file`
    <pre style="font-size:11pt;"><code class="shell" data-trim data-noescape>
-   ansible-playbook <mark>--vault-password-file ansible/.vault_password</mark> ansible/playbook-dict.yml
+   ansible-playbook <mark>--vault-password-file .vault_password</mark> playbook-dict.yml
    </code></pre>
 * Be sure you add this file to <!-- .element: class="fragment" data-fragment-index="4" -->`.gitignore`!!!
 
@@ -97,9 +97,30 @@ Options:
 * It is possible to configure location of vault password file in `ansible.cfg`
    ```ini
    [defaults]
-   vault_password_file = ansible/.vault_password
+   vault_password_file = .vault_password
    ```
 * Now no longer need to type `--vault-password-file path` on command line
+
+
+#### Adding secure content inline
+##### `ansible-vault encrypt_string`
+* Sometimes useful to add secure content in a playbook inline
+* `encrypt_string` generates vaulted output that can be added to a playbook
+   ```
+   echo "mysecretPas2wurd1" | ansible-vault --ask-vault-pass encrypt_string \
+       --stdin-name vault_my_password
+    New Vault password:  *******
+    Confirm New Vault password: *******
+   ```
+   <!-- .element: style="font-size:12pt;"  -->
+   ```
+    vault_my_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          37326562653730353232346530336334346163633964373732653132370a373
+          353439303265373737653963396666653638366639633966666536383666583
+   ```
+   <!-- .element: style="font-size:12pt;"  class="fragment" data-fragment-index="0" -->
+
 
 
 #### Summary

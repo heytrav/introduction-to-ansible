@@ -5,13 +5,11 @@
 
 ```
 $ cd $WORKDIR/working-with-playbooks
-$ tree
 .
-├── ansible
-│   ├── hosts
-│   ├── playbook-dict.yml
-│   └── playbook-lists.yml
-└── ansible.cfg
+├── ansible.cfg
+├── hosts
+├── playbook-dict.yml
+├── playbook-lists.yml
 ```
 
 
@@ -42,7 +40,7 @@ $ tree
 
 #### Configuring our fake application _myapp_
 
-* Have a look at <!-- .element: class="fragment" data-fragment-index="0" -->`ansible/playbook-lists.yml`
+* Have a look at <!-- .element: class="fragment" data-fragment-index="0" -->`playbook-lists.yml`
 * Run the playbook and then have a look in <!-- .element: class="fragment" data-fragment-index="1" -->`/etc/myapp/config`
 * Playbook adds lines to a configuration file for a fake app <!-- .element: class="fragment" data-fragment-index="2" -->
 * There are a number of things we can optimise <!-- .element: class="fragment" data-fragment-index="3" -->
@@ -119,11 +117,11 @@ $ tree
 
 
 #### More configuration for myapp
- * <!-- .element: class="fragment" data-fragment-index="0" -->`ansible/playbook-dict.yml` sets up database config for our fake application
+ * <!-- .element: class="fragment" data-fragment-index="0" -->`playbook-dict.yml` sets up database config for our fake application
  * Adds each element of <!-- .element: class="fragment" data-fragment-index="1" -->*database* variable to config
  * Run the playbook and have a look at <!-- .element: class="fragment" data-fragment-index="2" -->`/etc/myapp/app_config`
    ```
-   ansible-playbook ansible/playbook-dict.yml
+   ansible-playbook playbook-dict.yml
    ```
 
 
@@ -163,7 +161,7 @@ $ tree
 
 ##### Exercise: Make our tasks conditional
 
-* Tasks in <!-- .element: class="fragment" data-fragment-index="0" -->`ansible/playbook-dict.yml` assume a _staging_ environment
+* Tasks in <!-- .element: class="fragment" data-fragment-index="0" -->`playbook-dict.yml` assume a _staging_ environment
 <pre><code data-trim data-noescape>
   vars:
     .
@@ -189,5 +187,5 @@ $ tree
 * Hint: What type of variable has precedence in this situation?
 
 <pre  class="fragment" data-fragment-index="0" style="font-size:12pt;"><code data-trim data-noescape>
-ansible-playbook ansible/playbook-dict.yml <mark>-e env_name=production</mark>
+ansible-playbook playbook-dict.yml <mark>-e env_name=production</mark>
 </code></pre>
