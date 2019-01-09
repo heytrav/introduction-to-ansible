@@ -165,9 +165,9 @@ Visit the <!-- .element: class="fragment" data-fragment-index="0" -->[static sit
    + Specify user with `become_user`
    <pre style="font-size:18pt;"><code data-trim data-noescape>
     - name: Set up static website with nginx
-      hosts: myserver
-      <mark >become: true</mark>
-      tasks:
+       hosts: myserver
+       <mark >become: true</mark>
+       tasks:
    </code></pre>
 * Can be in <!-- .element: class="fragment" data-fragment-index="2" -->_play_ or _task_ scope
 * Accepts <!-- .element: class="fragment" data-fragment-index="3" --> _yes_ or _true_ (_no_ or _false_ are implicit)

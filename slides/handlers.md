@@ -189,7 +189,7 @@ This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: 
       .
       <mark>notify: restart nginx</mark>
 
-  handlers
+  handlers:
     - name: restart nginx
       service:
         name: nginx

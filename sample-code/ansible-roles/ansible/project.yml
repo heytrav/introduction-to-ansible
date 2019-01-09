@@ -19,22 +19,20 @@
     - name: Check out code for project
       debug:
         msg: Pretend to run git checkout code
+      changed_when: true
+      notify: restart app
 
     - name: Create python virtual environment
       debug:
         msg: Create python virtual environment
 
     - name: Add app config
-      changed_when: true
       debug:
         msg: Create config file from template
-      notify: restart app
 
     - name: Copy file to location
-      changed_when: true
       debug:
         msg: Copied local file to remote host
-      notify: restart app
 
 
     - name: Create DB user

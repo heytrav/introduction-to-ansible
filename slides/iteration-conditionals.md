@@ -85,7 +85,7 @@ $ tree
 
 #### Nesting Loops `with_nested`
 
-* It is possible ot loop over two lists at once
+* It is possible to loop over two lists at once
    ```
    - name: Add allowed ports for each host
      lineinfile:

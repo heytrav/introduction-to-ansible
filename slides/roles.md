@@ -6,7 +6,7 @@
 
 ```
 $ cd $WORKDIR/ansible-roles
-.
+ansible
 ├── hosts
 └── project.yml
 ```
@@ -62,15 +62,14 @@ ansible-roles
    ```
    mkdir -p tasks handlers
    ```
-* <!-- .element: class="fragment" data-fragment-index="1" -->Create a yaml script for tasks
-   ```
-   gedit tasks/main.yml
-   ```
-* <!-- .element: class="fragment" data-fragment-index="2" -->Remove app tasks from `project.yml` and paste them into `tasks/main.yml`
+* <!-- .element: class="fragment" data-fragment-index="2" -->Move following tasks from `project.yml` to `roles/setup-app/tasks/main.yml`
    ```
    - name: Update apt cache
+     .
    - name: Check out code for project
+     .
    - name: Create python virtual environment
+     .
    ```
 
 

@@ -19,7 +19,7 @@
         name: nginx
         state: present
 
-    - name: Template in nginx file
+    - name: Template in nginx config file
       template:
         src: templates/mysite.conf.j2
         dest: /etc/nginx/sites-available/mysite.conf

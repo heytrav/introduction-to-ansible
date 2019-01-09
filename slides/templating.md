@@ -60,9 +60,9 @@ tasks:
 
 <pre class="fragment" data-fragment-index="0"><code data-trim>
  - name: Template in nginx config file
-   copy:
+   template:
      .
-     dest: "{{ nginx_available_conf }}/nginx.conf"
+     dest: "{{ nginx_available_conf }}/mysite.conf"
      .
 
  - name: Copy up static website html
@@ -80,7 +80,7 @@ Re-run the ansible playbook <!-- .element: class="fragment" data-fragment-index=
 
 * Be aware that you will often need to put quotes around templated elements
    ```
-   dest: "{{ nginx_conf_directory }}/nginx.conf"
+   dest: "{{ nginx_conf_directory }}/mysite.conf"
    ```
 * However sometimes you do not need them
    ```

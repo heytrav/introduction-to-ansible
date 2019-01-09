@@ -35,7 +35,8 @@ Options:
 ##### Exercise: Protecting our database passwords
 * Create a new file called `secrets.yml`
    ```
-   vim ansible/secrets.yml
+   mkdir -p ansible/group_vars/web
+   vim ansible/group_vars/web/secrets.yml
    ```
    ```
    ---
@@ -43,9 +44,9 @@ Options:
    vault_production_database_password: <some password>
    ```
    <!-- .element: style="font-size:12pt;"  -->
-* Encrypt `ansible/secrets.yml`
+* Encrypt `ansible/group_vars/web/secrets.yml`
    ```
-   ansible-vault encrypt ansible/secrets.yml
+   ansible-vault encrypt ansible/group_vars/web/secrets.yml
    New Vault password: 
    Confirm New Vault password: 
    Encryption successful
@@ -57,11 +58,6 @@ Options:
 
 
 #### Integrating vaulted secrets
-* Import `secrets.yml` using `vars_files`
-   ```
-   vars_files:
-     - secrets.yml
-   ```
 * Replace references to staging/production database passwords
    ```
    database:
