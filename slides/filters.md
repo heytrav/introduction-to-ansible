@@ -150,6 +150,73 @@ cd $WORKDIR/filters
    * returns `/home/train`
 
 
+#### Set theory tools
+
+* Ansible provides a few useful filters for working with sets of data
+* union
+  - union of two lists
+* intersect
+  - unique list of items in two lists
+* difference
+  - list of items in list 1 but not in list 2
+
+
+#### Using set theory filters
+
+* Have a look at `set-filters.yml`
+* Demonstrates a few simple set operations
+* Run the playbook
+
+  ```
+  $ ansible-playbook set-filters.yml
+  ```
+
+
+#### Union
+
+Combination of items in two sets
+
+![union](img/union.svg "Union") <!-- .element: width="20%" height="20%" -->
+
+All items in<!-- .element: class="fragment" data-fragment-index="0" --> _list1_ and _list2_ 
+
+<pre  class="fragment" data-fragment-index="0"><code data-trim data-noescape>
+all_items: "{{ list1 | <mark>union(list2)</mark> }}"
+# apple,banana,orange,strawberry,peach,...
+</code></pre>
+
+
+#### Intersection
+
+Items that are in first *and* second list
+
+![Intersect](img/intersect.svg "Intersection") <!-- .element: width="20%"
+height="20%" -->
+
+Items that are in both <!-- .element: class="fragment" data-fragment-index="0" --> _list1_ and  _list2_
+
+<pre  class="fragment" data-fragment-index="0"><code data-trim data-noescape>
+intersect_lists "{{ list1 | <mark>intersect(list2)</mark> }}"
+# apple, strawberry
+</code></pre>
+
+
+#### Difference
+
+Items that are in first set **but not** second set
+
+![Difference](img/difference.svg "Difference")<!-- .element: width="20%"
+height="20%" -->
+
+Items that are in e<!-- .element: class="fragment" data-fragment-index="0" --> _list1_ **but not in  _list2_**
+
+<pre  class="fragment" data-fragment-index="0"><code data-trim data-noescape>
+difference_list: "{{ list1 | <mark>difference(list2)</mark> }}"
+# banana, orange, lime
+</code></pre>
+
+
+
 #### Summary
 * Ansible/Jinja2 provide a lot of filters for
   * Processing string/text data

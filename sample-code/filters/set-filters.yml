@@ -1,0 +1,29 @@
+- name: Play with some set theory filters
+  hosts: localhost
+  gather_facts: false
+  vars: 
+    list1:
+      - apple
+      - banana
+      - orange
+      - lime
+      - strawberry
+    list2:
+      - apple
+      - strawberry
+      - peach
+      - pear
+      - kiwi
+    all_items: "{{ list1 | union(list2) }}"
+    intersect_list: "{{ list1 | intersect(list2) }}"
+    difference_list: "{{ list1 | difference(list2) }}"
+  tasks:
+
+    - debug:
+        var: all_items
+
+    - debug:
+        var: intersect_list
+
+    - debug:
+        var: difference_list
