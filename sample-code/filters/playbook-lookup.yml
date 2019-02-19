@@ -8,7 +8,7 @@
     letters: "{{ lookup('items', ['a', 'b', 'c', 'd']) }}"
     simple_dict: "{{ lookup('dict', sample_dict) }}"
     code_version: "{{ lookup('lines', 'git rev-parse --short HEAD') }}"
-    atomic_mass: "{{ lookup('csvfile', '3 file=../data.csv delimiter=, col=3') }}"
+    atomic_mass: "{{ lookup('csvfile', '3 file=data.csv delimiter=, col=3') }}"
 
   tasks: 
 
