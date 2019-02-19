@@ -190,6 +190,7 @@ ansible-playbook static-site.yml
 <!-- .element: class="fragment" data-fragment-index="0" -->
 
 
+
 #### Play-scoped Variables
 
 * Declared in control section of a play
@@ -197,6 +198,7 @@ ansible-playbook static-site.yml
   * vars_prompt - interactively prompt user when running playbook
 * Can be referenced directly while in play
                             
+
 
 #### Play-scoped Variables
 
@@ -213,6 +215,7 @@ ansible-playbook static-site.yml
       prompt: "What is your name"
       private: no
   vars:
+    base_path: "/"
     course: Introduction to ansible
     lesson:
       name: Working with play variables
