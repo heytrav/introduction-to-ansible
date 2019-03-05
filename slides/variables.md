@@ -320,7 +320,7 @@ tasks:
 
 
 ##### Exercise: Turn off fact gathering
-* Edit playbook.yml as follows
+* Edit `static-site.yml` as follows
 * Re-run ansible-playbook and visit [static website](http://localhost:8080)
 
 <pre><code data-trim data-noescape>

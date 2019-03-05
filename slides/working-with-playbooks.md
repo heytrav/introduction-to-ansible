@@ -30,7 +30,7 @@ cd $WORKDIR/working-with-playbooks
 
 | Name  | Type  | Description |
 |--- | ---- |   ----- |
-| playbook.yml | file  | Ansible playbook |
+| `static-site.yml` | file  | Ansible playbook |
 | files        | directory | Artefacts to be placed on remote host |
 | templates    | directory | Templates that will be rendered and uploaded to remote host |
 
