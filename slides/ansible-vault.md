@@ -78,28 +78,58 @@ Options:
 
 
 
-#### vault password file
+#### Alternate ways to provide vault password
 * Typing the vault password all the time is annoying <!-- .element: class="fragment" data-fragment-index="0" -->
 * You can put your vault password in a file <!-- .element: class="fragment" data-fragment-index="1" -->
-* By convention this file is called <!-- .element: class="fragment" data-fragment-index="2" -->`.vault_password`
    ```
    echo "mysecretpassword" > .vault_password
    ```
-* Then run playbook with argument with <!-- .element: class="fragment" data-fragment-index="3" -->`--vault-password-file`
+* Then run playbook with argument with <!-- .element: class="fragment" data-fragment-index="3" -->`--vault-id`
    <pre style="font-size:11pt;"><code class="shell" data-trim data-noescape>
-   ansible-playbook <mark>--vault-password-file .vault_password</mark> playbook-dict.yml
+   ansible-playbook <mark>--vault-id .vault_password</mark> playbook-dict.yml
    </code></pre>
 * Be sure you add this file to <!-- .element: class="fragment" data-fragment-index="4" -->`.gitignore`!!!
 
 
+#### Managing vault secrets
+* As of Ansible 2.4 it is possible to have multiple encryption keys
+  * development environments
+   ```
+   echo "mydevpassword > dev_vault_password"
+   ansible-vault --vault-id dev@dev_vault_password encrypt dev-secrets.yml
+   ```
+  * production
+   ```
+   echo "mydevpassword > prod_vault_password"
+   ansible-vault --vault-id prod@prod_vault_password encrypt prod-secrets.yml
+   ```
 
-#### An even lazier way
+
+#### Running ansible with multiple secrets
+* When running `ansible-playbook` you can provide multiple `--vault-id`s
+   ```
+   ansible-playbook --vault-id dev@dev_vault_password --vault-id 
+        prod@prod_vault_password some-playbook.yml
+   ```
+   <!-- style="font-size:12pt;" --> 
+* Ansible will try each password when running playbook
+* You can also tell Ansible to prompt for certain passwords
+    <pre><code data-noescape>
+    ansible-playbook --vault-id dev@dev_vault_password --vault-id 
+        prod@<mark>@prompt</mark> some-playbook.yml
+    </code></pre>
+
+
+
+#### Vault Ids and ansible.cfg
 * It is possible to configure location of vault password file in `ansible.cfg`
    ```ini
    [defaults]
-   vault_password_file = .vault_password
+   # other config
+   # dev_vault_password is in ~/.ansible directory, prod_vault_password in
+   # working directory
+   vault_identity list = dev@~/.ansible/dev_vault_password, prod@prod_vault_password
    ```
-* Now no longer need to type `--vault-password-file path` on command line
 
 
 #### Adding secure content inline
@@ -107,7 +137,7 @@ Options:
 * Sometimes useful to add secure content in a playbook inline
 * `encrypt_string` generates vaulted output that can be added to a playbook
    ```
-   echo "mysecretPas2wurd1" | ansible-vault --ask-vault-pass encrypt_string \
+   echo "mysecretPas2wurd1" | ansible-vault --vault-id @prompt encrypt_string \
        --stdin-name vault_my_password
     New Vault password:  *******
     Confirm New Vault password: *******
