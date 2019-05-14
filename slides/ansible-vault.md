@@ -91,18 +91,70 @@ Options:
 * Be sure you add this file to <!-- .element: class="fragment" data-fragment-index="4" -->`.gitignore`!!!
 
 
-#### Managing vault secrets
+#### Managing multiple vault secrets
 * As of Ansible 2.4 it is possible to have multiple encryption keys
-  * development environments
+* <!-- .element: class="fragment" data-fragment-index="0" -->Change directory
    ```
-   echo "mydevpassword > dev_vault_password"
-   ansible-vault --vault-id dev@dev_vault_password encrypt dev-secrets.yml
+    cd $WORKDIR/vault-management
+    tree
+    ├── ansible.cfg.example
+    ├── group_vars
+    │   ├── dev
+    │   │   └── dev-secret.yml
+    │   └── prod
+    │       └── prod-secret.yml
+    └── inventory
+        └── hosts
    ```
-  * production
+* <!-- .element: class="fragment" data-fragment-index="1" -->We want to encrypt dev and prod secrets separately
+  * separate devs from prod secrets
+
+
+
+#### Using separate vault passwords
+* <!-- .element: class="fragment" data-fragment-index="0" -->Encrypt the prod secret
+   * <!-- .element: class="fragment" data-fragment-index="1" -->For the prod password, let's tell Ansible to **prompt** for a password
+   <pre class="fragment" data-fragment-index="1" style="font-size:13pt;"><code data-noescape>ansible-vault encrypt --encrypt-vault-id prod --vault-id prod@prompt \
+           group_vars/prod/prod-secret.yml</code></pre>
+   * <!-- .element: class="fragment" data-fragment-index="2" -->Ansible will prompt for new password
+   * <!-- .element: class="fragment" data-fragment-index="3" -->Encrypted file contains tag for prod
+   <pre><code data-noescape>
+    $ANSIBLE_VAULT;1.2;AES256;<mark>prod</mark>
+    33633335336634393739363636633039376334303533636336373636663139383837663531353134
+    6536396633616636383734656439643334653739346462660a323832643834613636393339346232
+   </code></pre>
+
+
+
+#### Using separate vault passwords
+* <!-- .element: class="fragment" data-fragment-index="0" -->Encrypt the dev secret
+   * <!-- .element: class="fragment" data-fragment-index="1" -->For the dev password, let's use a password file
+   <pre class="fragment" data-fragment-index="1" style="font-size:13pt;"><code data-noescape class="shell">echo "mydevvaultpassword" > dev_vault_password
+   ansible-vault encrypt --encrypt-vault-id dev \
+       --vault-id dev@dev_vault_password group_vars/dev/dev-secret.yml</code></pre>
+   * <!-- .element: class="fragment" data-fragment-index="2" -->Ansible will **not** prompt for a password
+   * <!-- .element: class="fragment" data-fragment-index="3" -->Encrypted file contains tag for dev
+   <pre><code data-noescape>
+    $ANSIBLE_VAULT;1.2;AES256;<mark>dev</mark>
+    66313465646336616231323030633961613464613065373138333862303936333266653366366639
+    3965323362353061396662623835636138343534363239390a333332316361343737666137396439
+   </code></pre>
+
+
+
+#### Accessing vaulted files
+* <!-- .element: class="fragment" data-fragment-index="0" -->You can now use vault-ids when accessing vaulted files
    ```
-   echo "mydevpassword > prod_vault_password"
-   ansible-vault --vault-id prod@prod_vault_password encrypt prod-secrets.yml
+   ansible-vault view --vault-id prod@prompt \
+      group_vars/prod/prod-secret.yml
    ```
+* <!-- .element: class="fragment" data-fragment-index="3" -->Or do all at the same time 
+   ```
+   ansible-vault view --vault-id prod@prompt --vault-id dev@dev_vault_password group_vars/**/*-secret.yml
+   ```
+   <!-- .element: class="fragment" data-fragment-index="4" -->
+   * Ansible will prompt and use the existing file
+
 
 
 #### Running ansible with multiple secrets
