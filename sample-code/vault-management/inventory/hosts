@@ -1,10 +1,11 @@
-localhost ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
+dev-host ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
+prod-host ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
 
 
 [dev]
-localhost
+dev-host
 
 
 
 [prod]
-localhost
+prod-host

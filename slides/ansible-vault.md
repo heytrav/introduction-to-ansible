@@ -112,6 +112,7 @@ Options:
 
 
 #### Using separate vault passwords
+##### prompting for password
 * <!-- .element: class="fragment" data-fragment-index="0" -->Encrypt the prod secret
    * <!-- .element: class="fragment" data-fragment-index="1" -->For the prod password, let's tell Ansible to **prompt** for a password
    <pre class="fragment" data-fragment-index="1" style="font-size:13pt;"><code data-noescape>ansible-vault encrypt --encrypt-vault-id prod --vault-id prod@prompt \
@@ -127,6 +128,7 @@ Options:
 
 
 #### Using separate vault passwords
+##### password file
 * <!-- .element: class="fragment" data-fragment-index="0" -->Encrypt the dev secret
    * <!-- .element: class="fragment" data-fragment-index="1" -->For the dev password, let's use a password file
    <pre class="fragment" data-fragment-index="1" style="font-size:13pt;"><code data-noescape class="shell">echo "mydevvaultpassword" > dev_vault_password
@@ -143,33 +145,39 @@ Options:
 
 
 #### Accessing vaulted files
-* <!-- .element: class="fragment" data-fragment-index="0" -->You can now use vault-ids when accessing vaulted files
+* <!-- .element: class="fragment stretch" data-fragment-index="0" -->You can now use vault-ids when accessing vaulted files
+   ```
+   ansible-vault view --vault-id dev@dev_vault_password \
+      group_vars/dev/dev-secret.yml
+   ```
    ```
    ansible-vault view --vault-id prod@prompt \
       group_vars/prod/prod-secret.yml
    ```
-* <!-- .element: class="fragment" data-fragment-index="3" -->Or do all at the same time 
+* <!-- .element: class="fragment" data-fragment-index="1" -->Or do all at the same time
    ```
-   ansible-vault view --vault-id prod@prompt --vault-id dev@dev_vault_password group_vars/**/*-secret.yml
+   ansible-vault view --vault-id prod@prompt \
+      --vault-id dev@dev_vault_password  \
+          group_vars/**/*-secret.yml
    ```
-   <!-- .element: class="fragment" data-fragment-index="4" -->
    * Ansible will prompt and use the existing file
 
 
 
-#### Running ansible with multiple secrets
-* When running `ansible-playbook` you can provide multiple `--vault-id`s
+#### Using vault-ids with ansible-playbook
+* Pass `--vault-id` that is relevant for environment 
    ```
-   ansible-playbook --vault-id dev@dev_vault_password --vault-id 
-        prod@prod_vault_password some-playbook.yml
+    ansible-playbook playbook-dev.yml -i inventory/hosts \
+       --vault-id dev@dev_vault_password
    ```
    <!-- style="font-size:12pt;" --> 
-* Ansible will try each password when running playbook
-* You can also tell Ansible to prompt for certain passwords
-    <pre><code data-noescape>
-    ansible-playbook --vault-id dev@dev_vault_password --vault-id 
-        prod@<mark>@prompt</mark> some-playbook.yml
-    </code></pre>
+* If play requires multiple vault passwords
+   ```
+    ansible-playbook -i inventory/hosts  \
+        --vault-id dev@dev_vault_password  \ 
+        --vault-id prod@prompt \
+        playbook-dev.yml playbook-prod.yml
+   ```
 
 
 

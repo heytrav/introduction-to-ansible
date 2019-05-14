@@ -1,0 +1,6 @@
+- name: run simple play to echo out password
+  hosts: dev
+  tasks:
+    - name: Output the dev password
+      debug:
+        var: password

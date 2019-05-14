@@ -4,3 +4,5 @@ sample-code/lesson4/ansible/cloud-hosts
 .vault_password
 vault_password
 *venv
+sample-code/vault-management/dev_vault_password
+sample-code/vault-management/prod_vault_password
