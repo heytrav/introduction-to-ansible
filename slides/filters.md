@@ -3,7 +3,7 @@
 
 #### Filters
 ```
-cd $WORKDIR/filters
+cd $INTRO_ANSIBLE_DIR/filters
 .
 ├── ansible.cfg
 ├── data.csv

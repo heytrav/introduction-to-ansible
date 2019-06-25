@@ -95,7 +95,7 @@ Options:
 * As of Ansible 2.4 it is possible to have multiple encryption keys
 * <!-- .element: class="fragment" data-fragment-index="0" -->Change directory
    ```
-    cd $WORKDIR/vault-management
+    cd $INTRO_ANSIBLE_DIR/vault-management
     tree
     ├── ansible.cfg.example
     ├── group_vars

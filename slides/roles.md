@@ -5,7 +5,7 @@
 #### Roles
 
 ```
-$ cd $WORKDIR/ansible-roles
+$ cd $INTRO_ANSIBLE_DIR/ansible-roles
 .
 ├── hosts
 └── project.yml
@@ -52,7 +52,7 @@ $ cd $WORKDIR/ansible-roles
 </code></pre>
 * To make things easier
    ```
-   cd $WORKDIR/ansible-roles/roles/setup-app
+   cd $INTRO_ANSIBLE_DIR/ansible-roles/roles/setup-app
    ```
 
 

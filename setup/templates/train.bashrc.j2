@@ -191,4 +191,4 @@ function ccreg {
 if [ -d {{ lookup('env', 'HOME') }}/catalystcloud-ansible/ansible-venv ]; then
   source {{ lookup('env', 'HOME') }}/catalystcloud-ansible/ansible-venv/bin/activate
 fi
-export WORKDIR={{ ansible_env.HOME }}/introduction-to-ansible/sample-code
+export INTRO_ANSIBLE_DIR={{ ansible_env.HOME }}/introduction-to-ansible/sample-code

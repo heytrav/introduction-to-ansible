@@ -4,7 +4,7 @@
 #### Provisioning Machines
 
 ```
-$ cd $WORKDIR/cloud-provisioning
+$ cd $INTRO_ANSIBLE_DIR/cloud-provisioning
 $ tree
 .
 ├── ansible

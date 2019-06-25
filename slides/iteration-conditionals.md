@@ -4,7 +4,7 @@
 #### Iteration and Conditionals
 
 ```
-$ cd $WORKDIR/working-with-playbooks
+$ cd $INTRO_ANSIBLE_DIR/working-with-playbooks
 .
 ├── ansible.cfg
 ├── hosts

@@ -14,7 +14,7 @@
 #### Create a Cluster
 
 ```
-cd $WORKDIR/handlers
+cd $INTRO_ANSIBLE_DIR/handlers
 vagrant up
 ```
 This sets up a cluster in vagrant consisting of 3 separate hosts <!-- .element: class="fragment" data-fragment-index="0" -->

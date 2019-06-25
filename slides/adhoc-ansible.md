@@ -24,9 +24,9 @@
 
 #### Before we start
 
-In all the following examples, `$WORKDIR` is the path to the `introduction-to-ansible/sample-code` directory.
+In all the following examples, `$INTRO_ANSIBLE_DIR` is the path to the `introduction-to-ansible/sample-code` directory.
 
-    $ echo $WORKDIR
+    $ echo $INTRO_ANSIBLE_DIR
     /home/train/introduction-to-ansible/sample-code
 
 
@@ -37,7 +37,7 @@ In all the following examples, `$WORKDIR` is the path to the `introduction-to-an
 * <!-- .element: class="fragment" data-fragment-index="0" -->For demo purposes in this course we will be using [Vagrant](https://www.vagrantup.com/intro/index.html) to simulate remote hosts.
 * <!-- .element: class="fragment" data-fragment-index="1" -->Instance(s) use a centos 7 image
 <pre class="fragment" data-fragment-index="2" style="font-size:13pt;"><code data-trim>
-    $ cd $WORKDIR/adhoc
+    $ cd $INTRO_ANSIBLE_DIR/adhoc
     $ vagrant up --provider virtualbox
     .
     
@@ -173,7 +173,7 @@ loadbalancer.mycompany.com
 #### Our first inventory file
 
 ```
-cat $WORKDIR/adhoc/hosts
+cat $INTRO_ANSIBLE_DIR/adhoc/hosts
 ```
 
 * <!-- .element: class="fragment" data-fragment-index="0" -->Our inventory file specifies single remote host: _myserver_
@@ -263,14 +263,14 @@ host_key_checking = False
 ##### Exercise: Set up `ansible.cfg` and modify inventory file
 
 ```
-$WORKDIR/ansible.cfg.sample
+cat $INTRO_ANSIBLE_DIR/ansible.cfg.sample
 ```
 
 <pre class="fragment" data-fragment-index="0"><code data-trim>
 
-$ cd $WORKDIR/adhoc
-$ cp ../ansible.cfg.sample ansible.cfg
-$ cat $WORKDIR/adhoc/hosts
+cd $INTRO_ANSIBLE_DIR/adhoc
+cp ../ansible.cfg.sample ansible.cfg
+cat $INTRO_ANSIBLE_DIR/adhoc/hosts
 myserver ansible_host=127.0.0.1 ansible_port=2222
 </code></pre>
 
@@ -318,7 +318,7 @@ You now no longer need to specify an inventory file <!-- .element: class="fragme
 ##### Exercise: Get tail of system messages on your vagrant host
 
 * Use the _command_ modules to tail the system log file
-* This will be `/var/log/messages` on centos; `/var/log/syslog` on Debian/Ubuntu
+* This will be `/var/log/messages` on centos
 
 <pre class="fragment" data-fragment-index="0"><code data-trim>
     $ ansible myserver  -b -a "tail /var/log/messages"

@@ -53,7 +53,7 @@ proxy=web.mycompany.com
     web2.myhost.com
     </code></pre>
     <pre  class="fragment" data-fragment-index="4"><code data-trim data-noescape>
-    $WORKDIR/working-with-playbooks
+    $INTRO_ANSIBLE_DIR/working-with-playbooks
     └── host_vars
     <mark  class="fragment" data-fragment-index="5">    ├── web1.myhost.com.yml
         └── web2.myhost.com
@@ -70,7 +70,7 @@ proxy=web.mycompany.com
 * Try either way: <!-- .element: class="fragment" data-fragment-index="0" -->
 
 <pre style="width:100%;"  class="fragment" data-fragment-index="1"><code data-trim>
-     cd $WORKDIR/working-with-playbooks
+     cd $INTRO_ANSIBLE_DIR/working-with-playbooks
      mkdir -p host_vars
      gedit host_vars/myserver.yml
 </code></pre>
@@ -97,7 +97,7 @@ proxy=web.mycompany.com
     app1.myhost.com
     </code></pre>
     <pre  class="fragment" data-fragment-index="4"><code data-trim data-noescape>
-    $WORKDIR/working-with-playbooks
+    $INTRO_ANSIBLE_DIR/working-with-playbooks
     └── group_vars
     <mark  class="fragment" data-fragment-index="5">    ├── web.yml
         └── app
@@ -110,7 +110,7 @@ proxy=web.mycompany.com
 * Create a `group_vars` directory and variable file 
 
 <pre style="width:100%;"  class="fragment" data-fragment-index="0"><code data-trim>
-    cd $WORKDIR/working-with-playbooks/
+    cd $INTRO_ANSIBLE_DIR/working-with-playbooks/
     mkdir -p group_vars
     gedit group_vars/web.yml
     </code></pre>
@@ -130,7 +130,7 @@ proxy=web.mycompany.com
 * Inventory variables available to Ansible throughout playbook run
 
 ```html
-$ less $WORKDIR/working-with-playbooks/templates/index.html.j2
+$ less $INTRO_ANSIBLE_DIR/working-with-playbooks/templates/index.html.j2
 .
 .
 {% if foo is defined %}

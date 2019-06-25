@@ -58,10 +58,6 @@
     ```
     pip install ansible
     ```
-* <!-- .element: class="fragment" data-fragment-index="3" -->Optionally install additional dependencies
-    ```
-    pip install shade openstacksdk dnspython
-    ```
 
 
 #### Ansible release cycle

@@ -49,8 +49,6 @@
 * Automation is the key to speed, consistency, scalability and repeatability.
 
 
-### Discussion
-
 
 ### Benefits of Automation
 
