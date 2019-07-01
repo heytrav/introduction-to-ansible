@@ -55,9 +55,20 @@
    pip install -U pip
    ```
 * <!-- .element: class="fragment" data-fragment-index="2" -->Use Python package manager to install Ansible
-    ```
-    pip install ansible
-    ```
+   ```
+   pip install ansible
+   ```
+
+
+#### Extras
+* Install some tools that we'll need for the cloud
+   ```
+   pip install openstacksdk dnspython
+   ```
+   ```
+   pip install python-{openstackclient,ceilometerclient,heatclient,neutronclient,swiftclient,octaviaclient,magnumclient}
+   ```
+
 
 
 #### Ansible release cycle
